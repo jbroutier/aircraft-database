@@ -1,0 +1,197 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-md navbar-light sticky-top bg-white shadow">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ path('index') }}">
+          <img class="d-inline-block align-middle me-2" src="{{ asset('assets/images/logo.svg') }}" height="30" alt="">
+          {{ site.title }}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="{{ 'Toggle navigation'|trans }}">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link {% if route == 'database_manufacturer_list' %}active{% endif %}"
+                 href="{{ path('database_manufacturer_list') }}"
+                 {% if route == 'database_manufacturer_list' %}aria-current="true"{% endif %}>
+                {{ 'Manufacturers'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if route == 'database_aircraft_type_list' %}active{% endif %}"
+                 href="{{ path('database_aircraft_type_list') }}"
+                 {% if route == 'database_aircraft_type_list' %}aria-current="true"{% endif %}>
+                {{ 'Aircraft types'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if route == 'database_aircraft_model_list' %}active{% endif %}"
+                 href="{{ path('database_aircraft_model_list') }}"
+                 {% if route == 'database_aircraft_model_list' %}aria-current="true"{% endif %}>
+                {{ 'Aircraft models'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if route == 'database_engine_model_list' %}active{% endif %}"
+                 href="{{ path('database_engine_model_list') }}"
+                 {% if route == 'database_engine_model_list' %}aria-current="true"{% endif %}>
+                {{ 'Engine models'|trans }}
+              </a>
+            </li>
+
+            {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                  {{ 'Admin'|trans }}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_manufacturer_list' %}active{% endif %}"
+                       href="{{ path('admin_manufacturer_list') }}">
+                      {{ 'Manufacturers'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_aircraft_type_list' %}active{% endif %}"
+                       href="{{ path('admin_aircraft_type_list') }}">
+                      {{ 'Aircraft types'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_aircraft_model_list' %}active{% endif %}"
+                       href="{{ path('admin_aircraft_model_list') }}">
+                      {{ 'Aircraft models'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_engine_model_list' %}active{% endif %}"
+                       href="{{ path('admin_engine_model_list') }}">
+                      {{ 'Engine models'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_property_group_list' %}active{% endif %}"
+                       href="{{ path('admin_property_group_list') }}">
+                      {{ 'Property groups'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_property_list' %}active{% endif %}"
+                       href="{{ path('admin_property_list') }}">
+                      {{ 'Properties'|trans }}
+                    </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item {% if route == 'admin_tag_list' %}active{% endif %}"
+                       href="{{ path('admin_tag_list') }}">
+                      {{ 'Tags'|trans }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% endif %}
+
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="py-3">
+
+      {% for type, messages in app.flashes %}
+        <div class="container-fluid">
+
+          {% for message in messages %}
+            <div class="alert alert-dismissible alert-{{ type }}" role="alert">
+              <button type="button" class="btn-close" data-bs-dismiss="alert"
+                      aria-label="{{ 'Close'|trans }}"></button>
+              {{ message }}
+            </div>
+          {% endfor %}
+
+        </div>
+      {% endfor %}
+
+      <div class="container-fluid">
+        {{ wo_render_breadcrumbs() }}
+      </div>
+
+      {% block container %}
+        <div class="container">
+          <main class="d-flex flex-column gap-3">
+
+            {% block content %}{% endblock %}
+
+          </main>
+        </div>
+      {% endblock %}
+
+    </div>
+  </div>
+  <footer class="bg-light">
+    <div class="container py-5">
+      <div class="row g-3">
+        <div class="col-12 col-lg-8">
+          <div class="d-flex gap-3">
+            <a class="d-none d-lg-block" href="{{ path('index') }}">
+              <img src="{{ asset('assets/images/logo.svg') }}" height="70" alt="">
+            </a>
+            <p>
+              <strong>{{ 'Copyright © 2021 aircraft-database.com.'|trans }}</strong><br>
+              {{ 'Data is published under the terms of the %link% license.'|trans({
+                '%link%': '<a rel="noopener noreferrer" href="https://spdx.org/licenses/CC-BY-SA-4.0.html">Creative Commons BY-SA-4.0</a>'
+              })|raw }}<br>
+              {{ 'Website %link1% is published under the terms of the %link2% license.'|trans({
+                '%link1%': '<a href="https://github.com/jbroutier/aircraft-database">' ~ 'source code'|trans ~ '</a>',
+                '%link2%': '<a rel="noopener noreferrer" href="https://spdx.org/licenses/MIT.html">MIT</a>'
+              })|raw }}
+            </p>
+          </div>
+          <hr class="d-lg-none">
+        </div>
+        <div class="col-12 col-md-6 col-lg-2">
+          <h4>{{ 'Contact'|trans }}</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link ps-0 {% if route == 'contact' %}active{% endif %}"
+                 href="{{ path('contact') }}"
+                 {% if route == 'contact' %}aria-current="page"{% endif %}>
+                {{ 'Contact'|trans }}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-6 col-lg-2">
+          <h4>{{ 'About'|trans }}</h4>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link ps-0 {% if route == 'static_legal_notice' %}active{% endif %}"
+                 href="{{ path('static_legal_notice') }}"
+                 {% if route == 'static_legal_notice' %}aria-current="page"{% endif %}>
+                {{ 'Legal notice'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ps-0 {% if route == 'static_cookie_policy' %}active{% endif %}"
+                 href="{{ path('static_cookie_policy') }}"
+                 {% if route == 'static_cookie_policy' %}aria-current="page"{% endif %}>
+                {{ 'Cookie policy'|trans }}
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link ps-0 {% if route == 'static_privacy_policy' %}active{% endif %}"
+                 href="{{ path('static_privacy_policy') }}"
+                 {% if route == 'static_privacy_policy' %}aria-current="page"{% endif %}>
+                {{ 'Privacy policy'|trans }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+{% endblock %}

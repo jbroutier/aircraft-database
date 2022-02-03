@@ -1,0 +1,34 @@
+liip_imagine:
+    driver: gd
+    messenger: true
+
+    resolvers:
+        default:
+            web_path:
+                web_root: '%kernel.project_dir%/public'
+                cache_prefix: cache
+
+    filter_sets:
+        thumbnail_1200x1200: # OpenGraph images
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail: { size: [ 1200, 1200 ], mode: outbound }
+
+        thumbnail_1200x800: # Carousel slides
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail: { size: [ 1200, 800 ], mode: outbound }
+
+        thumbnail_600x300: # Card thumbnails
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail: { size: [ 600, 300 ], mode: outbound }
+
+        thumbnail_320x160: # Search result thumbnails
+            format: jpeg
+            quality: 80
+            filters:
+                thumbnail: { size: [ 320, 160 ], mode: outbound }

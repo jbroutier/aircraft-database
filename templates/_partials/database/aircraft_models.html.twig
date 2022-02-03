@@ -1,0 +1,54 @@
+{% if aircraftModels.count %}
+  <section id="aircraftModels" class="d-flex flex-column gap-3">
+    <h3>{{ 'Aircraft models'|trans }}</h3>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3">
+
+      {% for aircraftModel in aircraftModels %}
+        <div class="col">
+          <div class="card">
+            <a href="{{ path('database_aircraft_model_read', { slug: aircraftModel.slug }) }}">
+              <div class="card-img-top h-250px overflow-hidden position-relative">
+
+                {% if aircraftModel.pictures|length %}
+                  <img class="img-cover"
+                       src="{{ asset('pictures/' ~ aircraftModel.pictures.first)|imagine_filter('thumbnail_600x300') }}"
+                       width="600" height="300" alt="">
+                {% else %}
+                  <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+                {% endif %}
+
+                {% include '_partials/tags.html.twig' with { tags: aircraftModel.tags } %}
+
+              </div>
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">
+                <a href="{{ path('database_aircraft_model_read', { slug: aircraftModel.slug }) }}">
+                  {{ aircraftModel.name }}
+                </a>
+              </h3>
+
+              {% if aircraftModel.manufacturer is not null %}
+                <p class="card-text">
+                  {{ aircraftModel.manufacturer.name }}
+                </p>
+              {% endif %}
+
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+
+    </div>
+
+    {% if aircraftModels.haveToPaginate %}
+      <div class="d-flex justify-content-center">
+        {{ pagerfanta(aircraftModels, 'twitter_bootstrap5', {
+          pageParameter: '[aircraftModelsPage]',
+          routeParams: { _fragment: 'aircraftModels' }
+        } ) }}
+      </div>
+    {% endif %}
+
+  </section>
+{% endif %}

@@ -1,0 +1,22 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block container %}
+  <div class="container-fluid">
+    <div class="row g-3">
+      <div class="col-12 col-md-auto">
+        <aside class="d-flex flex-column gap-3 sidebar">
+
+          {% block side_content %}{% endblock %}
+
+        </aside>
+      </div>
+      <div class="col-12 col-md">
+        <main class="d-flex flex-column gap-3">
+
+          {% block main_content %}{% endblock %}
+
+        </main>
+      </div>
+    </div>
+  </div>
+{% endblock %}

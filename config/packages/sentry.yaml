@@ -1,0 +1,13 @@
+parameters:
+    env(COMPOSER_JSON): '%kernel.project_dir%/composer.json'
+
+sentry:
+    dsn: '%env(SENTRY_DSN)%'
+    register_error_listener: false
+
+    options:
+        environment: '%kernel.environment%'
+        release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
+
+    tracing:
+        enabled: false # Tracing breaks Doctrine migrations.

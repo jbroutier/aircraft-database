@@ -1,0 +1,20 @@
+@import "variables";
+
+// Fonts
+@import "~@fortawesome/fontawesome-pro/scss/fontawesome";
+@import "~@fortawesome/fontawesome-pro/scss/regular";
+@import "~@fontsource/noto-sans";
+
+// Libraries
+@import "~bootstrap";
+@import "~flagpack/src/flagpack";
+@import "~tom-select/src/scss/tom-select.bootstrap5";
+
+// Components
+@import "components/card";
+@import "components/carousel";
+@import "components/images";
+@import "components/navbar";
+@import "components/sidebar";
+@import "components/table";
+@import "components/utils";

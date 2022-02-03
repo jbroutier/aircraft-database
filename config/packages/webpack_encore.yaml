@@ -1,0 +1,17 @@
+webpack_encore:
+    crossorigin: anonymous
+    output_path: '%kernel.project_dir%/public/assets'
+    preload: true
+
+    link_attributes: ~
+
+    script_attributes:
+        defer: true
+
+when@dev:
+    webpack_encore:
+        strict_mode: true
+
+when@prod:
+    webpack_encore:
+        cache: true

@@ -1,0 +1,57 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        driver: pdo_mysql
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+    orm:
+        auto_mapping: true
+        auto_generate_proxy_classes: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        quote_strategy: doctrine.orm.quote_strategy.ansi
+        mappings:
+            App:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Entity'
+                prefix: 'App\Entity'
+                alias: App
+
+when@prod:
+    framework:
+        cache:
+            pools:
+                doctrine.metadata_cache_pool:
+                    adapter: cache.adapter.redis
+                doctrine.query_cache_pool:
+                    adapter: cache.adapter.redis
+                doctrine.result_cache_pool:
+                    adapter: cache.adapter.redis
+                doctrine.second_level_cache_pool:
+                    adapter: cache.adapter.redis
+
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            metadata_cache_driver:
+                type: pool
+                pool: doctrine.metadata_cache_pool
+            query_cache_driver:
+                type: pool
+                pool: doctrine.query_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+            second_level_cache:
+                enabled: true
+                region_lifetime: 86400
+                region_cache_driver:
+                    type: pool
+                    pool: doctrine.second_level_cache_pool
+
+when@test:
+    doctrine:
+        dbal:
+            dbname_suffix: null

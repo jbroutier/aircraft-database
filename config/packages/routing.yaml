@@ -1,0 +1,5 @@
+framework:
+    router:
+        default_uri: '%env(DEFAULT_URI)%'
+        strict_requirements: '%kernel.debug%'
+        utf8: true

@@ -1,0 +1,50 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block title %}{{ aircraftModel.name }} - {{ parent() }}{% endblock %}
+{% block description %}{{ 'Technical data on %manufacturer% %name%: Dimensions, weight, range, performance,…'|trans({
+  '%manufacturer%': aircraftModel.manufacturer is not null ? aircraftModel.manufacturer.name,
+  '%name%': aircraftModel.name
+}) }}{% endblock %}
+
+{% block images %}
+  {% for picture in aircraftModel.pictures %}
+    <meta property="og:image"
+          content="{{ absolute_url(asset('pictures/' ~ picture)|imagine_filter('thumbnail_1200x1200')) }}">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="1200">
+  {% endfor %}
+{% endblock %}
+
+{% block content %}
+  <div class="card overflow-hidden">
+
+    {% if aircraftModel.pictures|length %}
+      {% include '_partials/carousel.html.twig' with { pictures: aircraftModel.pictures } %}
+    {% else %}
+      <img class="img-fluid" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+    {% endif %}
+
+  </div>
+  <div class="card card-body">
+    <h1 class="card-title">{{ aircraftModel.name }}</h1>
+
+    {% if aircraftModel.manufacturer is not null %}
+      <p class="card-text">
+        <a href="{{ path('database_manufacturer_read', { slug: aircraftModel.manufacturer.slug }) }}">
+          {{ aircraftModel.manufacturer.name }}
+        </a>
+      </p>
+    {% endif %}
+
+  </div>
+  <div class="d-flex flex-column gap-3">
+
+    {% include '_partials/properties.html.twig' with {
+      propertyGroups: aircraftModel.propertyGroups,
+      propertyValues: aircraftModel.propertyValues
+    } %}
+    {% include '_partials/database/engine_models.html.twig' %}
+
+  </div>
+{% endblock %}

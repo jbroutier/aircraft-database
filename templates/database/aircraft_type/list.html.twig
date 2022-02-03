@@ -1,0 +1,80 @@
+{% extends '_layouts/database.html.twig' %}
+
+{% block title %}{{ 'Aircraft types'|trans }} - {{ parent() }}{% endblock %}
+{% block description %}{{ 'Technical data on aircraft types: Dimensions, weight, range, performance,…'|trans }}{% endblock %}
+
+{% block side_content %}
+  {% include '_partials/filters/aircraft_types.html.twig' %}
+{% endblock %}
+
+{% block main_content %}
+  <div class="card card-body">
+    <h1 class="card-title">{{ 'Aircraft types'|trans }}</h1>
+    <p class="card-text text-muted">
+      {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
+        '%count%': aircraftTypes.nbResults,
+        '%nbResults%': aircraftTypes.nbResults|format_number
+      })|raw }}
+      -
+      {{ 'Page %currentPage% out of %nbPages%'|trans({
+        '%currentPage%': aircraftTypes.currentPage|format_number,
+        '%nbPages%': aircraftTypes.nbPages|format_number
+      })|raw }}
+    </p>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3">
+
+    {% for aircraftType in aircraftTypes %}
+      <div class="col">
+        <div class="card">
+          <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+            <div class="card-img-top h-250px overflow-hidden position-relative">
+
+              {% if aircraftType.pictures|length %}
+                <img class="img-cover"
+                     src="{{ asset('pictures/' ~ aircraftType.pictures.first)|imagine_filter('thumbnail_600x300') }}"
+                     width="600" height="300" alt="">
+              {% else %}
+                <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+              {% endif %}
+
+              {% include '_partials/tags.html.twig' with { tags: aircraftType.tags } %}
+
+            </div>
+          </a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+                {{ aircraftType.name }}
+              </a>
+            </h3>
+
+            {% if aircraftType.manufacturer is not null %}
+              <p class="card-text">
+                {{ aircraftType.manufacturer.name }}
+              </p>
+            {% endif %}
+
+            {% if aircraftType.iataCode is not null or aircraftType.icaoCode is not null %}
+              <p class="card-text">
+                {{ 'IATA: %iataCode% | ICAO: %icaoCode%'|trans({
+                  '%iataCode%': aircraftType.iataCode|default('-'),
+                  '%icaoCode%': aircraftType.icaoCode|default('-')
+                })|raw }}
+              </p>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {% if aircraftTypes.haveToPaginate %}
+    <div class="d-flex justify-content-center">
+      {{ pagerfanta(aircraftTypes) }}
+    </div>
+  {% endif %}
+
+{% endblock %}

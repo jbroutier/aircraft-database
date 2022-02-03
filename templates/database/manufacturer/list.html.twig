@@ -1,0 +1,68 @@
+{% extends '_layouts/database.html.twig' %}
+
+{% block title %}{{ 'Manufacturers'|trans }} - {{ parent() }}{% endblock %}
+{% block description %}{{ 'Data on aircraft and engines manufacturers: Engines, aircraft models,…'|trans }}{% endblock %}
+
+{% block side_content %}
+  {% include '_partials/filters/manufacturers.html.twig' %}
+{% endblock %}
+
+{% block main_content %}
+  <div class="card card-body">
+    <h1 class="card-title">{{ 'Manufacturers'|trans }}</h1>
+    <p class="card-text text-muted">
+      {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
+        '%count%': manufacturers.nbResults,
+        '%nbResults%': manufacturers.nbResults|format_number
+      })|raw }}
+      -
+      {{ 'Page %currentPage% out of %nbPages%'|trans({
+        '%currentPage%': manufacturers.currentPage|format_number,
+        '%nbPages%': manufacturers.nbPages|format_number
+      })|raw }}
+    </p>
+  </div>
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3">
+
+    {% for manufacturer in manufacturers %}
+      <div class="col">
+        <div class="card">
+          <a href="{{ path('database_manufacturer_read', { slug: manufacturer.slug }) }}">
+            <div class="card-img-top h-250px overflow-hidden position-relative">
+
+              {% if manufacturer.pictures|length %}
+                <img class="img-cover"
+                     src="{{ asset('pictures/' ~ manufacturer.pictures.first)|imagine_filter('thumbnail_600x300') }}"
+                     width="600" height="300" alt="">
+              {% else %}
+                <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+              {% endif %}
+
+              {% include '_partials/tags.html.twig' with { tags: manufacturer.tags } %}
+
+            </div>
+          </a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <a href="{{ path('database_manufacturer_read', { slug: manufacturer.slug }) }}">
+                {{ manufacturer.name }}
+              </a>
+            </h3>
+            <p class="card-text">
+              <span class="fp {{ manufacturer.country|lower }} me-2"></span>
+              {{ manufacturer.country|country_name }}
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {% if manufacturers.haveToPaginate %}
+    <div class="d-flex justify-content-center">
+      {{ pagerfanta(manufacturers) }}
+    </div>
+  {% endif %}
+
+{% endblock %}

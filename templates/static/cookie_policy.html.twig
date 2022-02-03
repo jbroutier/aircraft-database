@@ -1,0 +1,20 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block title %}{{ 'Cookie policy'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-700px">
+    <h1 class="display-6 mb-3 text-center">{{ 'Cookie policy'|trans }}</h1>
+    <p class="card-text text-muted">
+      {{ 'Last updated on %date%.'|trans({ '%date%': date('2022-02-03')|format_date }) }}
+    </p>
+    <h3>{{ 'Purpose of this document'|trans({}, 'cookie_policy') }}</h3>
+    <p class="card-text">
+      {{ 'The purpose of this document is to inform you about how we use cookies, why we use them, as well as the means at your disposal to control their use.'|trans({}, 'cookie_policy') }}
+    </p>
+    <h3>{{ 'Use of cookies'|trans({}, 'cookie_policy') }}</h3>
+    <p class="card-text">
+      {{ 'As part of the operation of our website, we only use technical cookies (anonymous session cookies) that are needed for the proper operation of our website and do not require prior consent of the user.'|trans({}, 'cookie_policy') }}
+    </p>
+  </div>
+{% endblock %}

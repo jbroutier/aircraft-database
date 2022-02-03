@@ -1,0 +1,18 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block content %}
+  <div class="mx-auto max-w-500px pt-5">
+    <div class="d-flex flex-column align-items-center gap-3">
+      <a href="{{ path('index') }}">
+        <img src="{{ asset('assets/images/logo.svg') }}" height="200" alt="">
+      </a>
+      <h1 class="display-5 text-center">{{ site.title }}</h1>
+
+      {% include '_partials/search.html.twig' %}
+
+      <div class="text-muted">
+        {{ site.description }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

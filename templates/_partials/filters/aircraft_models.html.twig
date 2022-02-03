@@ -1,0 +1,56 @@
+<div class="card">
+
+  {{ form_start(form) }}
+
+  <div class="accordion accordion-flush">
+    <div class="accordion-item">
+      <h3 id="filters" class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#filtersCollapse" aria-expanded="true" aria-controls="filtersCollapse">
+          {{ 'Filters'|trans }}
+        </button>
+      </h3>
+      <div id="filtersCollapse" class="accordion-collapse collapse show" aria-labelledby="filters">
+        <div class="accordion-body">
+
+          {{ form_row(form.filters.name, { label: 'Name:'|trans }) }}
+          {{ form_row(form.filters.manufacturer, { label: 'Manufacturer:'|trans }) }}
+          {{ form_row(form.filters.aircraftType, { label: 'Aircraft type:'|trans }) }}
+          {{ form_row(form.filters.propertyValues, { label: 'Properties:'|trans }) }}
+
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h3 id="sort" class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sortCollapse" aria-expanded="true" aria-controls="sortCollapse">
+          {{ 'Sort'|trans }}
+        </button>
+      </h3>
+      <div id="sortCollapse" class="accordion-collapse collapse show" aria-labelledby="sort">
+        <div class="accordion-body">
+
+          {{ form_row(form.order.name, { label: 'Name:'|trans }) }}
+          {{ form_row(form.order.manufacturer, { label: 'Manufacturer:'|trans }) }}
+          {{ form_row(form.order.aircraftType, { label: 'Aircraft type:'|trans }) }}
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="d-flex flex-column gap-1">
+      <a class="btn btn-secondary" href="{{ path(app.request.attributes.get('_route')) }}">
+        {{ 'Reset'|trans }}
+      </a>
+      <button type="submit" class="btn btn-primary">
+        {{ 'Apply'|trans }}
+      </button>
+    </div>
+  </div>
+
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+
+</div>

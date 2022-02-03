@@ -1,0 +1,22 @@
+<div class="position-absolute w-100 top-0 p-2">
+  <div class="d-flex flex-column align-items-end gap-1">
+
+    {% for tag in tags %}
+      <div class="badge" style="background: {{ tag.color }};">
+        <span class="far fa-{{ tag.icon }} me-2" aria-hidden="true"></span>
+
+        {% if tag.description is not null %}
+          <dfn>
+            <abbr data-bs-toggle="tooltip" data-bs-html="true" title="{{ tag.description|escape('html_attr') }}">
+              {{ tag.name }}
+            </abbr>
+          </dfn>
+        {% else %}
+          {{ tag.name }}
+        {% endif %}
+
+      </div>
+    {% endfor %}
+
+  </div>
+</div>

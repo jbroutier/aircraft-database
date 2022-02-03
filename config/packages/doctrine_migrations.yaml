@@ -1,0 +1,4 @@
+doctrine_migrations:
+    enable_profiler: '%kernel.debug%'
+    migrations_paths:
+        Migrations: '%kernel.project_dir%/migrations'

@@ -1,0 +1,13 @@
+@import "~bootstrap/scss/mixins";
+
+.carousel-item {
+  height: 250px;
+
+  @include media-breakpoint-up("sm") {
+    height: 450px;
+  }
+
+  @include media-breakpoint-up("md") {
+    height: 800px;
+  }
+}

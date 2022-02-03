@@ -1,0 +1,58 @@
+{% set route = app.request.get('_route')|default('index') %}
+{% set routeParams = app.request.get('_route_params')|default({}) %}
+
+<!DOCTYPE html>
+<html
+  lang="{{ app.request.locale }}"
+  data-debug="{{ app.debug ? 'true' : 'false' }}"
+  data-environment="{{ app.environment }}"
+  data-locale="{{ app.request.locale }}"
+  data-release="{{ site.release }}"
+  data-user-id="{{ app.user is not null ? app.user.id }}"
+  data-user-ip-address="{{ app.request.clientIp }}"
+  data-user-name="{{ app.user is not null ? app.user.username }}"
+  prefix="og: https://ogp.me/ns#"
+>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jérémie BROUTIER">
+    <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+    <meta name="google" content="notranslate">
+    <meta name="robots" content="{% block robots %}noarchive{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ block('title') }}">
+    <meta property="og:description" content="{{ block('description') }}">
+    <meta property="og:url" content="{{ absolute_url(path(route, routeParams)) }}">
+    <meta property="og:locale" content="{{ app.request.locale }}">
+
+    {% block images %}
+      <meta property="og:image" content="{{ absolute_url(asset('images/logo-1200x1200.jpg')) }}">
+      <meta property="og:image:type" content="image/jpeg">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="1200">
+    {% endblock %}
+
+    <title>{% block title %}{{ site.title }}{% endblock %}</title>
+
+    <link rel="base" href="{{ absolute_url('/') }}">
+    <link rel="canonical" href="{{ absolute_url(path(route, routeParams)) }}">
+
+    {{ encore_entry_link_tags('styles/app') }}
+
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('assets/favicons/favicon-48x48.png') }}">
+    <link rel="manifest" href="{{ asset('assets/favicons/manifest.json') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/favicons/favicon.ico') }}">
+
+  </head>
+  <body data-controller="modal">
+
+    {% block body %}{% endblock %}
+
+    {{ encore_entry_script_tags('scripts/app') }}
+
+  </body>
+</html>

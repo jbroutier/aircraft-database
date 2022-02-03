@@ -1,0 +1,95 @@
+$enable-rounded: false;
+
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$red: #e53935;
+$pink: #d81b60;
+$purple: #8e24aa;
+$indigo: #3949ab;
+$blue: #1e88e5;
+$cyan: #00acc1;
+$teal: #00897b;
+$green: #43a047;
+$yellow: #fdd835;
+$orange: #fb8c00;
+$brown: #6d4c41;
+$gray: #757575;
+$gray-dark: #546e7a;
+$white: #fff;
+$black: #000;
+
+$colors: (
+  red: $red,
+  pink: $pink,
+  purple: $purple,
+  indigo: $indigo,
+  blue: $blue,
+  cyan: $cyan,
+  teal: $teal,
+  green: $green,
+  yellow: $yellow,
+  orange: $orange,
+  brown: $brown,
+  gray: $gray,
+  gray-dark: $gray-dark,
+  white: $white,
+  black: $black,
+);
+
+$primary: $blue;
+$secondary: $gray-dark;
+$success: $green;
+$info: $cyan;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-900;
+
+$theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
+);
+
+$badge-font-size: 0.8125rem;
+$badge-font-weight: 400;
+$badge-padding-x: 0.5em;
+$badge-padding-y: 0.25em;
+$body-bg: #fff;
+$body-color: #555;
+$border-radius: 0;
+$box-shadow: 3px 3px 5px rgba($gray-dark, 15%);
+$breadcrumb-divider: quote(">");
+$btn-white-space: nowrap;
+$card-height: 100%;
+$carousel-caption-spacer: 2rem;
+$carousel-caption-width: 100%;
+$carousel-indicator-height: 5px;
+$carousel-indicator-width: 20px;
+$font-family-base: "Noto Sans", arial, sans-serif;
+$font-size-base: 0.875rem;
+$font-size-root: 16px;
+$headings-color: null;
+$headings-font-weight: 500;
+$h1-font-size: 2em;
+$h2-font-size: 1.75em;
+$h3-font-size: 1.5em;
+$h4-font-size: 1.25em;
+$h5-font-size: 1em;
+$h6-font-size: 0.875em;
+$link-decoration: none;
+$min-contrast-ratio: 3;
+$navbar-light-brand-color: #555;

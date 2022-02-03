@@ -1,0 +1,106 @@
+{% block collection_widget %}
+  <div id="{{ id }}" class="d-flex flex-column gap-3"
+       data-controller="collection" data-counter="{{ form|length }}"
+       data-prototype="{{ form_widget(form.vars.prototype)|escape }}">
+    <button type="button" class="btn btn-success"
+            data-action="click->collection#add"
+            data-collection-target-param="#{{ id }}">
+      {{ 'Add'|trans }}
+    </button>
+
+    {% for entry in form %}
+      {{ form_widget(entry) }}
+    {% endfor %}
+
+  </div>
+{% endblock %}
+
+{% block filter_collection_item_widget %}
+  <div id="{{ id }}" class="card card-body" data-collection-item>
+    <div class="d-flex flex-column gap-3">
+      <div class="row g-3">
+
+        {{ form_row(form.property, { label: 'Property:'|trans, row_attr: { class: 'col-12' } }) }}
+        {{ form_row(form.operator, { label: 'Operator:'|trans, row_attr: { class: 'col-12' } }) }}
+        {{ form_row(form.value, { label: 'Value:'|trans, row_attr: { class: 'col-12' } }) }}
+
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-action="click->collection#remove"
+              data-collection-target-param="#{{ id }}">
+        {{ 'Remove'|trans }}
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block picture_collection_item_widget %}
+  <div id="{{ id }}" class="card card-body" data-collection-item>
+    <div class="d-flex flex-column gap-3">
+
+      {% if form.vars.data is not null and form.vars.data.fileName is not null %}
+        <div class="d-flex flex-column gap-1">
+          <img class="img-thumbnail" src="{{ asset('pictures/' ~ form.vars.data.fileName) }}" alt="">
+          <small class="text-muted">
+            {{ form.vars.data.mimeType }} - {{ form.vars.data.dimensions|join('x') }}
+            - {{ form.vars.data.size|format_bytes }}
+          </small>
+        </div>
+      {% endif %}
+
+      <div class="row g-3">
+
+        {{ form_row(form.file, { label: 'File:'|trans, row_attr: { class: 'col-12' } }) }}
+        {{ form_row(form.authorName, { label: 'Author name:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.authorProfile, { label: 'Author profile:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.license, { label: 'License:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.source, { label: 'Source:'|trans, row_attr: { class: 'col-6' } }) }}
+
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-action="click->collection#remove"
+              data-collection-target-param="#{{ id }}">
+        {{ 'Remove'|trans }}
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block property_collection_item_widget %}
+  <div id="{{ id }}" class="card card-body" data-collection-item>
+    <div class="d-flex flex-column gap-3">
+      <div class="row g-3">
+
+        {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.slug, { label: 'Slug:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.type, { label: 'Type:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.unit, { label: 'Unit:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.description, { label: 'Description:'|trans, row_attr: { class: 'col-12' } }) }}
+
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-action="click->collection#remove"
+              data-collection-target-param="#{{ id }}">
+        {{ 'Remove'|trans }}
+      </button>
+    </div>
+  </div>
+{% endblock %}
+
+{% block property_value_collection_item_widget %}
+  <div id="{{ id }}" class="card card-body" data-collection-item>
+    <div class="d-flex flex-column gap-3">
+      <div class="row g-3">
+
+        {{ form_row(form.property, { label: 'Property:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.value, { label: 'Value:'|trans, row_attr: { class: 'col-6' } }) }}
+
+      </div>
+      <button type="button" class="btn btn-danger"
+              data-action="click->collection#remove"
+              data-collection-target-param="#{{ id }}">
+        {{ 'Remove'|trans }}
+      </button>
+    </div>
+  </div>
+{% endblock %}

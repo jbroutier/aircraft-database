@@ -1,0 +1,9 @@
+presta_sitemap:
+    default_section: default
+    dumper: App\Service\SitemapDumper
+    dump_directory: '%kernel.project_dir%/public/%sitemap.directory%'
+
+    defaults:
+        changefreq: ~
+        lastmod: now
+        priority: ~

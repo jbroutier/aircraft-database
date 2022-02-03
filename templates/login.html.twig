@@ -1,0 +1,29 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block title %}{{ 'Login'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-500px">
+    <h1 class="display-6 mb-3 text-center">{{ 'Login'|trans }}</h1>
+
+    {{ form_start(form) }}
+
+    <div class="row g-3">
+
+      {{ form_row(form.username, { label: 'Username:'|trans, row_attr: { class: 'col-12' } }) }}
+      {{ form_row(form.password, { label: 'Password:'|trans, row_attr: { class: 'col-12' } }) }}
+
+      <div class="col-12">
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">
+            {{ 'Login'|trans }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+  </div>
+{% endblock %}

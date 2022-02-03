@@ -1,0 +1,106 @@
+{% extends '_layouts/default.html.twig' %}
+
+{% block title %}{{ 'Search'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center gap-3">
+    <a href="{{ path('index') }}">
+      <img src="{{ asset('assets/images/logo.svg') }}" height="80" alt="">
+    </a>
+
+    {% include '_partials/search.html.twig' %}
+
+  </div>
+  <div class="card card-body">
+    <h3 class="card-title">
+      {{ 'Search results for «%query%»'|trans({ '%query%': app.request.query.get('query') }) }}
+    </h3>
+    <p class="card-text text-muted">
+      {{ '{0}No results found|{1}1 result found|]1,Inf[%nbResults% results found'|trans({
+        '%count%': results.nbResults,
+        '%nbResults%': results.nbResults|format_number
+      })|raw }}
+      -
+      {{ 'Page %currentPage% out of %nbPages%'|trans({
+        '%currentPage%': results.currentPage|format_number,
+        '%nbPages%': results.nbPages|format_number
+      })
+      |raw }}
+    </p>
+  </div>
+  <div class="d-flex flex-column gap-2">
+
+    {% for result in results %}
+
+      {% if result is instanceOf('App\\Entity\\AircraftModel') %}
+        {% set route = 'database_aircraft_model_read' %}
+      {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
+        {% set route = 'database_aircraft_type_read' %}
+      {% elseif result is instanceOf('App\\Entity\\EngineModel') %}
+        {% set route = 'database_engine_model_read' %}
+      {% elseif result is instanceOf('App\\Entity\\Manufacturer') %}
+        {% set route = 'database_manufacturer_read' %}
+      {% endif %}
+
+      <div class="card">
+        <div class="d-flex">
+          <a href="{{ path(route, { slug: result.slug }) }}">
+            <div class="card-img-left overflow-hidden">
+
+              {% if result.pictures is not empty %}
+                <img class="img-cover"
+                     src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_320x160') }}"
+                     width="320" height="160" alt="">
+              {% else %}
+                <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+              {% endif %}
+
+            </div>
+          </a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <a href="{{ path(route, { slug: result.slug }) }}">
+                {{ result.name }}
+              </a>
+            </h3>
+
+            {% if result.manufacturer is defined and result.manufacturer is not null %}
+              <p class="card-text">
+                {{ result.manufacturer.name }}
+              </p>
+            {% endif %}
+
+            {% if result is instanceOf('App\\Entity\\Manufacturer') %}
+              <p class="card-text">
+                <span class="fp {{ result.country|lower }} me-2"></span>
+                {{ result.country|country_name }}
+              </p>
+            {% endif %}
+
+            <p class="card-text small text-muted">
+
+              {% if result is instanceOf('App\\Entity\\AircraftModel') %}
+                {{ 'Aircraft model'|trans }}
+              {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
+                {{ 'Aircraft type'|trans }}
+              {% elseif result is instanceOf('App\\Entity\\EngineModel') %}
+                {{ 'Engine model'|trans }}
+              {% elseif result is instanceOf('App\\Entity\\Manufacturer') %}
+                {{ 'Manufacturer'|trans }}
+              {% endif %}
+
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {% if results.haveToPaginate %}
+    <div class="d-flex justify-content-center">
+      {{ pagerfanta(results) }}
+    </div>
+  {% endif %}
+
+{% endblock %}

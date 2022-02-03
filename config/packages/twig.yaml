@@ -1,0 +1,16 @@
+parameters:
+    env(COMPOSER_JSON): '%kernel.project_dir%/composer.json'
+
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    strict_variables: '%kernel.debug%'
+
+    form_themes:
+        - 'bootstrap_5_layout.html.twig'
+        - 'form.html.twig'
+
+    globals:
+        site:
+            description: 'Global database of aircraft manufacturers, types, models & engines.'
+            release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
+            title: 'Aircraft database'

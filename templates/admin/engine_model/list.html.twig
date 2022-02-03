@@ -1,0 +1,103 @@
+{% extends '_layouts/database.html.twig' %}
+
+{% block title %}{{ 'Engine models'|trans }} - {{ parent() }}{% endblock %}
+
+{% block side_content %}
+  {% include '_partials/filters/engine_models.html.twig' %}
+{% endblock %}
+
+{% block main_content %}
+  <div class="card card-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h1 class="card-title">{{ 'Engine models'|trans }}</h1>
+        <p class="card-text text-muted">
+          {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
+            '%count%': engineModels.nbResults,
+            '%nbResults%': engineModels.nbResults|format_number
+          })|raw }}
+          -
+          {{ 'Page %currentPage% out of %nbPages%'|trans({
+            '%currentPage%': engineModels.currentPage|format_number,
+            '%nbPages%': engineModels.nbPages|format_number
+          })|raw }}
+        </p>
+      </div>
+      <button type="button" class="btn btn-success" data-action="click->modal#show"
+              data-modal-url-param="{{ path('admin_engine_model_create') }}">
+        {{ 'New engine model'|trans }}
+      </button>
+    </div>
+  </div>
+  <div class="card card-body">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th scope="col" class="col-2">{{ 'Name'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Manufacturer'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Created'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Updated'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Actions'|trans }}</th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
+
+          {% for engineModel in engineModels %}
+            <tr>
+              <td>{{ engineModel.name }}</td>
+              <td>
+
+                {% if engineModel.manufacturer is not null %}
+                  {{ engineModel.manufacturer.name }}
+                {% else %}
+                  -
+                {% endif %}
+
+              </td>
+              <td>
+                {{ engineModel.createdAt|date }}
+
+                {% if engineModel.createdBy is not null %}
+                  <br>{{ 'by'|trans }} {{ engineModel.createdBy.username }}
+                {% endif %}
+
+              </td>
+              <td>
+
+                {% if engineModel.updatedAt is not null %}
+                  {{ engineModel.updatedAt|date }}
+                {% else %}
+                  -
+                {% endif %}
+
+                {% if engineModel.updatedBy is not null %}
+                  <br>{{ 'by'|trans }} {{ engineModel.updatedBy.username }}
+                {% endif %}
+
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger" data-action="click->modal#show"
+                        data-modal-url-param="{{ path('admin_engine_model_delete', { id: engineModel.id }) }}">
+                  {{ 'Delete'|trans }}
+                </button>
+                <button type="button" class="btn btn-primary" data-action="click->modal#show"
+                        data-modal-url-param="{{ path('admin_engine_model_update', { id: engineModel.id }) }}">
+                  {{ 'Edit'|trans }}
+                </button>
+              </td>
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% if engineModels.haveToPaginate %}
+    <div class="d-flex justify-content-center">
+      {{ pagerfanta(engineModels) }}
+    </div>
+  {% endif %}
+
+{% endblock %}

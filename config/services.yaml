@@ -1,0 +1,24 @@
+parameters:
+    sitemap.directory: '/sitemap'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Doctrine\EventSubscriber\:
+        resource: '%kernel.project_dir%/src/Doctrine/EventSubscriber/'
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    App\Service\SitemapDumper:
+        class: App\Service\SitemapDumper
+        decorates: presta_sitemap.dumper_default
+        arguments:
+            $directory: '%sitemap.directory%'

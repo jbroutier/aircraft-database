@@ -1,0 +1,32 @@
+<div class="modal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable">
+
+    {{ form_start(form, { attr: { class: 'modal-content' } }) }}
+
+    <div class="modal-header">
+      <h5 class="modal-title">{{ 'New property group'|trans }}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
+    </div>
+    <div class="modal-body">
+      <div class="d-flex flex-column gap-3">
+
+        {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'w-100' } }) }}
+        {{ form_row(form.properties, { label: 'Properties:'|trans, row_attr: { class: 'w-100' } }) }}
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        {{ 'Cancel'|trans }}
+      </button>
+      <button type="button" class="btn btn-primary" data-action="click->modal#submit"
+              data-modal-url-param="{{ path('admin_property_group_create') }}">
+        {{ 'Save'|trans }}
+      </button>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+  </div>
+</div>

@@ -1,0 +1,10 @@
+@import "~bootstrap/scss/mixins";
+
+.sidebar {
+  position: sticky;
+  top: 72px;
+
+  @include media-breakpoint-up("md") {
+    width: 300px;
+  }
+}

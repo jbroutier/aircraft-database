@@ -1,0 +1,83 @@
+monolog:
+    handlers:
+        console:
+            type: console
+            process_psr_3_messages: false
+            channels: [ '!console', '!doctrine', '!event' ]
+
+        sentry:
+            type: sentry
+            level: error
+            hub_id: Sentry\State\HubInterface
+
+when@test:
+    monolog:
+        handlers:
+            main:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/main.log'
+                level: debug
+
+when@dev:
+    monolog:
+        handlers:
+            main:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/main.log'
+                level: info
+                channels: [ '!cache', '!doctrine', '!event', '!security' ]
+
+            cache:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/cache.log'
+                level: info
+                channels: [ 'cache' ]
+
+            doctrine:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/doctrine.log'
+                level: info
+                channels: [ 'doctrine' ]
+
+            event:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/event.log'
+                level: info
+                channels: [ 'event' ]
+
+            security:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/security.log'
+                level: info
+                channels: [ 'security' ]
+
+when@prod:
+    monolog:
+        handlers:
+            main:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/main.log'
+                level: error
+                channels: [ '!cache', '!doctrine', '!security' ]
+                max_files: 7
+
+            cache:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/cache.log'
+                level: error
+                channels: [ 'cache' ]
+                max_files: 7
+
+            doctrine:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/doctrine.log'
+                level: error
+                channels: [ 'doctrine' ]
+                max_files: 7
+
+            security:
+                type: rotating_file
+                path: '%kernel.logs_dir%/%kernel.environment%/security.log'
+                level: error
+                channels: [ 'security' ]
+                max_files: 31

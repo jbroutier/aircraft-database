@@ -1,0 +1,80 @@
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3" data-masonry='{ "percentPosition": true }'>
+
+  {% for propertyGroup in propertyGroups|sort((a, b) => a.name <=> b.name) %}
+    <div class="col">
+      <div class="card card-body">
+        <h3 class="card-title">{{ propertyGroup.name }}</h3>
+        <div class="table-responsive">
+          <table class="table mb-0">
+
+            {% for propertyValue in propertyValues|sort((a, b) => a.property.name <=> b.property.name) %}
+              {% if propertyValue.propertyGroup.id == propertyGroup.id %}
+                <tr>
+                  <th scope="row" class="col-6">
+
+                    {% if propertyValue.property.description is not null %}
+                      <dfn><abbr data-bs-toggle="tooltip" data-bs-html="true"
+                                 title="{{ propertyValue.property.description|escape('html_attr') }}">{{ propertyValue.property.name }}</abbr></dfn>
+                    {% else %}
+                      {{ propertyValue.property.name }}
+                    {% endif %}
+
+                  </th>
+                  <td>
+
+                    {% if propertyValue.property.type.value == 'boolean' %}
+
+                      {% if propertyValue.value|boolean is not null %}
+                        {{ propertyValue.value|boolean ? 'Yes'|trans : 'No'|trans }}
+                      {% else %}
+                        -
+                      {% endif %}
+
+                    {% elseif propertyValue.property.type.value == 'float' %}
+
+                      {% if propertyValue.value|float is not null %}
+                        {{ propertyValue.value|float|format_number }}
+
+                        {% if propertyValue.property.unit is not null %}
+                          {{ propertyValue.property.unit.value }}
+                        {% endif %}
+
+                      {% else %}
+                        -
+                      {% endif %}
+
+                    {% elseif propertyValue.property.type.value == 'integer' %}
+
+                      {% if propertyValue.value|integer is not null %}
+                        {{ propertyValue.value|integer|format_number }}
+
+                        {% if propertyValue.property.unit is not null %}
+                          {{ propertyValue.property.unit.value }}
+                        {% endif %}
+
+                      {% else %}
+                        -
+                      {% endif %}
+
+                    {% elseif propertyValue.property.type.value == 'string' %}
+
+                      {% if propertyValue.value|string is not null %}
+                        {{ propertyValue.value|string }}
+                      {% else %}
+                        -
+                      {% endif %}
+
+                    {% endif %}
+
+                  </td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+
+          </table>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+
+</div>
