@@ -15,7 +15,7 @@ class TagFixtures extends Fixture
     {
         $generator = Factory::create();
 
-        if (($json = file_get_contents('../res/icons.json')) === false) {
+        if (($json = file_get_contents('./res/icons.json')) === false) {
             throw new \RuntimeException('Could not read file "res/icons.json".');
         }
 
