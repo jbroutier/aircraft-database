@@ -7,10 +7,11 @@ services:
         autoconfigure: true
 
     App\:
-        resource: '../src/'
+        resource: '%kernel.project_dir%/src/'
         exclude:
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+            - '%kernel.project_dir%/src/DataFixtures/'
+            - '%kernel.project_dir%/src/Entity/'
+            - '%kernel.project_dir%/src/Kernel.php'
 
     App\Doctrine\EventSubscriber\:
         resource: '%kernel.project_dir%/src/Doctrine/EventSubscriber/'
