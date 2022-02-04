@@ -57,7 +57,7 @@ class AircraftTypeFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 100; $i++) {
             $aircraftType = new AircraftType();
             $aircraftType
-                ->setIataCode($generator->optional()->regexify('[A-Z0-9]{2,3}'))
+                ->setIataCode($generator->optional()->regexify('[A-Z0-9]{3}'))
                 ->setIcaoCode($generator->optional()->regexify('[A-Z0-9]{2,4}'))
                 ->setManufacturer($generator->optional(0.95)->randomElement($manufacturers))
                 ->setName($generator->regexify('[A-Z]{1,2}[0-9]{1,3}\-[0-9]{1,4}'))
