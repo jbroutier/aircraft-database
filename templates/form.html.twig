@@ -71,7 +71,10 @@
     <div class="d-flex flex-column gap-3">
       <div class="row g-3">
 
-        {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col-6' } }) }}
+        {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col-6' }, attr: {
+          'data-action': 'input->slug#generate',
+          'data-slug-target-param': '#' ~ id ~ '_slug'
+        } }) }}
         {{ form_row(form.slug, { label: 'Slug:'|trans, row_attr: { class: 'col-6' } }) }}
         {{ form_row(form.type, { label: 'Type:'|trans, row_attr: { class: 'col-6' } }) }}
         {{ form_row(form.unit, { label: 'Unit:'|trans, row_attr: { class: 'col-6' } }) }}
