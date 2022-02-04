@@ -76,6 +76,12 @@ class EngineModel implements
         $this->tags = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->pictures = new ArrayCollection();
+        $this->slug = null;
+    }
+
     /**
      * @return Collection<int, AircraftModel>
      */

@@ -26,6 +26,35 @@ class PropertyGroupController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/property-groups/{id}/clone', name: 'admin_property_group_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($propertyGroup = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $propertyGroup = clone $propertyGroup;
+
+        $form = $this->createForm(PropertyGroupType::class, $propertyGroup);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Property group created.'));
+            $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/property_group/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/property-groups/create', name: 'admin_property_group_create')]
     public function create(Request $request): Response
     {

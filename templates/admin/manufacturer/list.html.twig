@@ -72,6 +72,10 @@
 
               </td>
               <td>
+                <button type="button" class="btn btn-secondary" data-action="click->modal#show"
+                        data-modal-url-param="{{ path('admin_manufacturer_clone', { id: manufacturer.id }) }}">
+                  {{ 'Clone'|trans }}
+                </button>
                 <button type="button" class="btn btn-danger" data-action="click->modal#show"
                         data-modal-url-param="{{ path('admin_manufacturer_delete', { id: manufacturer.id }) }}">
                   {{ 'Delete'|trans }}

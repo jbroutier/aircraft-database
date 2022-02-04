@@ -26,6 +26,35 @@ class PropertyController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/properties/{id}/clone', name: 'admin_property_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($property = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $property = clone $property;
+
+        $form = $this->createForm(PropertyType::class, $property);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Property created.'));
+            $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/property/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/properties/create', name: 'admin_property_create')]
     public function create(Request $request): Response
     {

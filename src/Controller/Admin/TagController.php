@@ -26,6 +26,35 @@ class TagController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/tags/{id}/clone', name: 'admin_tag_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($tag = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $tag = clone $tag;
+
+        $form = $this->createForm(TagType::class, $tag);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Property created.'));
+            $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/tag/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/tags/create', name: 'admin_tag_create')]
     public function create(Request $request): Response
     {

@@ -76,6 +76,12 @@ class AircraftModel implements
         $this->tags = new ArrayCollection();
     }
 
+    public function __clone()
+    {
+        $this->pictures = new ArrayCollection();
+        $this->slug = null;
+    }
+
     public function getAircraftType(): ?AircraftType
     {
         return $this->aircraftType;

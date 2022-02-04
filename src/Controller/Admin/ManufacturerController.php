@@ -26,6 +26,35 @@ class ManufacturerController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/manufacturers/{id}/clone', name: 'admin_manufacturer_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($manufacturer = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $manufacturer = clone $manufacturer;
+
+        $form = $this->createForm(ManufacturerType::class, $manufacturer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Manufacturer created.'));
+            $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/manufacturer/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/manufacturers/create', name: 'admin_manufacturer_create')]
     public function create(Request $request): Response
     {

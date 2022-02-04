@@ -26,6 +26,35 @@ class EngineModelController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/engine-models/{id}/clone', name: 'admin_engine_model_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($engineModel = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $engineModel = clone $engineModel;
+
+        $form = $this->createForm(EngineModelType::class, $engineModel);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Engine model created.'));
+            $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/engine_model/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/engine-models/create', name: 'admin_engine_model_create')]
     public function create(Request $request): Response
     {

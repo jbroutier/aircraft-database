@@ -26,6 +26,35 @@ class AircraftTypeController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/aircraft-types/{id}/clone', name: 'admin_aircraft_type_clone')]
+    public function clone(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($aircraftType = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        $aircraftType = clone $aircraftType;
+
+        $form = $this->createForm(AircraftTypeType::class, $aircraftType);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($form->getData());
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->translator->trans('Aircraft type created.'));
+            $default = $this->generateUrl('admin_aircraft_type_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            return $this->redirect($request->headers->get('Referer', $default));
+        }
+
+        return $this->render('admin/aircraft_type/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/aircraft-types/create', name: 'admin_aircraft_type_create')]
     public function create(Request $request): Response
     {
