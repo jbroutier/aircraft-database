@@ -3,7 +3,7 @@
     "name": "@jbroutier/aircraft-database",
     "description": "Global database of aircraft manufacturers, types, models & engines.",
     "homepage": "https://aircraft-database.com",
-    "version": "1.0.0-alpha.1",
+    "version": "1.0.0-alpha.2",
     "license": "MIT",
     "author": {
         "name": "Jérémie BROUTIER",
@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-pro": "^6.0.0-beta3",
-        "@fontsource/noto-sans": "^4.5.1",
+        "@fontsource/noto-sans": "^4.5.3",
         "@hotwired/stimulus": "^3.0.1",
         "@sentry/browser": "^6.17.3",
         "@sentry/tracing": "^6.17.3",
@@ -36,7 +36,7 @@
         "@babel/plugin-transform-runtime": "^7.16.10",
         "@babel/preset-env": "^7.16.11",
         "@babel/register": "^7.16.9",
-        "@sentry/webpack-plugin": "^1.18.4",
+        "@sentry/webpack-plugin": "^1.18.5",
         "@squoosh/lib": "^0.4.0",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.8.1",

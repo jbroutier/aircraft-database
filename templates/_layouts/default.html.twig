@@ -92,6 +92,12 @@
                       {{ 'Tags'|trans }}
                     </a>
                   </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li>
+                    <a class="dropdown-item" href="{{ path('logout') }}">
+                      {{ 'Logout'|trans }}
+                    </a>
+                  </li>
                 </ul>
               </li>
             {% endif %}
@@ -133,7 +139,7 @@
     </div>
   </div>
   <footer class="bg-light">
-    <div class="container py-5">
+    <div class="container py-3 py-sm-5">
       <div class="row g-3">
         <div class="col-12 col-lg-8">
           <div class="d-flex gap-3">

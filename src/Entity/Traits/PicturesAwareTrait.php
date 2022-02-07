@@ -15,7 +15,7 @@ trait PicturesAwareTrait
      * @var Collection<int, Picture>
      */
     #[Assert\Valid]
-    #[ORM\ManyToMany(targetEntity: Picture::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Picture::class, cascade: ['persist'], orphanRemoval: true)]
     #[ORM\JoinTable]
     #[ORM\JoinColumn(name: 'entity', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'picture', referencedColumnName: 'id', unique: true, nullable: false, onDelete: 'CASCADE')]

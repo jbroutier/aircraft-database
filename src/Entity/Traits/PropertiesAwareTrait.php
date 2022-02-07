@@ -17,7 +17,7 @@ trait PropertiesAwareTrait
      * @var Collection<int, PropertyValue>
      */
     #[Assert\Valid]
-    #[ORM\ManyToMany(targetEntity: PropertyValue::class, cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: PropertyValue::class, cascade: ['persist'], orphanRemoval: true)]
     #[ORM\JoinTable]
     #[ORM\JoinColumn(name: 'entity', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'property_value', referencedColumnName: 'id', unique: true, nullable: false, onDelete: 'CASCADE')]
