@@ -89,7 +89,7 @@ trait FilterableTrait
             }
         }
 
-        if (array_key_exists('propertyValues', $filters) && !empty($filters['propertyValues'])) {
+        if (array_key_exists('propertyValues', $filters) && count($filters['propertyValues']) > 0) {
             if ($classMetadata->hasAssociation('propertyValues')) {
                 $builder
                     ->leftJoin($rootAlias . '.propertyValues', 'pv')
