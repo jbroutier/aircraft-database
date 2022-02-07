@@ -68,7 +68,7 @@ class TypeExtension extends AbstractExtension
             [
                 'options' => [
                     'default' => null,
-                    'regexp' => '/^[\w\s]+$/i',
+                    'regexp' => '/^(?![\t\s])(.+)$/i',
                 ],
             ]
         );
