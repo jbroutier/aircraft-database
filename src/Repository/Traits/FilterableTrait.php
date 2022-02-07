@@ -95,8 +95,13 @@ trait FilterableTrait
                     ->leftJoin($rootAlias . '.propertyValues', 'pv')
                     ->leftJoin('pv.property', 'p');
 
+                $criteria = $builder->expr()->orX();
+                $propertyCount = count(
+                    array_unique(array_map(fn($item) => $item['property']->getId(), $filters['propertyValues']))
+                );
+
                 foreach ($filters['propertyValues'] as $index => $filter) {
-                    $criteria = match ($filter['operator']) {
+                    $criterion = match ($filter['operator']) {
                         Operator::Equal => $builder->expr()->eq('pv.value', ':value' . $index),
                         Operator::NotEqual => $builder->expr()->neq('pv.value', ':value' . $index),
                         Operator::GreaterThan => $builder->expr()->gt('pv.value', ':value' . $index),
@@ -106,10 +111,22 @@ trait FilterableTrait
                         default => throw new \LogicException('Unhandled operator'),
                     };
 
+                    $criteria->add(
+                        $builder->expr()->andX(
+                            $builder->expr()->eq('p.id', ':property' . $index),
+                            $criterion
+                        )
+                    );
+
                     $builder
-                        ->andWhere($criteria)
+                        ->setParameter(':property' . $index, $filter['property']->getId(), 'uuid')
                         ->setParameter(':value' . $index, $filter['value']);
                 }
+
+                $builder
+                    ->addGroupBy($rootAlias . '.id')
+                    ->andWhere($criteria)
+                    ->andHaving($builder->expr()->eq($builder->expr()->countDistinct('p.id'), $propertyCount));
             }
         }
     }
