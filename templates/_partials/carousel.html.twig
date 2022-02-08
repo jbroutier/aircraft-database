@@ -18,7 +18,7 @@
     {% for picture in pictures %}
       <div class="carousel-item {% if loop.first %}active{% endif %}">
         <a rel="noopener noreferrer" href="{{ picture.source }}" target="_blank">
-          <img class="d-block w-100" src="{{ asset('pictures/' ~ picture)|imagine_filter('thumbnail_1400x800') }}"
+          <img class="img-fluid" src="{{ asset('pictures/' ~ picture)|imagine_filter('thumbnail_1400x800') }}"
                width="1400" height="800" alt="">
         </a>
         <div class="carousel-caption">
