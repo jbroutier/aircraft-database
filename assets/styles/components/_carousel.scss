@@ -1,13 +1,19 @@
 @import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+
+.carousel-caption {
+  background: rgba(46 50 55 / 75%);
+  bottom: 0;
+  font-size: 0.75rem;
+  padding: 0.125rem 0.3125rem;
+  position: absolute;
+  text-align: left;
+}
+
+.carousel-indicators {
+  margin-bottom: 1.5rem;
+}
 
 .carousel-item {
-  height: 250px;
-
-  @include media-breakpoint-up("sm") {
-    height: 450px;
-  }
-
-  @include media-breakpoint-up("md") {
-    height: 800px;
-  }
+  max-height: 800px;
 }

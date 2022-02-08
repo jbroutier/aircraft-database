@@ -28,14 +28,15 @@
       <div class="col">
         <div class="card">
           <a href="{{ path('database_manufacturer_read', { slug: manufacturer.slug }) }}">
-            <div class="card-img-top h-250px overflow-hidden position-relative">
+            <div class="card-img-top position-relative">
 
               {% if manufacturer.pictures|length %}
-                <img class="img-cover"
-                     src="{{ asset('pictures/' ~ manufacturer.pictures.first)|imagine_filter('thumbnail_600x300') }}"
-                     width="600" height="300" alt="">
+                <img class="img-fluid"
+                     src="{{ asset('pictures/' ~ manufacturer.pictures.first)|imagine_filter('thumbnail_560x320') }}"
+                     width="560" height="320" alt="">
               {% else %}
-                <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+                <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
+                     width="560" height="320" alt="">
               {% endif %}
 
               {% include '_partials/tags.html.twig' with { tags: manufacturer.tags } %}

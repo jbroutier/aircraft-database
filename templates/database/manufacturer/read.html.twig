@@ -21,7 +21,8 @@
     {% if manufacturer.pictures|length %}
       {% include '_partials/carousel.html.twig' with { pictures: manufacturer.pictures } %}
     {% else %}
-      <img class="img-fluid" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+      <img class="img-fluid" src="{{ asset('assets/images/no-picture-1400x800.webp') }}"
+           width="1400" height="800" alt="">
     {% endif %}
 
   </div>

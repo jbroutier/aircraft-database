@@ -10,25 +10,29 @@ liip_imagine:
 
     filter_sets:
         thumbnail_1200x1200: # OpenGraph images
-            format: jpeg
-            quality: 80
+            format: webp
+            quality: 100
             filters:
                 thumbnail: { size: [ 1200, 1200 ], mode: outbound }
+                background: { size: [ 1200, 1200 ], position: center, color: '#212529' }
 
-        thumbnail_1200x800: # Carousel slides
-            format: jpeg
-            quality: 80
+        thumbnail_1400x800: # Carousel slides
+            format: webp
+            quality: 100
             filters:
-                thumbnail: { size: [ 1200, 800 ], mode: outbound }
+                thumbnail: { size: [ 1400, 800 ], mode: outbound }
+                background: { size: [ 1400, 800 ], position: center, color: '#212529' }
 
-        thumbnail_600x300: # Card thumbnails
-            format: jpeg
-            quality: 80
+        thumbnail_560x320: # Card thumbnails
+            format: webp
+            quality: 100
             filters:
-                thumbnail: { size: [ 600, 300 ], mode: outbound }
+                thumbnail: { size: [ 560, 320 ], mode: outbound }
+                background: { size: [ 560, 320 ], position: center, color: '#212529' }
 
-        thumbnail_320x160: # Search result thumbnails
-            format: jpeg
-            quality: 80
+        thumbnail_280x160: # Search result thumbnails
+            format: webp
+            quality: 100
             filters:
-                thumbnail: { size: [ 320, 160 ], mode: outbound }
+                thumbnail: { size: [ 280, 160 ], mode: outbound }
+                background: { size: [ 280, 160 ], position: center, color: '#212529' }

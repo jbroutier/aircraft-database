@@ -45,14 +45,15 @@
       <div class="card">
         <div class="d-flex">
           <a href="{{ path(route, { slug: result.slug }) }}">
-            <div class="card-img-left overflow-hidden">
+            <div class="card-img-left">
 
               {% if result.pictures is not empty %}
-                <img class="img-cover"
-                     src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_320x160') }}"
-                     width="320" height="160" alt="">
+                <img class="img-fluid"
+                     src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_280x160') }}"
+                     width="280" height="160" alt="">
               {% else %}
-                <img class="img-cover" src="{{ asset('assets/images/no-picture.png') }}" alt="">
+                <img class="img-fluid" src="{{ asset('assets/images/no-picture-280x160.png') }}"
+                     width="280" height="160" alt="">
               {% endif %}
 
             </div>
