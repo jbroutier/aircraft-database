@@ -6,7 +6,5 @@ import { initSentry } from '@scripts/sentry'
 import 'bootstrap'
 import 'masonry-layout'
 
-require.context('@images', false, /\.(png|jpe?g|svg|webp)$/)
-
 initSentry()
 initSelect(document)

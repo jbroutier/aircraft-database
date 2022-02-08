@@ -3,7 +3,7 @@ import Encore from '@symfony/webpack-encore'
 import ESLintWebpackPlugin from 'eslint-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
-import { resolve } from 'path'
+import {resolve} from 'path'
 import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
@@ -25,6 +25,11 @@ Encore
   .enableSassLoader()
   .enablePostCssLoader()
   .enableIntegrityHashes(Encore.isProduction(), ['sha256', 'sha384', 'sha512'])
+  .copyFiles({
+    from: './assets/images',
+    pattern: /\.(jpe?g|png|svg|webp)$/,
+    to: 'images/[path][name].[ext]'
+  })
   .configureFontRule({
     type: 'asset',
     maxSize: 16384
