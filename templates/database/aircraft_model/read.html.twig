@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="card">
+  <div class="card position-relative">
 
     {% if aircraftModel.pictures|length %}
       {% include '_partials/carousel.html.twig' with { pictures: aircraftModel.pictures } %}
@@ -25,6 +25,8 @@
       <img class="img-fluid" src="{{ asset('assets/images/no-picture-1400x800.webp') }}"
            width="1400" height="800" alt="">
     {% endif %}
+
+    {% include '_partials/tags.html.twig' with { tags: aircraftModel.tags } %}
 
   </div>
   <div class="card card-body">
