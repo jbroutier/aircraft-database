@@ -28,7 +28,7 @@ Encore
   .copyFiles({
     from: './assets/images',
     pattern: /\.(jpe?g|png|svg|webp)$/,
-    to: 'images/[path][name].[ext]'
+    to: 'images/[path][name]' + (Encore.isProduction() ? '.[hash:8].[ext]' : '.[ext]')
   })
   .configureFontRule({
     type: 'asset',
