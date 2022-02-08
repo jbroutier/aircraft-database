@@ -3,7 +3,7 @@
 
     {% for tag in tags %}
       <div class="badge" style="background: {{ tag.color }};">
-        <span class="far fa-{{ tag.icon }} me-2" aria-hidden="true"></span>
+        <span class="far fa-{{ tag.icon }} me-1" aria-hidden="true"></span>
 
         {% if tag.description is not null %}
           <dfn>
