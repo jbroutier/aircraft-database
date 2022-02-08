@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="card overflow-hidden">
+  <div class="card">
 
     {% if aircraftType.pictures|length %}
       {% include '_partials/carousel.html.twig' with { pictures: aircraftType.pictures } %}
