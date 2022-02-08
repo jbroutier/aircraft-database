@@ -67,18 +67,20 @@
 
               </td>
               <td>
-                <button type="button" class="btn btn-secondary" data-action="click->modal#show"
-                        data-modal-url-param="{{ path('admin_property_group_clone', { id: propertyGroup.id }) }}">
-                  {{ 'Clone'|trans }}
-                </button>
-                <button type="button" class="btn btn-danger" data-action="click->modal#show"
-                        data-modal-url-param="{{ path('admin_property_group_delete', { id: propertyGroup.id }) }}">
-                  {{ 'Delete'|trans }}
-                </button>
-                <button type="button" class="btn btn-primary" data-action="click->modal#show"
-                        data-modal-url-param="{{ path('admin_property_group_update', { id: propertyGroup.id }) }}">
-                  {{ 'Edit'|trans }}
-                </button>
+                <div class="d-flex gap-1">
+                  <button type="button" class="btn btn-secondary" data-action="click->modal#show"
+                          data-modal-url-param="{{ path('admin_property_group_clone', { id: propertyGroup.id }) }}">
+                    {{ 'Clone'|trans }}
+                  </button>
+                  <button type="button" class="btn btn-danger" data-action="click->modal#show"
+                          data-modal-url-param="{{ path('admin_property_group_delete', { id: propertyGroup.id }) }}">
+                    {{ 'Delete'|trans }}
+                  </button>
+                  <button type="button" class="btn btn-primary" data-action="click->modal#show"
+                          data-modal-url-param="{{ path('admin_property_group_update', { id: propertyGroup.id }) }}">
+                    {{ 'Edit'|trans }}
+                  </button>
+                </div>
               </td>
             </tr>
           {% endfor %}
