@@ -3,19 +3,19 @@
 {% block container %}
   <div class="container-fluid">
     <div class="row g-3">
-      <div class="col-12 col-md-auto order-last order-md-first">
-        <aside class="d-flex flex-column gap-3 sidebar">
-
-          {% block side_content %}{% endblock %}
-
-        </aside>
-      </div>
-      <div class="col-12 col-md">
+      <div class="col-12 col-lg">
         <main class="d-flex flex-column gap-3">
 
           {% block main_content %}{% endblock %}
 
         </main>
+      </div>
+      <div class="col-12 col-lg-auto order-last order-lg-first">
+        <aside class="d-flex flex-column gap-3 sidebar">
+
+          {% block side_content %}{% endblock %}
+
+        </aside>
       </div>
     </div>
   </div>

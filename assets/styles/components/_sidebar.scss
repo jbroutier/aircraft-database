@@ -4,7 +4,7 @@
   position: sticky;
   top: 72px;
 
-  @include media-breakpoint-up("md") {
+  @include media-breakpoint-up("lg") {
     width: 300px;
   }
 }
