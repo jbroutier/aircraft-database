@@ -4,7 +4,7 @@
 
 {% block content %}
   <div class="d-flex justify-content-between align-items-center gap-3">
-    <a href="{{ path('index') }}">
+    <a class="d-none d-md-block" href="{{ path('index') }}">
       <img src="{{ asset('assets/images/logo.svg') }}" height="80" alt="">
     </a>
 
@@ -42,56 +42,66 @@
         {% set route = 'database_manufacturer_read' %}
       {% endif %}
 
-      <div class="card">
-        <div class="d-flex">
-          <a href="{{ path(route, { slug: result.slug }) }}">
-            <div class="card-img-left">
+      <div class="card flex-md-row">
+        <a href="{{ path(route, { slug: result.slug }) }}">
+          <div class="card-img-top d-md-none">
 
-              {% if result.pictures is not empty %}
-                <img class="img-fluid"
-                     src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_280x160') }}"
-                     width="280" height="160" alt="">
-              {% else %}
-                <img class="img-fluid" src="{{ asset('assets/images/no-picture-280x160.webp') }}"
-                     width="280" height="160" alt="">
-              {% endif %}
-
-            </div>
-          </a>
-          <div class="card-body">
-            <h3 class="card-title">
-              <a href="{{ path(route, { slug: result.slug }) }}">
-                {{ result.name }}
-              </a>
-            </h3>
-
-            {% if result.manufacturer is defined and result.manufacturer is not null %}
-              <p class="card-text">
-                {{ result.manufacturer.name }}
-              </p>
+            {% if result.pictures is not empty %}
+              <img class="img-fluid"
+                   src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_560x320') }}"
+                   width="560" height="320" alt="">
+            {% else %}
+              <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
+                   width="560" height="320" alt="">
             {% endif %}
 
-            {% if result is instanceOf('App\\Entity\\Manufacturer') %}
-              <p class="card-text">
-                <span class="fp {{ result.country|lower }} me-2"></span>
-                {{ result.country|country_name }}
-              </p>
-            {% endif %}
-
-            <p class="card-text small text-muted">
-
-              {% if result is instanceOf('App\\Entity\\AircraftModel') %}
-                {{ 'Aircraft model'|trans }}
-              {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
-                {{ 'Aircraft type'|trans }}
-              {% elseif result is instanceOf('App\\Entity\\EngineModel') %}
-                {{ 'Engine model'|trans }}
-              {% elseif result is instanceOf('App\\Entity\\Manufacturer') %}
-                {{ 'Manufacturer'|trans }}
-              {% endif %}
-
-            </p>
           </div>
+          <div class="card-img-left d-none d-md-block">
+
+            {% if result.pictures is not empty %}
+              <img class="img-fluid"
+                   src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_280x160') }}"
+                   width="280" height="160" alt="">
+            {% else %}
+              <img class="img-fluid" src="{{ asset('assets/images/no-picture-280x160.webp') }}"
+                   width="280" height="160" alt="">
+            {% endif %}
+
+          </div>
+        </a>
+        <div class="card-body">
+          <h3 class="card-title">
+            <a href="{{ path(route, { slug: result.slug }) }}">
+              {{ result.name }}
+            </a>
+          </h3>
+
+          {% if result.manufacturer is defined and result.manufacturer is not null %}
+            <p class="card-text">
+              {{ result.manufacturer.name }}
+            </p>
+          {% endif %}
+
+          {% if result is instanceOf('App\\Entity\\Manufacturer') %}
+            <p class="card-text">
+              <span class="fp {{ result.country|lower }} me-2"></span>
+              {{ result.country|country_name }}
+            </p>
+          {% endif %}
+
+          <p class="card-text small text-muted">
+
+            {% if result is instanceOf('App\\Entity\\AircraftModel') %}
+              {{ 'Aircraft model'|trans }}
+            {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
+              {{ 'Aircraft type'|trans }}
+            {% elseif result is instanceOf('App\\Entity\\EngineModel') %}
+              {{ 'Engine model'|trans }}
+            {% elseif result is instanceOf('App\\Entity\\Manufacturer') %}
+              {{ 'Manufacturer'|trans }}
+            {% endif %}
+
+          </p>
         </div>
       </div>
     {% endfor %}
