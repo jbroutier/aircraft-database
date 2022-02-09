@@ -18,7 +18,7 @@
         "@fortawesome/fontawesome-pro": "^6.0.0",
         "@fontsource/noto-sans": "^4.5.3",
         "@hotwired/stimulus": "^3.0.1",
-        "@sentry/browser": "^6.17.5",
+        "@sentry/browser": "^6.17.6",
         "@sentry/tracing": "^6.17.3",
         "axios": "^0.25.0",
         "bootstrap": "^5.1.3",
