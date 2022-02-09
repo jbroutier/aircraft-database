@@ -7,6 +7,7 @@ module.exports = {
   ],
   rules: {
     'at-rule-no-unknown': null,
+    'function-no-unknown': null,
     'plugin/no-unsupported-browser-features': [true, {
       severity: 'warning'
     }]
