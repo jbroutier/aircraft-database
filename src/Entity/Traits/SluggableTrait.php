@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[UniqueEntity(fields: ['slug'])]
 trait SluggableTrait
 {
     #[Assert\NotBlank]

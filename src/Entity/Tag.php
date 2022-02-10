@@ -18,8 +18,10 @@ use App\Entity\Traits\SluggableTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity(['slug'])]
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag implements
     BlameableInterface,
