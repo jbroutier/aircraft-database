@@ -92,12 +92,16 @@
           <p class="card-text small text-muted">
 
             {% if result is instanceOf('App\\Entity\\AircraftModel') %}
+              <span class="fal fa-plane-engines me-1" aria-hidden="true"></span>
               {{ 'Aircraft model'|trans }}
             {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
+              <span class="fal fa-plane-engines me-1" aria-hidden="true"></span>
               {{ 'Aircraft type'|trans }}
             {% elseif result is instanceOf('App\\Entity\\EngineModel') %}
+              <span class="fal fa-engine me-1" aria-hidden="true"></span>
               {{ 'Engine model'|trans }}
             {% elseif result is instanceOf('App\\Entity\\Manufacturer') %}
+              <span class="fal fa-industry-windows me-1" aria-hidden="true"></span>
               {{ 'Manufacturer'|trans }}
             {% endif %}
 
