@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/mixins";
 
 .sidebar {
-  position: sticky;
+  position: sticky; // stylelint-disable-line plugin/no-unsupported-browser-features
   top: 72px;
 
   @include media-breakpoint-up("lg") {
