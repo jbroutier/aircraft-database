@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Interface\BlameableInterface;
 use App\Entity\Interface\IdentifiableInterface;
+use App\Entity\Interface\LogoAwareInterface;
 use App\Entity\Interface\NameableInterface;
 use App\Entity\Interface\PicturesAwareInterface;
 use App\Entity\Interface\PropertiesAwareInterface;
@@ -14,6 +15,7 @@ use App\Entity\Interface\TagsAwareInterface;
 use App\Entity\Interface\TimestampableInterface;
 use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\IdentifiableTrait;
+use App\Entity\Traits\LogoAwareTrait;
 use App\Entity\Traits\NameableTrait;
 use App\Entity\Traits\PicturesAwareTrait;
 use App\Entity\Traits\PropertiesAwareTrait;
@@ -34,6 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Manufacturer implements
     BlameableInterface,
     IdentifiableInterface,
+    LogoAwareInterface,
     NameableInterface,
     PicturesAwareInterface,
     PropertiesAwareInterface,
@@ -43,6 +46,7 @@ class Manufacturer implements
 {
     use BlameableTrait;
     use IdentifiableTrait;
+    use LogoAwareTrait;
     use NameableTrait;
     use PicturesAwareTrait;
     use PropertiesAwareTrait;
@@ -88,6 +92,7 @@ class Manufacturer implements
 
     public function __clone()
     {
+        $this->logo = null;
         $this->pictures = new ArrayCollection();
         $this->slug = null;
     }

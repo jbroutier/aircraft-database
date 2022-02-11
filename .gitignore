@@ -27,5 +27,6 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 /public/cache/
+/public/logos/
 /public/pictures/
 /public/sitemap/

@@ -22,6 +22,11 @@
         </div>
         <div class="row row-cols-1 row-cols-md-2 g-3">
 
+          {{ form_row(form.logo, { label: 'Logo:'|trans, row_attr: { class: 'col' } }) }}
+
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+
           {{ form_row(form.pictures, { label: 'Pictures:'|trans, row_attr: { class: 'col' } }) }}
           {{ form_row(form.propertyValues, { label: 'Properties:'|trans, row_attr: { class: 'col' } }) }}
 

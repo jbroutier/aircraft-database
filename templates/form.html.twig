@@ -34,6 +34,40 @@
   </div>
 {% endblock %}
 
+{% block logo_widget %}
+  <div class="d-flex">
+    <div class="card card-body">
+      <div class="d-flex flex-column gap-3" data-controller="logo">
+
+        {% if form.vars.data is not null and form.vars.data.fileName is not null %}
+          <div id="logo" class="d-flex flex-column gap-1">
+            <img class="img-thumbnail" src="{{ asset('logos/' ~ form.vars.data.fileName) }}" height="200" alt="">
+            <small class="text-muted">
+              {{ form.vars.data.mimeType }} - {{ form.vars.data.size|format_bytes }}
+            </small>
+          </div>
+        {% endif %}
+
+        <div class="row g-3">
+
+          {{ form_row(form.file, { label: 'File:'|trans, row_attr: { class: 'col-12' } }) }}
+
+        </div>
+
+        {% if form.vars.data is not null and form.vars.data.fileName is not null %}
+          <button type="button" class="btn btn-danger"
+                  data-action="click->logo#remove"
+                  data-logo-target-param="#logo"
+                  data-logo-url-param="{{ path('admin_logo_delete', { id: form.vars.data.id }) }}">
+            {{ 'Remove'|trans }}
+          </button>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
 {% block picture_collection_item_widget %}
   <div id="{{ id }}" class="card card-body" data-collection-item>
     <div class="d-flex flex-column gap-3">

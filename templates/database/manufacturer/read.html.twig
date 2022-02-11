@@ -29,11 +29,20 @@
 
   </div>
   <div class="card card-body">
-    <h1 class="card-title">{{ manufacturer.name }}</h1>
-    <p class="card-text">
-      <span class="fp {{ manufacturer.country|lower }} me-2"></span>
-      {{ manufacturer.country|country_name }}
-    </p>
+    <div class="d-flex justify-content-between gap-3">
+      <div>
+        <h1 class="card-title">{{ manufacturer.name }}</h1>
+        <p class="card-text">
+          <span class="fp {{ manufacturer.country|lower }} me-2"></span>
+          {{ manufacturer.country|country_name }}
+        </p>
+      </div>
+
+      {% if manufacturer.logo is not null %}
+        <img src="{{ asset('logos/' ~ manufacturer.logo) }}" height="60" alt="">
+      {% endif %}
+
+    </div>
   </div>
   <div class="d-flex flex-column gap-3">
 

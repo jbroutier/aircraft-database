@@ -16,6 +16,7 @@ class ManufacturerType extends AbstractType
     {
         $builder
             ->add('country', CountryChoiceType::class)
+            ->add('logo', LogoType::class)
             ->add('name', TextType::class)
             ->add('pictures', PictureCollectionType::class)
             ->add('propertyValues', PropertyValueCollectionType::class)
