@@ -23,3 +23,7 @@ services:
         decorates: presta_sitemap.dumper_default
         arguments:
             $directory: '%sitemap.directory%'
+
+    App\Service\UuidNamer:
+        class: App\Service\UuidNamer
+        public: true

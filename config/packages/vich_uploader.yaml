@@ -5,13 +5,13 @@ vich_uploader:
         logo:
             uri_prefix: /logos
             upload_destination: '%kernel.project_dir%/public/logos'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            namer: App\Service\UuidNamer
             inject_on_load: true
 
         picture:
             uri_prefix: /pictures
             upload_destination: '%kernel.project_dir%/public/pictures'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            namer: App\Service\UuidNamer
             inject_on_load: true
 
     metadata:
