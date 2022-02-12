@@ -17,6 +17,7 @@ class AircraftTypeFiltersType extends AbstractType
             ->add('icaoCode', TextType::class, ['required' => false])
             ->add('manufacturer', ManufacturerChoiceType::class, ['required' => false])
             ->add('name', TextType::class, ['required' => false])
-            ->add('propertyValues', FilterCollectionType::class);
+            ->add('propertyValues', FilterCollectionType::class)
+            ->add('tags', TagChoiceType::class, ['multiple' => true, 'required' => false]);
     }
 }

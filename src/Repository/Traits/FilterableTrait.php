@@ -89,6 +89,25 @@ trait FilterableTrait
             }
         }
 
+        if (array_key_exists('tags', $filters) && count($filters['tags']) > 0) {
+            if ($classMetadata->hasAssociation('tags')) {
+                $builder->leftJoin($rootAlias . '.tags', 't');
+
+                $criteria = $builder->expr()->orX();
+                $tagCount = count($filters['tags']);
+
+                foreach ($filters['tags'] as $index => $tag) {
+                    $criteria->add($builder->expr()->orX($builder->expr()->eq('t.id', ':tag' . $index)));
+                    $builder->setParameter(':tag' . $index, $tag->getId(), 'uuid');
+                }
+
+                $builder
+                    ->addGroupBy($rootAlias . '.id')
+                    ->andWhere($criteria)
+                    ->andHaving($builder->expr()->eq($builder->expr()->countDistinct('t.id'), $tagCount));
+            }
+        }
+
         if (array_key_exists('propertyValues', $filters) && count($filters['propertyValues']) > 0) {
             if ($classMetadata->hasAssociation('propertyValues')) {
                 $builder
