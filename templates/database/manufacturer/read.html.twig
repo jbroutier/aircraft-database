@@ -39,7 +39,9 @@
       </div>
 
       {% if manufacturer.logo is not null %}
-        <img src="{{ asset('logos/' ~ manufacturer.logo) }}" height="60" alt="">
+        <div class="logo-container-lg">
+          <img src="{{ asset('logos/' ~ manufacturer.logo) }}" alt="">
+        </div>
       {% endif %}
 
     </div>

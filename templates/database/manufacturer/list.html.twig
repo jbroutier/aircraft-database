@@ -45,23 +45,25 @@
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between gap-3">
-              <div>
-                <h3 class="card-title">
-                  <a href="{{ path('database_manufacturer_read', { slug: manufacturer.slug }) }}">
-                    {{ manufacturer.name }}
-                  </a>
-                </h3>
-                <p class="card-text">
-                  <span class="fp {{ manufacturer.country|lower }} me-2"></span>
-                  {{ manufacturer.country|country_name }}
-                </p>
-              </div>
+              <h3 class="card-title">
+                <a href="{{ path('database_manufacturer_read', { slug: manufacturer.slug }) }}">
+                  {{ manufacturer.name }}
+                </a>
+              </h3>
 
               {% if manufacturer.logo is not null %}
-                <img src="{{ asset('logos/' ~ manufacturer.logo) }}" height="55" alt="">
+                <div class="logo-container">
+                  <img src="{{ asset('logos/' ~ manufacturer.logo) }}" alt="">
+                </div>
               {% endif %}
 
             </div>
+
+            <p class="card-text">
+              <span class="fp {{ manufacturer.country|lower }} me-2"></span>
+              {{ manufacturer.country|country_name }}
+            </p>
+
           </div>
         </div>
       </div>
