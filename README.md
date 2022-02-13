@@ -10,4 +10,4 @@
 
 # Aircraft database
 
-✈️Global database of aircraft manufacturers, types, models & engines.
+✈️ Global database of aircraft manufacturers, types, models & engines.
