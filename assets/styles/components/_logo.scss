@@ -1,17 +1,17 @@
 .logo-container {
-  height: 30px;
-  width: 90px;
+  height: 25px;
+  width: 75px;
 }
 
 .logo-container-lg {
-  height: 60px;
-  width: 180px;
+  height: 30px;
+  width: 150px;
 }
 
 .logo-container img,
 .logo-container-lg img {
   height: 100%;
   object-fit: contain;
-  object-position: top right;
+  object-position: center right;
   width: 100%;
 }
