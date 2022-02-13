@@ -30,25 +30,54 @@
 
   </div>
   <div class="card card-body">
-    <h1 class="card-title">{{ aircraftType.name }}</h1>
+    <div class="d-flex justify-content-between gap-3">
+      <h1 class="card-title">{{ aircraftType.name }}</h1>
 
-    {% if aircraftType.manufacturer is not null %}
-      <p class="card-text">
-        <a href="{{ path('database_manufacturer_read', { slug: aircraftType.manufacturer.slug }) }}">
-          {{ aircraftType.manufacturer.name }}
-        </a>
-      </p>
-    {% endif %}
+      {% if aircraftType.manufacturer is not null and aircraftType.manufacturer.logo is not null %}
+        <div class="logo-container-lg">
+          <img src="{{ asset('logos/' ~ aircraftType.manufacturer.logo) }}" alt="">
+        </div>
+      {% endif %}
 
-    {% if aircraftType.iataCode is not null or aircraftType.icaoCode is not null %}
-      <p class="card-text">
-        {{ 'IATA: %iataCode% | ICAO: %icaoCode%'|trans({
-          '%iataCode%': aircraftType.iataCode|default('-'),
-          '%icaoCode%': aircraftType.icaoCode|default('-')
-        })|raw }}
-      </p>
-    {% endif %}
+    </div>
+    <div class="table-responsive">
+      <table class="table mb-0">
 
+        {% if aircraftType.manufacturer is not null %}
+          <tr>
+            <th scope="row" class="col-1">{{ 'Manufacturer:'|trans }}</th>
+            <td class="col-auto">
+              <a href="{{ path('database_manufacturer_read', { slug: aircraftType.manufacturer.slug }) }}">
+                {{ aircraftType.manufacturer.name }}
+              </a>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if aircraftType.icaoCode is not null %}
+          <tr>
+            <th scope="row" class="col-1">{{ 'ICAO code:'|trans }}</th>
+            <td class="col-auto">
+              <a href="{{ path('database_aircraft_type_list', { filters: { icaoCode: aircraftType.icaoCode } }) }}">
+                {{ aircraftType.icaoCode }}
+              </a>
+            </td>
+          </tr>
+        {% endif %}
+
+        {% if aircraftType.iataCode is not null %}
+          <tr>
+            <th scope="row" class="col-1">{{ 'IATA code:'|trans }}</th>
+            <td class="col-auto">
+              <a href="{{ path('database_aircraft_type_list', { filters: { iataCode: aircraftType.iataCode } }) }}">
+                {{ aircraftType.iataCode }}
+              </a>
+            </td>
+          </tr>
+        {% endif %}
+
+      </table>
+    </div>
   </div>
   <div class="d-flex flex-column gap-3">
 

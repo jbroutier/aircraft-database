@@ -30,16 +30,32 @@
 
   </div>
   <div class="card card-body">
-    <h1 class="card-title">{{ engineModel.name }}</h1>
+    <div class="d-flex justify-content-between gap-3">
+      <h1 class="card-title">{{ engineModel.name }}</h1>
 
-    {% if engineModel.manufacturer is not null %}
-      <p class="card-text">
-        <a href="{{ path('database_manufacturer_read', { slug: engineModel.manufacturer.slug }) }}">
-          {{ engineModel.manufacturer.name }}
-        </a>
-      </p>
-    {% endif %}
+      {% if engineModel.manufacturer is not null and engineModel.manufacturer.logo is not null %}
+        <div class="logo-container-lg">
+          <img src="{{ asset('logos/' ~ engineModel.manufacturer.logo) }}" alt="">
+        </div>
+      {% endif %}
 
+    </div>
+    <div class="table-responsive">
+      <table class="table mb-0">
+
+        {% if engineModel.manufacturer is not null %}
+          <tr>
+            <th scope="row" class="col-1">{{ 'Manufacturer:'|trans }}</th>
+            <td class="col-auto">
+              <a href="{{ path('database_manufacturer_read', { slug: engineModel.manufacturer.slug }) }}">
+                {{ engineModel.manufacturer.name }}
+              </a>
+            </td>
+          </tr>
+        {% endif %}
+
+      </table>
+    </div>
   </div>
   <div class="d-flex flex-column gap-3">
 
