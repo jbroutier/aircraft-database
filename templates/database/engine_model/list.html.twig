@@ -44,11 +44,20 @@
             </div>
           </a>
           <div class="card-body">
-            <h3 class="card-title">
-              <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
-                {{ engineModel.name }}
-              </a>
-            </h3>
+            <div class="d-flex justify-content-between gap-3">
+              <h3 class="card-title">
+                <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                  {{ engineModel.name }}
+                </a>
+              </h3>
+
+              {% if engineModel.manufacturer is not null and engineModel.manufacturer.logo is not null %}
+                <div class="logo-container">
+                  <img src="{{ asset('logos/' ~ engineModel.manufacturer.logo) }}" alt="">
+                </div>
+              {% endif %}
+
+            </div>
 
             {% if engineModel.manufacturer is not null %}
               <p class="card-text">
