@@ -29,7 +29,7 @@ class SitemapGenerator
 
         foreach ($aircraftModels as $aircraftModel) {
             $url = $this->urlGenerator->generate(
-                'database_aircraft_model',
+                'database_aircraft_model_read',
                 ['slug' => $aircraftModel->getSlug()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
@@ -46,7 +46,7 @@ class SitemapGenerator
 
         foreach ($aircraftTypes as $aircraftType) {
             $url = $this->urlGenerator->generate(
-                'database_aircraft_type',
+                'database_aircraft_type_read',
                 ['slug' => $aircraftType->getSlug()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
@@ -63,7 +63,7 @@ class SitemapGenerator
 
         foreach ($engineModels as $engineModel) {
             $url = $this->urlGenerator->generate(
-                'database_engine_model',
+                'database_engine_model_read',
                 ['slug' => $engineModel->getSlug()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
@@ -80,7 +80,7 @@ class SitemapGenerator
 
         foreach ($manufacturers as $manufacturer) {
             $url = $this->urlGenerator->generate(
-                'database_manufacturer',
+                'database_manufacturer_read',
                 ['slug' => $manufacturer->getSlug()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
