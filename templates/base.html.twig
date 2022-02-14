@@ -36,7 +36,7 @@
 
     <title>{% block title %}{{ site.title }}{% endblock %}</title>
 
-    <link rel="base" href="{{ absolute_url('/') }}">
+    <link rel="base" href="{{ absolute_url(path('index')) }}">
     <link rel="canonical" href="{{ absolute_url(path(route, routeParams)) }}">
 
     {{ encore_entry_link_tags('styles/app') }}
