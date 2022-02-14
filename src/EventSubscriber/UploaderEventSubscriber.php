@@ -26,8 +26,12 @@ class UploaderEventSubscriber implements EventSubscriberInterface
 
     public function onPostUpload(Event $event): void
     {
-        /** @var Picture */
-        $picture = $event->getObject();
-        $this->messageBus->dispatch(new WarmupCache('pictures/' . $picture->getFileName()));
+        $mapping = $event->getMapping();
+
+        if ($mapping->getMappingName() === 'picture') {
+            /** @var Picture $picture */
+            $picture = $event->getObject();
+            $this->messageBus->dispatch(new WarmupCache('pictures/' . $picture->getFileName()));
+        }
     }
 }
