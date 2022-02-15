@@ -53,7 +53,7 @@
 
     {% if engineModels.haveToPaginate %}
       <div class="d-flex justify-content-center">
-        {{ pagerfanta(engineModels, 'twitter_bootstrap5', {
+        {{ pagerfanta(engineModels, 'custom', {
           pageParameter: '[engineModelsPage]',
           routeParams: { _fragment: 'engineModels' }
         } ) }}

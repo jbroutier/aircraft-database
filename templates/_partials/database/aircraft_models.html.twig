@@ -53,7 +53,7 @@
 
     {% if aircraftModels.haveToPaginate %}
       <div class="d-flex justify-content-center">
-        {{ pagerfanta(aircraftModels, 'twitter_bootstrap5', {
+        {{ pagerfanta(aircraftModels, 'custom', {
           pageParameter: '[aircraftModelsPage]',
           routeParams: { _fragment: 'aircraftModels' }
         } ) }}
