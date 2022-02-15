@@ -58,7 +58,6 @@ Encore
     favicons: {
       appName: 'Aircraft database',
       background: '#ffffff',
-      manifestMaskable: true,
       themeColor: '#1e88e5',
       icons: {
         android: true,
