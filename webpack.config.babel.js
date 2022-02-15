@@ -53,7 +53,7 @@ Encore
   }))
   .addPlugin(new FaviconsWebpackPlugin({
     devMode: 'webapp',
-    logo: './assets/images/logo.svg',
+    logo: './assets/images/favicon.svg',
     prefix: 'favicons',
     favicons: {
       appName: 'Aircraft database',
