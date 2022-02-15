@@ -2,8 +2,8 @@
 
 [class*="logo-container"] {
   flex-shrink: 0;
-  height: 25px;
-  width: 75px;
+  height: 55px;
+  width: 55px;
 
   img {
     height: 100%;
@@ -14,8 +14,8 @@
 
   @include media-breakpoint-up("sm") {
     &.logo-container-lg {
-      height: 30px;
-      width: 150px;
+      height: 100px;
+      width: 100px;
     }
   }
 }

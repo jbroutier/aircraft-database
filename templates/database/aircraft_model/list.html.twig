@@ -45,11 +45,20 @@
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between gap-3">
-              <h3 class="card-title">
-                <a href="{{ path('database_aircraft_model_read', { slug: aircraftModel.slug }) }}">
-                  {{ aircraftModel.name }}
-                </a>
-              </h3>
+              <div>
+                <h3 class="card-title">
+                  <a href="{{ path('database_aircraft_model_read', { slug: aircraftModel.slug }) }}">
+                    {{ aircraftModel.name }}
+                  </a>
+                </h3>
+
+                {% if aircraftModel.manufacturer is not null %}
+                  <p class="card-text">
+                    {{ aircraftModel.manufacturer.name }}
+                  </p>
+                {% endif %}
+
+              </div>
 
               {% if aircraftModel.manufacturer is not null and aircraftModel.manufacturer.logo is not null %}
                 <div class="logo-container">
@@ -58,13 +67,6 @@
               {% endif %}
 
             </div>
-
-            {% if aircraftModel.manufacturer is not null %}
-              <p class="card-text">
-                {{ aircraftModel.manufacturer.name }}
-              </p>
-            {% endif %}
-
           </div>
         </div>
       </div>

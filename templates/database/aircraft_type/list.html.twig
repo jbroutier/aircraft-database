@@ -45,11 +45,29 @@
           </a>
           <div class="card-body">
             <div class="d-flex justify-content-between gap-3">
-              <h3 class="card-title">
-                <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
-                  {{ aircraftType.name }}
-                </a>
-              </h3>
+              <div>
+                <h3 class="card-title">
+                  <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+                    {{ aircraftType.name }}
+                  </a>
+                </h3>
+
+                {% if aircraftType.manufacturer is not null %}
+                  <p class="card-text">
+                    {{ aircraftType.manufacturer.name }}
+                  </p>
+                {% endif %}
+
+                {% if aircraftType.iataCode is not null or aircraftType.icaoCode is not null %}
+                  <p class="card-text text-muted small">
+                    {{ 'IATA: %iataCode% | ICAO: %icaoCode%'|trans({
+                      '%iataCode%': aircraftType.iataCode|default('-'),
+                      '%icaoCode%': aircraftType.icaoCode|default('-')
+                    })|raw }}
+                  </p>
+                {% endif %}
+
+              </div>
 
               {% if aircraftType.manufacturer is not null and aircraftType.manufacturer.logo is not null %}
                 <div class="logo-container">
@@ -58,22 +76,6 @@
               {% endif %}
 
             </div>
-
-            {% if aircraftType.manufacturer is not null %}
-              <p class="card-text">
-                {{ aircraftType.manufacturer.name }}
-              </p>
-            {% endif %}
-
-            {% if aircraftType.iataCode is not null or aircraftType.icaoCode is not null %}
-              <p class="card-text text-muted small">
-                {{ 'IATA: %iataCode% | ICAO: %icaoCode%'|trans({
-                  '%iataCode%': aircraftType.iataCode|default('-'),
-                  '%icaoCode%': aircraftType.icaoCode|default('-')
-                })|raw }}
-              </p>
-            {% endif %}
-
           </div>
         </div>
       </div>
