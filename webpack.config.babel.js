@@ -60,8 +60,16 @@ Encore
       background: '#ffffff',
       themeColor: '#1e88e5',
       icons: {
-        android: true,
-        appleIcon: true,
+        android: {
+          background: '#ffffff',
+          mask: true,
+          offset: 10
+        },
+        appleIcon: {
+          background: '#ffffff',
+          mask: true,
+          offset: 10
+        },
         appleStartup: false,
         coast: false,
         favicons: true,
