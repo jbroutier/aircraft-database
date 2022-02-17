@@ -13,8 +13,12 @@
                   <th scope="row" class="col-6">
 
                     {% if propertyValue.property.description is not null %}
-                      <dfn><abbr data-bs-toggle="tooltip" data-bs-html="true"
-                                 title="{{ propertyValue.property.description|escape('html_attr') }}">{{ propertyValue.property.name }}</abbr></dfn>
+                      <dfn>
+                        <abbr data-bs-toggle="tooltip" data-bs-html="true"
+                              title="{{ propertyValue.property.description|raw|nl2br|escape('html_attr') }}">
+                          {{ propertyValue.property.name }}
+                        </abbr>
+                      </dfn>
                     {% else %}
                       {{ propertyValue.property.name }}
                     {% endif %}

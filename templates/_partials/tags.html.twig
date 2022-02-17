@@ -7,7 +7,8 @@
 
         {% if tag.description is not null %}
           <dfn>
-            <abbr data-bs-toggle="tooltip" data-bs-html="true" title="{{ tag.description|escape('html_attr') }}">
+            <abbr data-bs-toggle="tooltip" data-bs-html="true"
+                  title="{{ tag.description|raw|nl2br|escape('html_attr') }}">
               {{ tag.name }}
             </abbr>
           </dfn>
