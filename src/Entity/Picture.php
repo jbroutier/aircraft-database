@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Entity\Interface\IdentifiableInterface;
 use App\Entity\Interface\TimestampableInterface;
+use App\Entity\Traits\DescriptionAwareTrait;
 use App\Entity\Traits\IdentifiableTrait;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\PictureRepository;
@@ -18,6 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 class Picture implements IdentifiableInterface, TimestampableInterface
 {
+    use DescriptionAwareTrait;
     use IdentifiableTrait;
     use TimestampableTrait;
 

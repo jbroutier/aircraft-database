@@ -22,6 +22,11 @@
                width="1400" height="800" alt="">
         </a>
         <div class="carousel-caption">
+
+          {% if picture.description is not null %}
+            {{ picture.description|nl2br|raw }}
+          {% endif %}
+
           {{ 'Copyright'|trans }}
 
           {% if picture.authorProfile is not null %}
