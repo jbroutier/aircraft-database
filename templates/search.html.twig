@@ -48,7 +48,7 @@
 
             {% if result.pictures is not empty %}
               <img class="img-fluid"
-                   src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_560x320') }}"
+                   src="{{ asset('pictures/' ~ result.pictures|first)|imagine_filter('thumbnail_560x320') }}"
                    width="560" height="320" alt="">
             {% else %}
               <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
@@ -60,7 +60,7 @@
 
             {% if result.pictures is not empty %}
               <img class="img-fluid"
-                   src="{{ asset('pictures/' ~ result.pictures.first)|imagine_filter('thumbnail_280x160') }}"
+                   src="{{ asset('pictures/' ~ result.pictures|first)|imagine_filter('thumbnail_280x160') }}"
                    width="280" height="160" alt="">
             {% else %}
               <img class="img-fluid" src="{{ asset('assets/images/no-picture-280x160.webp') }}"

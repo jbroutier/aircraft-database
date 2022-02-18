@@ -11,7 +11,7 @@
 
                 {% if aircraftModel.pictures|length %}
                   <img class="img-fluid"
-                       src="{{ asset('pictures/' ~ aircraftModel.pictures.first)|imagine_filter('thumbnail_560x320') }}"
+                       src="{{ asset('pictures/' ~ aircraftModel.pictures|first)|imagine_filter('thumbnail_560x320') }}"
                        width="560" height="320" alt="">
                 {% else %}
                   <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
