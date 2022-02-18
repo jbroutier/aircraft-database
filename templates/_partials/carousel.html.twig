@@ -19,7 +19,7 @@
       <div class="carousel-item {% if loop.first %}active{% endif %}">
         <a rel="noopener noreferrer" href="{{ picture.source }}" target="_blank">
           <img class="img-fluid" src="{{ asset('pictures/' ~ picture)|imagine_filter('thumbnail_1400x800') }}"
-               width="1400" height="800" alt="">
+               width="1400" height="800" alt="{{ picture.description|escape('html_attr') }}">
         </a>
         <div class="carousel-caption">
 

@@ -33,7 +33,7 @@
               {% if manufacturer.pictures|length %}
                 <img class="img-fluid"
                      src="{{ asset('pictures/' ~ manufacturer.pictures|first)|imagine_filter('thumbnail_560x320') }}"
-                     width="560" height="320" alt="">
+                     width="560" height="320" alt="{{ manufacturer.pictures|first.description|escape('html_attr') }}">
               {% else %}
                 <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
                      width="560" height="320" alt="">
