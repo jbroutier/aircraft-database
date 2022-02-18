@@ -36,6 +36,10 @@ class SearchController extends AbstractController
         $form = $this->createForm(QueryType::class, null, ['method' => 'get']);
         $form->handleRequest($request);
 
+        if (is_null($form->getData())) {
+            return $this->redirectToRoute('index');
+        }
+
         $manufacturersBuilder = $this->entityManager
             ->getRepository(Manufacturer::class)
             ->createQueryBuilder('m');
