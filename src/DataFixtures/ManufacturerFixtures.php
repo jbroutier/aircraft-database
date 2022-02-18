@@ -49,6 +49,8 @@ class ManufacturerFixtures extends Fixture implements DependentFixtureInterface
             ->findAll();
 
         for ($i = 0; $i < 100; $i++) {
+            $generator->seed($i);
+
             $manufacturer = new Manufacturer();
             $manufacturer
                 ->setCountry($generator->countryCode())

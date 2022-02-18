@@ -22,6 +22,8 @@ class TagFixtures extends Fixture
         $icons = json_decode($json, true);
 
         for ($i = 0; $i < 10; $i++) {
+            $generator->seed($i);
+
             $tag = new Tag();
             $tag
                 ->setColor($generator->hexColor())

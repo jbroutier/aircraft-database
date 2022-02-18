@@ -55,6 +55,8 @@ class EngineModelFixtures extends Fixture implements DependentFixtureInterface
             ->findAll();
 
         for ($i = 0; $i < 1000; $i++) {
+            $generator->seed($i);
+
             $engineModel = new EngineModel();
             $engineModel
                 ->setManufacturer($generator->optional()->randomElement($manufacturers))

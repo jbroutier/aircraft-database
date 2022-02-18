@@ -31,6 +31,8 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
             ->findAll();
 
         for ($i = 0; $i < 100; $i++) {
+            $generator->seed($i);
+
             $property = new Property();
             $property
                 ->setDescription($generator->optional()->text(50))

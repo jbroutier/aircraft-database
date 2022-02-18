@@ -16,6 +16,8 @@ class PropertyGroupFixtures extends Fixture
         $generator = Factory::create();
 
         for ($i = 0; $i < 10; $i++) {
+            $generator->seed($i);
+
             $propertyGroup = new PropertyGroup();
             $propertyGroup->setName($generator->text(10));
 

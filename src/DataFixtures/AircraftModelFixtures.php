@@ -61,6 +61,8 @@ class AircraftModelFixtures extends Fixture implements DependentFixtureInterface
             ->findAll();
 
         for ($i = 0; $i < 1000; $i++) {
+            $generator->seed($i);
+
             $aircraftModel = new AircraftModel();
             $aircraftModel
                 ->setAircraftType($generator->optional(0.95)->randomElement($aircraftTypes))

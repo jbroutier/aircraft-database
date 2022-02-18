@@ -55,6 +55,8 @@ class AircraftTypeFixtures extends Fixture implements DependentFixtureInterface
             ->findAll();
 
         for ($i = 0; $i < 100; $i++) {
+            $generator->seed($i);
+
             $aircraftType = new AircraftType();
             $aircraftType
                 ->setIataCode($generator->optional()->regexify('[A-Z0-9]{3}'))
