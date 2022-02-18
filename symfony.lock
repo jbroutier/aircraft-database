@@ -361,6 +361,9 @@
     "symfony/asset": {
         "version": "v6.0.1"
     },
+    "symfony/browser-kit": {
+        "version": "v6.0.3"
+    },
     "symfony/cache": {
         "version": "v6.0.2"
     },
@@ -382,6 +385,9 @@
             "bin/console"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v6.0.3"
+    },
     "symfony/dependency-injection": {
         "version": "v6.0.2"
     },
@@ -393,6 +399,9 @@
     },
     "symfony/doctrine-messenger": {
         "version": "v6.0.2"
+    },
+    "symfony/dom-crawler": {
+        "version": "v6.0.3"
     },
     "symfony/dotenv": {
         "version": "v6.0.2"
@@ -497,6 +506,18 @@
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+    "symfony/messenger": {
+        "version": "6.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
+        },
+        "files": [
+            "config/packages/messenger.yaml"
+        ]
+    },
     "symfony/mime": {
         "version": "v6.0.2"
     },
@@ -539,12 +560,6 @@
             "tests/bootstrap.php"
         ]
     },
-    "symfony/polyfill-intl-icu": {
-        "version": "v1.24.0"
-    },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.24.0"
-    },
     "symfony/process": {
         "version": "v6.0.2"
     },
@@ -558,9 +573,6 @@
         "version": "v2.1.2"
     },
     "symfony/rate-limiter": {
-        "version": "v6.0.2"
-    },
-    "symfony/redis-messenger": {
         "version": "v6.0.2"
     },
     "symfony/routing": {

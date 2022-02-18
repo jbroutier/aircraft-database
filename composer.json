@@ -75,6 +75,8 @@
         "phpstan/phpstan-strict-rules": "^1.1.0",
         "phpstan/phpstan-symfony": "^1.1.5",
         "phpunit/phpunit": "^9.5.13",
+        "symfony/browser-kit": "^6.0.3",
+        "symfony/css-selector": "^6.0.3",
         "symfony/maker-bundle": "^1.37.0",
         "symfony/phpunit-bridge": "^6.0.3",
         "symfony/web-profiler-bundle": "^6.0.3"
@@ -127,7 +129,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "tests:functional": "bin/phpunit --testsuite=functional --testdox --coverage-clover coverage-functional.xml"
     },
     "conflict": {
         "symfony/symfony": "*"
