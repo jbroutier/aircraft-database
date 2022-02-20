@@ -38,12 +38,18 @@ class Tag implements
     use SluggableTrait;
     use TimestampableTrait;
 
+    /**
+     * @var string|null The color of the tag.
+     */
     #[Assert\NotBlank]
     #[Assert\CssColor]
     #[Assert\Length(max: 255)]
     #[ORM\Column(name: 'color', type: 'string', length: 255)]
     protected ?string $color = null;
 
+    /**
+     * @var string|null The icon of the tag.
+     */
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
     #[ORM\Column(name: 'icon', type: 'string', length: 255)]

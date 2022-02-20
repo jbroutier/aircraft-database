@@ -53,14 +53,14 @@ class AircraftType implements
     use TimestampableTrait;
 
     /**
-     * @var Collection<int, AircraftModel>
+     * @var Collection<int, AircraftModel> The aircraft models which belong to the aircraft type.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\OneToMany(mappedBy: 'aircraftType', targetEntity: AircraftModel::class)]
     protected Collection $aircraftModels;
 
     /**
-     * @var Collection<int, EngineModel>
+     * @var Collection<int, EngineModel> The engine models which can be used on the aircraft type.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\ManyToMany(targetEntity: EngineModel::class, inversedBy: 'aircraftTypes')]
@@ -69,14 +69,23 @@ class AircraftType implements
     #[ORM\InverseJoinColumn(name: 'engine_model', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     protected Collection $engineModels;
 
+    /**
+     * @var string|null The IATA code of the aircraft type.
+     */
     #[IataAircraftTypeCode]
     #[ORM\Column(name: 'iata_code', type: 'string', nullable: true)]
     protected ?string $iataCode = null;
 
+    /**
+     * @var string|null The ICAO code of the aircraft type.
+     */
     #[IcaoAircraftTypeCode]
     #[ORM\Column(name: 'icao_code', type: 'string', nullable: true)]
     protected ?string $icaoCode = null;
 
+    /**
+     * @var Manufacturer|null The manufacturer which builds the aircraft type.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'aircraftTypes')]
     #[ORM\JoinColumn(name: 'manufacturer', referencedColumnName: 'id', onDelete: 'SET NULL')]

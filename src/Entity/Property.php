@@ -42,21 +42,30 @@ class Property implements
     use SluggableTrait;
     use TimestampableTrait;
 
+    /**
+     * @var PropertyGroup|null The group to which the property belongs.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: PropertyGroup::class, inversedBy: 'properties')]
     #[ORM\JoinColumn(name: 'property_group', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected ?PropertyGroup $propertyGroup = null;
 
     /**
-     * @var Collection<int, PropertyValue>
+     * @var Collection<int, PropertyValue> The values which belong to the property.
      */
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: PropertyValue::class)]
     protected Collection $propertyValues;
 
+    /**
+     * @var PropertyType|null The type of the property.
+     */
     #[Assert\NotNull]
     #[ORM\Column(name: 'type', enumType: PropertyType::class)]
     protected ?PropertyType $type = null;
 
+    /**
+     * @var PropertyUnit|null The unit of the property.
+     */
     #[ORM\Column(name: 'unit', nullable: true, enumType: PropertyUnit::class)]
     protected ?PropertyUnit $unit = null;
 

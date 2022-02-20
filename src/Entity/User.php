@@ -19,15 +19,21 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
     use IdentifiableTrait;
     use TimestampableTrait;
 
+    /**
+     * @var string|null The username used to authenticate the user.
+     */
     #[ORM\Column(name: 'username', type: 'string', length: 180, unique: true)]
     protected ?string $username = null;
 
     /**
-     * @var array<string>
+     * @var array<string> The roles granted to the user.
      */
     #[ORM\Column(name: 'roles', type: 'json')]
     protected array $roles = [];
 
+    /**
+     * @var string|null The password user to authenticate the user.
+     */
     #[ORM\Column(name: 'password', type: 'string', length: 255)]
     protected ?string $password = null;
 

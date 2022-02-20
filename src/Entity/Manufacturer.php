@@ -55,26 +55,29 @@ class Manufacturer implements
     use TimestampableTrait;
 
     /**
-     * @var Collection<int, AircraftModel>
+     * @var Collection<int, AircraftModel> The aircraft models built by the manufacturer.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\OneToMany(mappedBy: 'manufacturer', targetEntity: AircraftModel::class)]
     protected Collection $aircraftModels;
 
     /**
-     * @var Collection<int, AircraftType>
+     * @var Collection<int, AircraftType> The aircraft types built by the manufacturer.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\OneToMany(mappedBy: 'manufacturer', targetEntity: AircraftType::class)]
     protected Collection $aircraftTypes;
 
+    /**
+     * @var string|null The country of origin of the manufacturer, as an ISO 3166 alpha 2 country code.
+     */
     #[Assert\NotBlank]
     #[Assert\Country]
     #[ORM\Column(name: 'country', type: 'string', length: 2)]
     protected ?string $country = null;
 
     /**
-     * @var Collection<int, EngineModel>
+     * @var Collection<int, EngineModel> The engine models build by the manufacturer.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\OneToMany(mappedBy: 'manufacturer', targetEntity: EngineModel::class)]

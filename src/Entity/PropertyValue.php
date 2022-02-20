@@ -18,11 +18,17 @@ class PropertyValue implements IdentifiableInterface, TimestampableInterface
     use IdentifiableTrait;
     use TimestampableTrait;
 
+    /**
+     * @var Property|null The property to which the value belongs.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Property::class, inversedBy: 'propertyValues')]
     #[ORM\JoinColumn(name: 'property', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     protected ?Property $property = null;
 
+    /**
+     * @var string|null The actual value.
+     */
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
     #[ORM\Column(name: 'value', type: 'string', length: 255)]

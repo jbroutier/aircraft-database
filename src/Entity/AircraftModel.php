@@ -50,13 +50,16 @@ class AircraftModel implements
     use TagsAwareTrait;
     use TimestampableTrait;
 
+    /**
+     * @var AircraftType|null The aircraft type to which the aircraft model belongs.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: AircraftType::class, inversedBy: 'aircraftModels')]
     #[ORM\JoinColumn(name: 'aircraft_type', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected ?AircraftType $aircraftType = null;
 
     /**
-     * @var Collection<int, EngineModel>
+     * @var Collection<int, EngineModel> The engine models which can be used on the aircraft model.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\ManyToMany(targetEntity: EngineModel::class, inversedBy: 'aircraftModels')]
@@ -65,6 +68,9 @@ class AircraftModel implements
     #[ORM\InverseJoinColumn(name: 'engine_model', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     protected Collection $engineModels;
 
+    /**
+     * @var Manufacturer|null The manufacturer which builds the aircraft model.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'aircraftModels')]
     #[ORM\JoinColumn(name: 'manufacturer', referencedColumnName: 'id', onDelete: 'SET NULL')]

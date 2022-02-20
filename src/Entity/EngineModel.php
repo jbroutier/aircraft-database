@@ -51,19 +51,22 @@ class EngineModel implements
     use TimestampableTrait;
 
     /**
-     * @var Collection<int, AircraftModel>
+     * @var Collection<int, AircraftModel> The aircraft models on which the engine model can be used.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\ManyToMany(targetEntity: AircraftModel::class, mappedBy: 'engineModels')]
     protected Collection $aircraftModels;
 
     /**
-     * @var Collection<int, AircraftType>
+     * @var Collection<int, AircraftType> The aircraft types on which the engine model can be used.
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\ManyToMany(targetEntity: AircraftType::class, mappedBy: 'engineModels')]
     protected Collection $aircraftTypes;
 
+    /**
+     * @var Manufacturer|null The manufacturer which builds the engine model.
+     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'engineModels')]
     #[ORM\JoinColumn(name: 'manufacturer', referencedColumnName: 'id', onDelete: 'SET NULL')]
