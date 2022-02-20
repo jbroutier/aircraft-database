@@ -130,7 +130,8 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "tests:functional": "bin/phpunit --testsuite=functional --testdox --coverage-clover coverage-functional.xml"
+        "tests:functional": "bin/phpunit --testsuite=functional --testdox --coverage-clover coverage-functional.xml",
+        "tests:unit": "bin/phpunit --testsuite=unit --testdox --coverage-clover coverage-unit.xml"
     },
     "conflict": {
         "symfony/symfony": "*"
