@@ -65,4 +65,13 @@ class PropertyGroup implements BlameableInterface, IdentifiableInterface, Nameab
 
         return $this;
     }
+
+    /**
+     * @param array<Property> $properties
+     */
+    public function setProperties(array $properties): PropertyGroup
+    {
+        $this->properties = new ArrayCollection($properties);
+        return $this;
+    }
 }

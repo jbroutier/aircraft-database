@@ -62,4 +62,13 @@ trait PropertiesAwareTrait
         $this->propertyValues->removeElement($propertyValue);
         return $this;
     }
+
+    /**
+     * @param array<PropertyValue> $propertyValues
+     */
+    public function setPropertyValues(array $propertyValues): self
+    {
+        $this->propertyValues = new ArrayCollection($propertyValues);
+        return $this;
+    }
 }

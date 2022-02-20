@@ -23,4 +23,9 @@ interface PropertiesAwareInterface
     public function addPropertyValue(PropertyValue $propertyValue): self;
 
     public function removePropertyValue(PropertyValue $propertyValue): self;
+
+    /**
+     * @param array<PropertyValue> $propertyValues
+     */
+    public function setPropertyValues(array $propertyValues): self;
 }

@@ -17,4 +17,9 @@ interface TagsAwareInterface
     public function addTag(Tag $tag): self;
 
     public function removeTag(Tag $tag): self;
+
+    /**
+     * @param array<Tag> $tags
+     */
+    public function setTags(array $tags): self;
 }

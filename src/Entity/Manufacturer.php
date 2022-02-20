@@ -138,6 +138,15 @@ class Manufacturer implements
     }
 
     /**
+     * @param array<AircraftModel> $aircraftModels
+     */
+    public function setAircraftModels(array $aircraftModels): Manufacturer
+    {
+        $this->aircraftModels = new ArrayCollection($aircraftModels);
+        return $this;
+    }
+
+    /**
      * @return Collection<int, AircraftType>
      */
     public function getAircraftTypes(): Collection
@@ -171,6 +180,15 @@ class Manufacturer implements
             $aircraftType->setManufacturer(null);
         }
 
+        return $this;
+    }
+
+    /**
+     * @param array<AircraftType> $aircraftTypes
+     */
+    public function setAircraftTypes(array $aircraftTypes): Manufacturer
+    {
+        $this->aircraftTypes = new ArrayCollection($aircraftTypes);
         return $this;
     }
 
@@ -219,6 +237,15 @@ class Manufacturer implements
             $engineModel->setManufacturer(null);
         }
 
+        return $this;
+    }
+
+    /**
+     * @param array<EngineModel> $engineModels
+     */
+    public function setEngineModels(array $engineModels): Manufacturer
+    {
+        $this->engineModels = new ArrayCollection($engineModels);
         return $this;
     }
 }

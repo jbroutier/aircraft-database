@@ -17,4 +17,9 @@ interface PicturesAwareInterface
     public function addPicture(Picture $picture): self;
 
     public function removePicture(Picture $picture): self;
+
+    /**
+     * @param array<Picture> $pictures
+     */
+    public function setPictures(array $pictures): self;
 }

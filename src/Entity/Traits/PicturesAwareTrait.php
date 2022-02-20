@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Traits;
 
 use App\Entity\Picture;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -41,6 +42,15 @@ trait PicturesAwareTrait
     public function removePicture(Picture $picture): self
     {
         $this->pictures->removeElement($picture);
+        return $this;
+    }
+
+    /**
+     * @param array<Picture> $pictures
+     */
+    public function setPictures(array $pictures): self
+    {
+        $this->pictures = new ArrayCollection($pictures);
         return $this;
     }
 }

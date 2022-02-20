@@ -132,6 +132,15 @@ class AircraftModel implements
         return $this;
     }
 
+    /**
+     * @param array<EngineModel> $engineModels
+     */
+    public function setEngineModels(array $engineModels): AircraftModel
+    {
+        $this->engineModels = new ArrayCollection($engineModels);
+        return $this;
+    }
+
     public function getManufacturer(): ?Manufacturer
     {
         return $this->manufacturer;

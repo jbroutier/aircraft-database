@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Traits;
 
 use App\Entity\Tag;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -42,6 +43,15 @@ trait TagsAwareTrait
     public function removeTag(Tag $tag): self
     {
         $this->tags->removeElement($tag);
+        return $this;
+    }
+
+    /**
+     * @param array<Tag> $tags
+     */
+    public function setTags(array $tags): self
+    {
+        $this->tags = new ArrayCollection($tags);
         return $this;
     }
 }

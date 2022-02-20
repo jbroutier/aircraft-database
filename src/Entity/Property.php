@@ -114,6 +114,15 @@ class Property implements
         return $this;
     }
 
+    /**
+     * @param array<PropertyValue> $propertyValues
+     */
+    public function setPropertyValues(array $propertyValues): Property
+    {
+        $this->propertyValues = new ArrayCollection($propertyValues);
+        return $this;
+    }
+
     public function getType(): ?PropertyType
     {
         return $this->type;

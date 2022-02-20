@@ -119,6 +119,15 @@ class EngineModel implements
     }
 
     /**
+     * @param array<AircraftModel> $aircraftModels
+     */
+    public function setAircraftModels(array $aircraftModels): EngineModel
+    {
+        $this->aircraftModels = new ArrayCollection($aircraftModels);
+        return $this;
+    }
+
+    /**
      * @return Collection<int, AircraftType>
      */
     public function getAircraftTypes(): Collection
@@ -146,6 +155,15 @@ class EngineModel implements
     public function removeAircraftType(AircraftType $aircraftType): EngineModel
     {
         $this->aircraftTypes->removeElement($aircraftType);
+        return $this;
+    }
+
+    /**
+     * @param array<AircraftType> $aircraftTypes
+     */
+    public function setAircraftTypes(array $aircraftTypes): EngineModel
+    {
+        $this->aircraftTypes = new ArrayCollection($aircraftTypes);
         return $this;
     }
 
