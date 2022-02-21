@@ -11,7 +11,7 @@ trait LogoAwareTrait
 {
     #[ORM\OneToOne(targetEntity: Logo::class, cascade: ['persist'], orphanRemoval: true)]
     #[ORM\JoinColumn(name: 'logo', referencedColumnName: 'id', unique: true, onDelete: 'SET NULL')]
-    protected ?Logo $logo;
+    protected ?Logo $logo = null;
 
     public function getLogo(): ?Logo
     {
