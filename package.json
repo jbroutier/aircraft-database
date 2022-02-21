@@ -58,7 +58,7 @@
         "sass-loader": "^12.6.0",
         "stylelint": "^14.5.1",
         "stylelint-config-standard": "^25.0.0",
-        "stylelint-no-unsupported-browser-features": "^5.0.2",
+        "stylelint-no-unsupported-browser-features": "^5.0.3",
         "stylelint-scss": "^4.1.0",
         "stylelint-webpack-plugin": "^3.1.1",
         "webpack-notifier": "^1.15.0"
