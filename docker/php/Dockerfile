@@ -9,10 +9,10 @@ RUN userdel -f www-data && \
     apt-get update && \
     apt-get install -y curl git libfreetype6-dev libicu-dev libjpeg62-turbo-dev libpng-dev librabbitmq-dev libwebp-dev \
             libzip-dev supervisor unzip uuid-dev zlib1g-dev && \
-    pecl install amqp redis uuid && \
+    pecl install amqp redis uuid xdebug && \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd intl pdo pdo_mysql sysvsem zip && \
-    docker-php-ext-enable amqp redis uuid && \
+    docker-php-ext-enable amqp redis uuid xdebug && \
     curl -Ss https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/local/bin
 
 USER www-data
