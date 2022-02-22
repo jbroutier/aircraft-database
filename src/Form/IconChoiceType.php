@@ -10,10 +10,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IconChoiceType extends AbstractType
 {
+    public function __construct(protected string $projectDir)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
-        if (($json = file_get_contents('../res/icons.json')) === false) {
-            throw new \RuntimeException('Could not read file "res/icons.json".');
+        $filename = $this->projectDir . '/res/icons.json';
+
+        if (($json = file_get_contents($filename)) === false) {
+            throw new \RuntimeException('Could not read file "' . $filename . '".');
         }
 
         $resolver->setDefaults([
