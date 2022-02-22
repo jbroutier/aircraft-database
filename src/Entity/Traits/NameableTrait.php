@@ -12,7 +12,7 @@ trait NameableTrait
     #[Assert\NotBlank]
     #[Assert\Length(max: 255)]
     #[ORM\Column(name: 'name', type: 'string', length: 255)]
-    protected ?string $name;
+    protected ?string $name = null;
 
     public function getName(): ?string
     {
