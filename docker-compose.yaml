@@ -24,9 +24,9 @@ services:
         container_name: aircraft-database-nginx
         working_dir: /usr/share/nginx/html
         volumes:
-            - type: bind
-              source: .
-              target: /usr/share/nginx/html
+            -   type: bind
+                source: .
+                target: /usr/share/nginx/html
         networks:
             internal:
                 ipv4_address: 172.8.1.3
