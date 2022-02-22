@@ -2,7 +2,7 @@
     <img src="logo.png" alt="">
 </p>
 
-[![Node.js](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml)
+[![Node](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml)
 [![PHP](https://github.com/jbroutier/aircraft-database/actions/workflows/php.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/php.yml)
 [![Codecov](https://codecov.io/gh/jbroutier/aircraft-database/branch/master/graph/badge.svg?token=1NSIYQDVJQ)](https://codecov.io/gh/jbroutier/aircraft-database)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Faircraft-database.com?logo=)](https://aircraft-database.com)
