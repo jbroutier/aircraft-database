@@ -8,10 +8,10 @@ webpack_encore:
     script_attributes:
         defer: true
 
-when@dev:
-    webpack_encore:
-        strict_mode: true
-
 when@prod:
     webpack_encore:
         cache: true
+
+when@test:
+    webpack_encore:
+        strict_mode: false

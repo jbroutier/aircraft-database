@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\DataFixtures\:
+        resource: '%kernel.project_dir%/src/DataFixtures/'
+        tags:
+            - { name: doctrine.orm.fixture }
