@@ -3,41 +3,145 @@ name: PHP
 on: [ push, pull_request ]
 
 jobs:
-    php:
-        name: PHP
+    static-analysis:
+        name: Static analysis
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+            -   name: Checkout
+                uses: actions/checkout@v2
 
-            - name: Setup PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: '8.1'
-                  tools: pecl
-                  extensions: amqp, bcmath, gd, gmp, intl, pdo, pdo_mysql, redis, sysvsem, uuid, xsl, zip
-                  ini-values: memory_limit=1G
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.1'
+                    tools: pecl
+                    extensions: amqp, bcmath, gd, gmp, intl, pdo, pdo_mysql, redis, sysvsem, uuid, xsl, zip
+                    ini-values: memory_limit=1G
 
-            - name: Get Composer cache directory
-              id: composer-cache-dir
-              run: |
-                echo "::set-output name=dir::$(composer config cache-files-dir)"
+            -   name: Get Composer cache directory
+                id: composer-cache-dir
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-            - name: Cache dependencies
-              id: composer-cache
-              uses: actions/cache@v2
-              with:
-                  path: ${{ steps.composer-cache-dir.outputs.dir }}
-                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                    ${{ runner.os }}-composer-
+            -   name: Cache dependencies
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache-dir.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
 
-            - name: Validate composer.json
-              if: steps.composer-cache.outputs.cache-hit != 'true'
-              run: composer validate
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress
 
-            - name: Install dependencies
-              run: composer install --prefer-dist --no-progress
+            -   name: Run static analysis
+                run: composer run phpstan
 
-            - name: Run PHPStan
-              run: composer run phpstan
+    unit-tests:
+        name: Unit tests
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.1'
+                    tools: pecl
+                    extensions: amqp, bcmath, gd, gmp, intl, pdo, pdo_mysql, redis, sysvsem, uuid, xsl, zip
+                    ini-values: memory_limit=1G
+                    coverage: xdebug
+
+            -   name: Get Composer cache directory
+                id: composer-cache-dir
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache-dir.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress
+
+            -   name: Run unit tests
+                run: composer run tests:unit
+
+            -   name: Upload code coverage report
+                uses: codecov/codecov-action@v2
+                with:
+                    files: coverage-unit.xml
+                    token: ${{ secrets.CODECOV_TOKEN }}
+
+    functional-tests:
+        name: Functional tests
+        runs-on: ubuntu-latest
+        env:
+            DATABASE_URL: mysql://db_user:db_password@127.0.0.1:3306/db_name
+            DEFAULT_URI: http://127.0.0.1:8080
+            MESSENGER_TRANSPORT_DSN: amqp://guest:guest@127.0.0.1:5672/%2f/messages
+
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_DATABASE: db_name
+                    MYSQL_USER: db_user
+                    MYSQL_PASSWORD: db_password
+                    MYSQL_ROOT_PASSWORD: root
+                ports:
+                    - 3306:3306
+
+            rabbitmq:
+                image: rabbitmq:3.9
+                ports:
+                    - 5672:5672
+
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: '8.1'
+                    tools: pecl
+                    extensions: amqp, bcmath, gd, gmp, intl, pdo, pdo_mysql, redis, sysvsem, uuid, xsl, zip
+                    ini-values: memory_limit=1G
+                    coverage: xdebug
+
+            -   name: Get Composer cache directory
+                id: composer-cache-dir
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache dependencies
+                id: composer-cache
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache-dir.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: Install dependencies
+                run: composer install --prefer-dist --no-progress
+
+            -   name: Start PHP web server
+                run: nohup php -S 127.0.0.1:8080 -t public/ &
+
+            -   name: Create database schema
+                run: php bin/console doctrine:schema:create
+
+            -   name: Load fixtures
+                run: php bin/console doctrine:fixtures:load --no-interaction
+
+            -   name: Run functional tests
+                run: composer run tests:functional
+
+            -   name: Upload code coverage report
+                uses: codecov/codecov-action@v2
+                with:
+                    files: coverage-functional.xml
+                    token: ${{ secrets.CODECOV_TOKEN }}
