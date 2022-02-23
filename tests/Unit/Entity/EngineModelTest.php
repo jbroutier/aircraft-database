@@ -9,10 +9,13 @@ use App\Entity\AircraftType;
 use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
 use App\Entity\Picture;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class EngineModelTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getAircraftModels() returns an empty collection by default.
      */

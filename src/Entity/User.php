@@ -84,6 +84,9 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function eraseCredentials(): void
     {
     }

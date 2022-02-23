@@ -6,6 +6,7 @@ namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\NameableInterface;
 use App\Entity\Traits\NameableTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class NameableEntity implements NameableInterface
@@ -15,6 +16,8 @@ final class NameableEntity implements NameableInterface
 
 final class NameableTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getName() returns null by default.
      */

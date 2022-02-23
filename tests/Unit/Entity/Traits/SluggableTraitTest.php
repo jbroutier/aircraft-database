@@ -6,6 +6,7 @@ namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\SluggableInterface;
 use App\Entity\Traits\SluggableTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class SluggableEntity implements SluggableInterface
@@ -15,6 +16,8 @@ final class SluggableEntity implements SluggableInterface
 
 final class SluggableTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getSlug() returns null by default.
      */
@@ -27,7 +30,6 @@ final class SluggableTraitTest extends TestCase
 
     /**
      * @testdox Method setSlug() sets the slug.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetSlug(): void
     {

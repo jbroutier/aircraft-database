@@ -7,6 +7,7 @@ namespace Tests\Unit\Entity\Traits;
 use App\Entity\Interface\LogoAwareInterface;
 use App\Entity\Logo;
 use App\Entity\Traits\LogoAwareTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class LogoAwareEntity implements LogoAwareInterface
@@ -16,6 +17,8 @@ final class LogoAwareEntity implements LogoAwareInterface
 
 final class LogoAwareTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getLogo() returns null by default.
      */

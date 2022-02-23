@@ -6,10 +6,13 @@ namespace Tests\Unit\Entity;
 
 use App\Entity\Property;
 use App\Entity\PropertyGroup;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PropertyGroupTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getProperties() returns an empty collection by default.
      */
@@ -30,6 +33,7 @@ final class PropertyGroupTest extends TestCase
         $property = \Mockery::mock(Property::class);
         $property
             ->expects('setPropertyGroup')
+            ->once()
             ->with($propertyGroup)
             ->andReturnSelf();
 
@@ -50,10 +54,12 @@ final class PropertyGroupTest extends TestCase
 
         $property
             ->expects('getPropertyGroup')
+            ->once()
             ->andReturn($propertyGroup);
 
         $property
             ->expects('setPropertyGroup')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 

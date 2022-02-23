@@ -6,6 +6,7 @@ namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\TimestampableInterface;
 use App\Entity\Traits\TimestampableTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class TimestampableEntity implements TimestampableInterface
@@ -15,6 +16,8 @@ final class TimestampableEntity implements TimestampableInterface
 
 final class TimestampableTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getCreatedAt() returns null by default.
      */

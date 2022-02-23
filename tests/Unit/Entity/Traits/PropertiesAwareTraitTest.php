@@ -8,6 +8,7 @@ use App\Entity\Interface\PropertiesAwareInterface;
 use App\Entity\PropertyValue;
 use App\Entity\Traits\PropertiesAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PropertiesAwareEntity implements PropertiesAwareInterface
@@ -22,6 +23,8 @@ final class PropertiesAwareEntity implements PropertiesAwareInterface
 
 final class PropertiesAwareTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getPropertyGroups() returns an empty collection by default.
      */

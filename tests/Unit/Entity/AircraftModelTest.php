@@ -9,10 +9,13 @@ use App\Entity\AircraftType;
 use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
 use App\Entity\Picture;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class AircraftModelTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getAircraftType() returns null by default.
      */
@@ -73,14 +76,9 @@ final class AircraftModelTest extends TestCase
      */
     public function testAddEngineModel(): void
     {
-        $aircraftModel = new AircraftModel();
-
         $engineModel = \Mockery::mock(EngineModel::class);
-        $engineModel
-            ->expects('setAircraftModel')
-            ->with($aircraftModel)
-            ->andReturnSelf();
 
+        $aircraftModel = new AircraftModel();
         $aircraftModel->addEngineModel($engineModel);
 
         self::assertEquals($engineModel, $aircraftModel->getEngineModels()->first());
@@ -94,18 +92,9 @@ final class AircraftModelTest extends TestCase
         $engineModel = \Mockery::mock(EngineModel::class);
 
         $aircraftModel = new AircraftModel();
-        $aircraftModel->setEngineModels([$engineModel]);
-
-        $engineModel
-            ->expects('getAircraftModel')
-            ->andReturn($aircraftModel);
-
-        $engineModel
-            ->expects('setAircraftModel')
-            ->with(null)
-            ->andReturnSelf();
-
-        $aircraftModel->removeEngineModel($engineModel);
+        $aircraftModel
+            ->setEngineModels([$engineModel])
+            ->removeEngineModel($engineModel);
 
         self::assertEmpty($aircraftModel->getEngineModels());
     }

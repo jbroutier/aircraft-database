@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity;
 
 use App\Entity\Logo;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class LogoTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getFile() returns null by default.
      */

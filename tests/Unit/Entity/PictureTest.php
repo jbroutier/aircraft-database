@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity;
 
 use App\Entity\Picture;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
 
 final class PictureTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getAuthorName() returns null by default.
      */
@@ -171,7 +174,6 @@ final class PictureTest extends TestCase
 
     /**
      * @testdox Method setOriginalName() sets the original name.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetOriginalName(): void
     {

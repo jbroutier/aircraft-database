@@ -9,10 +9,13 @@ use App\Entity\PropertyGroup;
 use App\Entity\PropertyValue;
 use App\Enum\PropertyType;
 use App\Enum\PropertyUnit;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PropertyTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getPropertyGroup() returns null by default.
      */
@@ -56,6 +59,7 @@ final class PropertyTest extends TestCase
         $propertyValue = \Mockery::mock(PropertyValue::class);
         $propertyValue
             ->expects('setProperty')
+            ->once()
             ->with($property)
             ->andReturnSelf();
 
@@ -76,10 +80,12 @@ final class PropertyTest extends TestCase
 
         $propertyValue
             ->expects('getProperty')
+            ->once()
             ->andReturn($property);
 
         $propertyValue
             ->expects('setProperty')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 

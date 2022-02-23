@@ -6,10 +6,13 @@ namespace Tests\Unit\Entity;
 
 use App\Entity\Property;
 use App\Entity\PropertyValue;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PropertyValueTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getProperty() returns null by default.
      */

@@ -8,6 +8,7 @@ use App\Entity\Interface\TagsAwareInterface;
 use App\Entity\Tag;
 use App\Entity\Traits\TagsAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class TagsAwareEntity implements TagsAwareInterface
@@ -22,6 +23,8 @@ final class TagsAwareEntity implements TagsAwareInterface
 
 final class TagsAwareTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method addTag() adds a tag.
      */

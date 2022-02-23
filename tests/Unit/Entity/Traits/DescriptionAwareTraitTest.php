@@ -6,6 +6,7 @@ namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\DescriptionAwareInterface;
 use App\Entity\Traits\DescriptionAwareTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class DescriptionAwareEntity implements DescriptionAwareInterface
@@ -15,6 +16,8 @@ final class DescriptionAwareEntity implements DescriptionAwareInterface
 
 final class DescriptionAwareTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getDescription() returns null by default.
      */
@@ -27,7 +30,6 @@ final class DescriptionAwareTraitTest extends TestCase
 
     /**
      * @testdox Method setDescription() sets the description.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetDescription(): void
     {

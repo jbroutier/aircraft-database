@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity;
 
 use App\Entity\Tag;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class TagTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getColor() returns null by default.
      */
@@ -21,7 +24,6 @@ final class TagTest extends TestCase
 
     /**
      * @testdox Method setColor() sets the color.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetColor(): void
     {

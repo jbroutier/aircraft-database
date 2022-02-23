@@ -6,6 +6,7 @@ namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\BlameableInterface;
 use App\Entity\Traits\BlameableTrait;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -16,6 +17,8 @@ final class BlameableEntity implements BlameableInterface
 
 final class BlameableTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getCreatedBy() returns null by default.
      */

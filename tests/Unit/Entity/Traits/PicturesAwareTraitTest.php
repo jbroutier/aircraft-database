@@ -8,6 +8,7 @@ use App\Entity\Interface\PicturesAwareInterface;
 use App\Entity\Picture;
 use App\Entity\Traits\PicturesAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class PicturesAwareEntity implements PicturesAwareInterface
@@ -22,6 +23,8 @@ final class PicturesAwareEntity implements PicturesAwareInterface
 
 final class PicturesAwareTraitTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method addPicture() adds a picture.
      */

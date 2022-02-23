@@ -9,10 +9,13 @@ use App\Entity\AircraftType;
 use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
 use App\Entity\Picture;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class AircraftTypeTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getAircraftModels() returns an empty collection by default.
      */
@@ -55,6 +58,7 @@ final class AircraftTypeTest extends TestCase
         $aircraftModel = \Mockery::mock(AircraftModel::class);
         $aircraftModel
             ->expects('setAircraftType')
+            ->once()
             ->with($aircraftType)
             ->andReturnSelf();
 
@@ -75,10 +79,12 @@ final class AircraftTypeTest extends TestCase
 
         $aircraftModel
             ->expects('getAircraftType')
+            ->once()
             ->andReturn($aircraftType);
 
         $aircraftModel
             ->expects('setAircraftType')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 
@@ -140,14 +146,9 @@ final class AircraftTypeTest extends TestCase
      */
     public function testAddEngineModel(): void
     {
-        $aircraftType = new AircraftType();
-
         $engineModel = \Mockery::mock(EngineModel::class);
-        $engineModel
-            ->expects('setAircraftType')
-            ->with($aircraftType)
-            ->andReturnSelf();
 
+        $aircraftType = new AircraftType();
         $aircraftType->addEngineModel($engineModel);
 
         self::assertEquals($engineModel, $aircraftType->getEngineModels()->first());
@@ -161,18 +162,9 @@ final class AircraftTypeTest extends TestCase
         $engineModel = \Mockery::mock(EngineModel::class);
 
         $aircraftType = new AircraftType();
-        $aircraftType->setEngineModels([$engineModel]);
-
-        $engineModel
-            ->expects('getAircraftType')
-            ->andReturn($aircraftType);
-
-        $engineModel
-            ->expects('setAircraftType')
-            ->with(null)
-            ->andReturnSelf();
-
-        $aircraftType->removeEngineModel($engineModel);
+        $aircraftType
+            ->setEngineModels([$engineModel])
+            ->removeEngineModel($engineModel);
 
         self::assertEmpty($aircraftType->getEngineModels());
     }

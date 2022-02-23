@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity;
 
 use App\Entity\User;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class UserTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getUsername() returns null by default.
      */
@@ -21,7 +24,6 @@ final class UserTest extends TestCase
 
     /**
      * @testdox Method getUserIdentifier() returns the username.
-     * @noinspection SpellCheckingInspection
      */
     public function testGetUserIdentifier(): void
     {
@@ -33,7 +35,6 @@ final class UserTest extends TestCase
 
     /**
      * @testdox Method setUsername() sets the username.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetUsername(): void
     {
@@ -76,7 +77,6 @@ final class UserTest extends TestCase
 
     /**
      * @testdox Method setPassword() sets the password.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetPassword(): void
     {

@@ -10,10 +10,13 @@ use App\Entity\EngineModel;
 use App\Entity\Logo;
 use App\Entity\Manufacturer;
 use App\Entity\Picture;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
 final class ManufacturerTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @testdox Method getAircraftModels() returns an empty collection by default.
      */
@@ -56,6 +59,7 @@ final class ManufacturerTest extends TestCase
         $aircraftModel = \Mockery::mock(AircraftModel::class);
         $aircraftModel
             ->expects('setManufacturer')
+            ->once()
             ->with($manufacturer)
             ->andReturnSelf();
 
@@ -76,10 +80,12 @@ final class ManufacturerTest extends TestCase
 
         $aircraftModel
             ->expects('getManufacturer')
+            ->once()
             ->andReturn($manufacturer);
 
         $aircraftModel
             ->expects('setManufacturer')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 
@@ -146,6 +152,7 @@ final class ManufacturerTest extends TestCase
         $aircraftType = \Mockery::mock(AircraftType::class);
         $aircraftType
             ->expects('setManufacturer')
+            ->once()
             ->with($manufacturer)
             ->andReturnSelf();
 
@@ -166,10 +173,12 @@ final class ManufacturerTest extends TestCase
 
         $aircraftType
             ->expects('getManufacturer')
+            ->once()
             ->andReturn($manufacturer);
 
         $aircraftType
             ->expects('setManufacturer')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 
@@ -257,6 +266,7 @@ final class ManufacturerTest extends TestCase
         $engineModel = \Mockery::mock(EngineModel::class);
         $engineModel
             ->expects('setManufacturer')
+            ->once()
             ->with($manufacturer)
             ->andReturnSelf();
 
@@ -277,10 +287,12 @@ final class ManufacturerTest extends TestCase
 
         $engineModel
             ->expects('getManufacturer')
+            ->once()
             ->andReturn($manufacturer);
 
         $engineModel
             ->expects('setManufacturer')
+            ->once()
             ->with(null)
             ->andReturnSelf();
 
