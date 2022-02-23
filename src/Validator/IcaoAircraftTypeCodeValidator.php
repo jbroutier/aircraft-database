@@ -25,7 +25,7 @@ class IcaoAircraftTypeCodeValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (!(bool)preg_match('/^[A-Z0-9]{2,4}$/', $value)) {
+        if (!(bool)preg_match('/^[A-Z\d]{2,4}$/', $value)) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)

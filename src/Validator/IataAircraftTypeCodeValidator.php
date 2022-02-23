@@ -25,7 +25,7 @@ class IataAircraftTypeCodeValidator extends ConstraintValidator
             throw new UnexpectedValueException($value, 'string');
         }
 
-        if (!(bool)preg_match('/^[A-Z0-9]{3}$/', $value)) {
+        if (!(bool)preg_match('/^[A-Z\d]{3}$/', $value)) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
