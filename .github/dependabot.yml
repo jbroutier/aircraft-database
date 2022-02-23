@@ -1,26 +1,26 @@
 version: 2
 updates:
-    - package-ecosystem: composer
-      directory: /
-      target-branch: master
-      open-pull-requests-limit: 30
-      labels:
-          - 'dependencies'
-          - 'php'
-      schedule:
-          interval: daily
+    -   package-ecosystem: composer
+        directory: /
+        target-branch: master
+        open-pull-requests-limit: 20
+        labels:
+            - 'dependencies'
+            - 'php'
+        schedule:
+            interval: daily
 
-    - package-ecosystem: npm
-      directory: /
-      target-branch: master
-      open-pull-requests-limit: 30
-      labels:
-          - 'dependencies'
-          - 'js'
-      schedule:
-          interval: daily
-      registries:
-          - fontawesome
+    -   package-ecosystem: npm
+        directory: /
+        target-branch: master
+        open-pull-requests-limit: 20
+        labels:
+            - 'dependencies'
+            - 'js'
+        schedule:
+            interval: daily
+        registries:
+            - fontawesome
 
 registries:
     fontawesome:
