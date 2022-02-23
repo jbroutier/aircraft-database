@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class EngineModelControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /database/engine-models returns an HTTP 200 response.
+     * @testdox Accessing "/database/engine-models" returns an HTTP 200 response.
      */
     public function testList(): void
     {
@@ -21,7 +21,7 @@ final class EngineModelControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /database/engine-models with an invalid slug returns an HTTP 404 response.
+     * @testdox Accessing "/database/engine-models" with an invalid slug returns an HTTP 404 response.
      */
     public function testListWithInvalidSlug(): void
     {
@@ -32,8 +32,7 @@ final class EngineModelControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /database/engine-models/{slug} returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
+     * @testdox Accessing "/database/engine-models/{slug}" returns an HTTP 200 response.
      */
     public function testRead(): void
     {
@@ -45,8 +44,7 @@ final class EngineModelControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /database/engine-models/{slug} with an invalid slug returns an HTTP 404 response.
-     * @noinspection SpellCheckingInspection
+     * @testdox Accessing "/database/engine-models/{slug}" with an invalid slug returns an HTTP 404 response.
      */
     public function testReadWithInvalidSlug(): void
     {

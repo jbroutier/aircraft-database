@@ -1,7 +1,4 @@
 <?php
-/**
- * @noinspection SpellCheckingInspection
- */
 
 declare(strict_types=1);
 
@@ -12,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class ManufacturerControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /database/manufacturers returns an HTTP 200 response.
+     * @testdox Accessing "/database/manufacturers" returns an HTTP 200 response.
      */
     public function testList(): void
     {
@@ -24,7 +21,7 @@ final class ManufacturerControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /database/manufacturers with an invalid slug returns an HTTP 404 response.
+     * @testdox Accessing "/database/manufacturers" with an invalid slug returns an HTTP 404 response.
      */
     public function testListWithInvalidSlug(): void
     {
@@ -36,7 +33,6 @@ final class ManufacturerControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing /database/manufacturers/{slug} returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testReadReturnsHttp200(): void
     {
@@ -49,7 +45,6 @@ final class ManufacturerControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing /database/manufacturers/{slug} with an invalid slug returns an HTTP 404 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testReadWithInvalidSlug(): void
     {

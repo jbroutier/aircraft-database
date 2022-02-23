@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class IndexControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing / returns an HTTP 200 response.
+     * @testdox Accessing "/" returns an HTTP 200 response.
      */
     public function testIndex(): void
     {

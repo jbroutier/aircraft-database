@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class ContactControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /contact returns an HTTP 200 response.
+     * @testdox Accessing "/contact" returns an HTTP 200 response.
      */
     public function testContact(): void
     {
@@ -21,8 +21,7 @@ final class ContactControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Submitting the form sends the message.
-     * @noinspection SpellCheckingInspection
+     * @testdox Submitting "/contact" sends the message.
      */
     public function testContactSubmit(): void
     {

@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class StaticControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /cookie-policy returns an HTTP 200 response.
+     * @testdox Accessing "/cookie-policy" returns an HTTP 200 response.
      */
     public function testCookiePolicy(): void
     {
@@ -21,7 +21,7 @@ final class StaticControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /legal-notice returns an HTTP 200 response.
+     * @testdox Accessing "/legal-notice" returns an HTTP 200 response.
      */
     public function testLegalNotice(): void
     {
@@ -33,7 +33,7 @@ final class StaticControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /privacy-policy returns an HTTP 200 response.
+     * @testdox Accessing "/privacy-policy" returns an HTTP 200 response.
      */
     public function testPrivacyPolicy(): void
     {

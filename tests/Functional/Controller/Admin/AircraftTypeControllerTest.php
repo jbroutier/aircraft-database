@@ -4,20 +4,48 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Tests\Functional\Controller\Traits\FixturesAwareTrait;
+use App\Entity\AircraftType;
+use App\Entity\User;
+use Tests\Functional\FixturesAwareTestCase;
 
-final class AircraftTypeControllerTest extends WebTestCase
+final class AircraftTypeControllerTest extends FixturesAwareTestCase
 {
-    use FixturesAwareTrait;
+    /**
+     * @testdox Accessing "/admin/aircraft-types/{id}/clone" returns an HTTP 200 response.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testClone(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftType = $this->findEntityBy(AircraftType::class, [
+            'slug' => 'dignissimos-rerum-vel-et-magnam-consequuntur-consequatur-dignissimos',
+        ]);
+        $client->request('GET', '/admin/aircraft-types/' . $aircraftType->getId() . '/clone');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h5', 'New aircraft type');
+    }
 
     /**
-     * @testdox Accessing /admin/aircraft-types/create returns an HTTP 200 response.
+     * @testdox Accessing "/admin/aircraft-types/{id}/clone" with an invalid ID returns an HTTP 404 response.
+     */
+    public function testCloneWithInvalidId(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $client->request('GET', '/admin/aircraft-types/ce282415-7b36-4d4b-9995-909ba2839d49/clone');
+
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types/create" returns an HTTP 200 response.
      */
     public function testCreate(): void
     {
         $client = self::createClient();
-        $client->loginUser($this->getUser('admin'));
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/aircraft-types/create');
 
         self::assertResponseStatusCodeSame(200);
@@ -25,12 +53,83 @@ final class AircraftTypeControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /admin/aircraft-types returns an HTTP 200 response.
+     * @testdox Submitting "/admin/aircraft-types/create" creates the aircraft type.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testCreateSubmit(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $client->request('GET', '/admin/aircraft-types/create');
+        $client->submitForm('Save', [
+            'aircraft_type[name]' => 'Nihil molestiae est ea quia',
+            'aircraft_type[slug]' => 'nihil-molestiae-est-ea-quia',
+        ], serverParameters: [
+            'HTTP_REFERER' => '/admin/aircraft-types',
+        ]);
+        $client->followRedirect();
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('div', 'Aircraft type created');
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types/{id}/delete" returns an HTTP 200 response.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testDelete(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftType = $this->findEntityBy(AircraftType::class, [
+            'slug' => 'consectetur-necessitatibus-voluptatem-eos-ut-consequuntur',
+        ]);
+        $client->request('GET', '/admin/aircraft-types/' . $aircraftType->getId() . '/delete');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h5', 'Delete the aircraft type');
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types/{id}/delete" with an invalid ID returns an HTTP 404 response.
+     */
+    public function testDeleteWithInvalidId(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $client->request('GET', '/admin/aircraft-types/861767d6-7490-41ab-a97f-8ff8ed43b61b/delete');
+
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    /**
+     * @testdox Submitting "/admin/aircraft-types/{id}/delete" deletes the aircraft type.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testDeleteSubmit(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftType = $this->findEntityBy(AircraftType::class, [
+            'slug' => 'consectetur-necessitatibus-voluptatem-eos-ut-consequuntur',
+        ]);
+        $client->request('GET', '/admin/aircraft-types/' . $aircraftType->getId() . '/delete');
+        $client->submitForm('Delete', serverParameters: [
+            'HTTP_REFERER' => '/admin/aircraft-types',
+        ]);
+        $client->followRedirect();
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('div', 'Aircraft type deleted');
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types" returns an HTTP 200 response.
      */
     public function testList(): void
     {
         $client = self::createClient();
-        $client->loginUser($this->getUser('admin'));
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/aircraft-types');
 
         self::assertResponseStatusCodeSame(200);
@@ -38,14 +137,64 @@ final class AircraftTypeControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /admin/aircraft-types with an invalid page returns an HTTP 404 response.
+     * @testdox Accessing "/admin/aircraft-types" with an invalid page returns an HTTP 404 response.
      */
     public function testListWithInvalidPage(): void
     {
         $client = self::createClient();
-        $client->loginUser($this->getUser('admin'));
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/aircraft-types', ['page' => 101]);
 
         self::assertResponseStatusCodeSame(404);
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types/{id}/update" returns an HTTP 200 response.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testUpdate(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftType = $this->findEntityBy(AircraftType::class, [
+            'slug' => 'et-eum-ipsam-sed-autem-hic-quaerat',
+        ]);
+        $client->request('GET', '/admin/aircraft-types/' . $aircraftType->getId() . '/update');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h5', 'AF851-2106');
+    }
+
+    /**
+     * @testdox Accessing "/admin/aircraft-types/{id}/update" with an invalid ID returns an HTTP 404 response.
+     */
+    public function testUpdateWithInvalidId(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $client->request('GET', '/admin/aircraft-types/a3e83fe9-cdd8-44ac-a351-45af55c610d6/update');
+
+        self::assertResponseStatusCodeSame(404);
+    }
+
+    /**
+     * @testdox Submitting "/admin/aircraft-types/{id}/update" updates the aircraft type.
+     * @noinspection SpellCheckingInspection
+     */
+    public function testUpdateSubmit(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftType = $this->findEntityBy(AircraftType::class, [
+            'slug' => 'et-eum-ipsam-sed-autem-hic-quaerat',
+        ]);
+        $client->request('GET', '/admin/aircraft-types/' . $aircraftType->getId() . '/update');
+        $client->submitForm('Save', serverParameters: [
+            'HTTP_REFERER' => '/admin/aircraft-types',
+        ]);
+        $client->followRedirect();
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('div', 'Aircraft type updated');
     }
 }

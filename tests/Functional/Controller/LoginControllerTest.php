@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class LoginControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /login returns an HTTP 200 response.
+     * @testdox Accessing "/login" returns an HTTP 200 response.
      */
     public function testLogin(): void
     {

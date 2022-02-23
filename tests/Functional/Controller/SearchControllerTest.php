@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class SearchControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /search returns an HTTP 200 response.
+     * @testdox Accessing "/search" returns an HTTP 200 response.
      */
     public function testSearch(): void
     {
@@ -21,7 +21,7 @@ final class SearchControllerTest extends WebTestCase
     }
 
     /**
-     * @testdox Accessing /search without a query redirects to the index.
+     * @testdox Accessing "/search" without a query redirects to the index.
      */
     public function testSearchWithoutQuery(): void
     {

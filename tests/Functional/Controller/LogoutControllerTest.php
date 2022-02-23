@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 final class LogoutControllerTest extends WebTestCase
 {
     /**
-     * @testdox Accessing /logout redirects to the index.
+     * @testdox Accessing "/logout" redirects to the index.
      */
     public function testLogout(): void
     {
