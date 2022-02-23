@@ -8,3 +8,4 @@ sentry:
     options:
         environment: '%kernel.environment%'
         release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
+        traces_sample_rate: 1.0
