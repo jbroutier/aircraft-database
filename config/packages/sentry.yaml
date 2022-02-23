@@ -8,6 +8,3 @@ sentry:
     options:
         environment: '%kernel.environment%'
         release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
-
-    tracing:
-        enabled: false # Tracing breaks Doctrine migrations.
