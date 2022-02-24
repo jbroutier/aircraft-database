@@ -25,6 +25,7 @@ trait PropertiesTrait
                 PropertyType::Float => $generator->randomFloat(),
                 PropertyType::Integer => $generator->randomNumber(),
                 PropertyType::String => $generator->word(),
+                PropertyType::Url => $generator->url(),
                 default => throw new \LogicException('Unhandled property type'),
             };
 

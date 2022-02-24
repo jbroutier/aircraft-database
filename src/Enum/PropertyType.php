@@ -10,6 +10,7 @@ enum PropertyType: string
     case Float = 'float';
     case Integer = 'integer';
     case String = 'string';
+    case Url = 'url';
 
     public function label(): string
     {
@@ -18,6 +19,7 @@ enum PropertyType: string
             PropertyType::Float => 'Float',
             PropertyType::Integer => 'Integer',
             PropertyType::String => 'String',
+            PropertyType::Url => 'Url',
         };
     }
 }

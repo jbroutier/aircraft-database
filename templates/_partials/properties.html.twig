@@ -68,6 +68,16 @@
                         -
                       {% endif %}
 
+                    {% elseif propertyValue.property.type.value == 'url' %}
+
+                      {% if propertyValue.value|url is not null %}
+                        <a rel="noopener noreferrer" href="{{ propertyValue.value|url }}">
+                          {{ propertyValue.value|url }}
+                        </a>
+                      {% else %}
+                        -
+                      {% endif %}
+
                     {% endif %}
 
                   </td>

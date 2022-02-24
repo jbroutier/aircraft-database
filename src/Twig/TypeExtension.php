@@ -16,6 +16,7 @@ class TypeExtension extends AbstractExtension
             new TwigFilter('float', [$this, 'float']),
             new TwigFilter('integer', [$this, 'integer']),
             new TwigFilter('string', [$this, 'string']),
+            new TwigFilter('url', [$this, 'url']),
         ];
     }
 
@@ -69,6 +70,19 @@ class TypeExtension extends AbstractExtension
                 'options' => [
                     'default' => null,
                     'regexp' => '/^(?![\t\s])(.+)$/i',
+                ],
+            ]
+        );
+    }
+
+    public function url(string $value): ?string
+    {
+        return filter_var(
+            $value,
+            FILTER_VALIDATE_URL,
+            [
+                'options' => [
+                    'default' => null,
                 ],
             ]
         );
