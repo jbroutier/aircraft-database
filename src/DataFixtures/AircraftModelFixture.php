@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\DataFixtures\Traits\PicturesTrait;
 use App\DataFixtures\Traits\PropertiesTrait;
 use App\DataFixtures\Traits\TagsTrait;
 use App\Entity\AircraftModel;
@@ -13,36 +12,28 @@ use App\Entity\Manufacturer;
 use App\Entity\Property;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class AircraftModelFixtures extends Fixture implements DependentFixtureInterface
+class AircraftModelFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
-    use PicturesTrait;
     use PropertiesTrait;
     use TagsTrait;
 
     public function getDependencies(): array
     {
         return [
-            AircraftTypeFixtures::class,
-            ManufacturerFixtures::class,
-            PropertyFixtures::class,
+            AircraftTypeFixture::class,
+            ManufacturerFixture::class,
+            PropertyFixture::class,
         ];
     }
 
     public function load(ObjectManager $manager): void
     {
         $generator = Factory::create();
-
-        $pictures = [
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 1', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 2', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 3', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 4', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 5', gray: true),
-        ];
 
         $aircraftTypes = $manager
             ->getRepository(AircraftType::class)
@@ -60,7 +51,7 @@ class AircraftModelFixtures extends Fixture implements DependentFixtureInterface
             ->getRepository(Tag::class)
             ->findAll();
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $generator->seed($i);
 
             $aircraftModel = new AircraftModel();
@@ -70,7 +61,6 @@ class AircraftModelFixtures extends Fixture implements DependentFixtureInterface
                 ->setName($generator->regexify('[A-Z]{1,2}[0-9]{1,3}\-[0-9]{1,4}'))
                 ->setSlug($generator->unique()->slug());
 
-            $this->addPictures($generator, $aircraftModel, $pictures);
             $this->addProperties($generator, $aircraftModel, $properties);
             $this->addTags($generator, $aircraftModel, $tags);
 
@@ -79,5 +69,10 @@ class AircraftModelFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['base', 'full'];
     }
 }

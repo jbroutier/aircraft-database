@@ -9,16 +9,17 @@ use App\Entity\PropertyGroup;
 use App\Enum\PropertyType;
 use App\Enum\PropertyUnit;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PropertyFixtures extends Fixture implements DependentFixtureInterface
+class PropertyFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     public function getDependencies(): array
     {
         return [
-            PropertyGroupFixtures::class,
+            PropertyGroupFixture::class,
         ];
     }
 
@@ -36,7 +37,7 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
             $property = new Property();
             $property
                 ->setDescription($generator->optional()->text(50))
-                ->setName($generator->text(10))
+                ->setName($generator->unique()->word())
                 ->setPropertyGroup($generator->randomElement($propertyGroups))
                 ->setType($generator->randomElement(PropertyType::cases()))
                 ->setSlug($generator->unique()->slug());
@@ -50,5 +51,10 @@ class PropertyFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['base', 'full'];
     }
 }

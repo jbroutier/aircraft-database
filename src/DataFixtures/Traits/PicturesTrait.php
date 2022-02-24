@@ -31,7 +31,7 @@ trait PicturesTrait
             $picture
                 ->setAuthorName($generator->name())
                 ->setAuthorProfile($generator->optional()->url())
-                ->setFile(new UploadedFile($file, basename($file), test: true))
+                ->setFile(new UploadedFile($file, $generator->slug() . '.jpg', test: true))
                 ->setLicense($generator->randomElement($licenses))
                 ->setSource($generator->url());
 

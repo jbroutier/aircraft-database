@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\PropertyGroup;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PropertyGroupFixtures extends Fixture
+class PropertyGroupFixture extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -19,12 +20,17 @@ class PropertyGroupFixtures extends Fixture
             $generator->seed($i);
 
             $propertyGroup = new PropertyGroup();
-            $propertyGroup->setName($generator->text(10));
+            $propertyGroup->setName($generator->unique()->word());
 
             $manager->persist($propertyGroup);
         }
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['base', 'full'];
     }
 }

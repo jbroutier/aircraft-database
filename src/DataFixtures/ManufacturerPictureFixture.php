@@ -5,28 +5,21 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\DataFixtures\Traits\PicturesTrait;
-use App\DataFixtures\Traits\PropertiesTrait;
-use App\DataFixtures\Traits\TagsTrait;
-use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
-use App\Entity\Property;
-use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class EngineModelFixtures extends Fixture implements DependentFixtureInterface
+class ManufacturerPictureFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     use PicturesTrait;
-    use PropertiesTrait;
-    use TagsTrait;
 
     public function getDependencies(): array
     {
         return [
-            ManufacturerFixtures::class,
-            PropertyFixtures::class,
+            ManufacturerFixture::class,
         ];
     }
 
@@ -46,31 +39,17 @@ class EngineModelFixtures extends Fixture implements DependentFixtureInterface
             ->getRepository(Manufacturer::class)
             ->findAll();
 
-        $properties = $manager
-            ->getRepository(Property::class)
-            ->findAll();
-
-        $tags = $manager
-            ->getRepository(Tag::class)
-            ->findAll();
-
-        for ($i = 0; $i < 1000; $i++) {
-            $generator->seed($i);
-
-            $engineModel = new EngineModel();
-            $engineModel
-                ->setManufacturer($generator->optional()->randomElement($manufacturers))
-                ->setName($generator->regexify('[A-Z]{1,2}[0-9]{1,3}\-[0-9]{1,4}'))
-                ->setSlug($generator->unique()->slug());
-
-            $this->addPictures($generator, $engineModel, $pictures);
-            $this->addProperties($generator, $engineModel, $properties);
-            $this->addTags($generator, $engineModel, $tags);
-
-            $manager->persist($engineModel);
+        foreach ($manufacturers as $manufacturer) {
+            $this->addPictures($generator, $manufacturer, $pictures);
+            $manager->persist($manufacturer);
         }
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['full'];
     }
 }

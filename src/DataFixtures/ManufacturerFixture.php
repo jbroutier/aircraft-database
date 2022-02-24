@@ -4,41 +4,34 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\DataFixtures\Traits\PicturesTrait;
+use App\DataFixtures\Traits\LogoTrait;
 use App\DataFixtures\Traits\PropertiesTrait;
 use App\DataFixtures\Traits\TagsTrait;
 use App\Entity\Manufacturer;
 use App\Entity\Property;
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class ManufacturerFixtures extends Fixture implements DependentFixtureInterface
+class ManufacturerFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
-    use PicturesTrait;
+    use LogoTrait;
     use PropertiesTrait;
     use TagsTrait;
 
     public function getDependencies(): array
     {
         return [
-            PropertyFixtures::class,
+            PropertyFixture::class,
         ];
     }
 
     public function load(ObjectManager $manager): void
     {
         $generator = Factory::create();
-
-        $pictures = [
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 1', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 2', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 3', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 4', gray: true),
-            $generator->image(width: 1920, height: 1080, randomize: false, word: 'Picture 5', gray: true),
-        ];
 
         $properties = $manager
             ->getRepository(Property::class)
@@ -48,16 +41,16 @@ class ManufacturerFixtures extends Fixture implements DependentFixtureInterface
             ->getRepository(Tag::class)
             ->findAll();
 
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $generator->seed($i);
 
             $manufacturer = new Manufacturer();
             $manufacturer
                 ->setCountry($generator->countryCode())
-                ->setName($generator->company())
+                ->setName($generator->unique()->company())
                 ->setSlug($generator->unique()->slug());
 
-            $this->addPictures($generator, $manufacturer, $pictures);
+            $this->setLogo($generator, $manufacturer);
             $this->addProperties($generator, $manufacturer, $properties);
             $this->addTags($generator, $manufacturer, $tags);
 
@@ -66,5 +59,10 @@ class ManufacturerFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['base', 'full'];
     }
 }

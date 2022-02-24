@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class TagFixtures extends Fixture
+class TagFixture extends Fixture implements FixtureGroupInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -26,10 +27,10 @@ class TagFixtures extends Fixture
 
             $tag = new Tag();
             $tag
-                ->setColor($generator->hexColor())
-                ->setDescription($generator->optional()->text(50))
-                ->setIcon($generator->randomElement($icons))
-                ->setName($generator->text(10))
+                ->setColor($generator->unique()->hexColor())
+                ->setDescription($generator->optional()->sentence())
+                ->setIcon($generator->unique()->randomElement($icons))
+                ->setName($generator->unique()->word())
                 ->setSlug($generator->unique()->slug());
 
             $manager->persist($tag);
@@ -37,5 +38,10 @@ class TagFixtures extends Fixture
 
         $manager->flush();
         $manager->clear();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['base', 'full'];
     }
 }
