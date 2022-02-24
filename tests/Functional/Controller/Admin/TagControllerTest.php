@@ -18,9 +18,7 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, [
-            'slug' => 'quis-odit-maiores-in',
-        ]);
+        $tag = $this->findEntityBy(Tag::class, ['name' => 'amet']);
         $client->request('GET', '/admin/tags/' . $tag->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -63,8 +61,8 @@ final class TagControllerTest extends FixturesAwareTestCase
         $client->request('GET', '/admin/tags/create');
         $client->submitForm('Save', [
             'tag[color]' => '#c0ffee',
-            'tag[name]' => 'Aliquam non expedita',
-            'tag[slug]' => 'aliquam-non-expedita',
+            'tag[name]' => 'Circa',
+            'tag[slug]' => 'circa',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/tags',
         ]);
@@ -82,9 +80,7 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, [
-            'slug' => 'nihil-fuga-ea-laborum-iste-ullam-odit-inventore',
-        ]);
+        $tag = $this->findEntityBy(Tag::class, ['name' => 'autem']);
         $client->request('GET', '/admin/tags/' . $tag->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -111,9 +107,7 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, [
-            'slug' => 'nihil-fuga-ea-laborum-iste-ullam-odit-inventore',
-        ]);
+        $tag = $this->findEntityBy(Tag::class, ['name' => 'et',]);
         $client->request('GET', '/admin/tags/' . $tag->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/tags',
@@ -144,7 +138,7 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags', ['page' => 101]);
+        $client->request('GET', '/admin/tags', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -157,13 +151,11 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, [
-            'slug' => 'est-blanditiis-reiciendis-est',
-        ]);
+        $tag = $this->findEntityBy(Tag::class, ['name' => 'labore']);
         $client->request('GET', '/admin/tags/' . $tag->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Nobis');
+        self::assertSelectorTextContains('h5', 'labore');
     }
 
     /**
@@ -186,9 +178,7 @@ final class TagControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, [
-            'slug' => 'est-blanditiis-reiciendis-est',
-        ]);
+        $tag = $this->findEntityBy(Tag::class, ['name' => 'neque']);
         $client->request('GET', '/admin/tags/' . $tag->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/tags',

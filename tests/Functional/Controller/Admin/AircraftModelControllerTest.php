@@ -12,15 +12,12 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/aircraft-models/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, [
-            'slug' => 'id-rerum-nihil-debitis',
-        ]);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'A70-634']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -54,7 +51,6 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/aircraft-models/create" creates the aircraft model.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -62,8 +58,8 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/aircraft-models/create');
         $client->submitForm('Save', [
-            'aircraft_model[name]' => 'Ut accusantium qui ipsum officiis',
-            'aircraft_model[slug]' => 'ut-accusantium-qui-ipsum-officiis',
+            'aircraft_model[name]' => 'B32-784',
+            'aircraft_model[slug]' => 'B32-784',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/aircraft-models',
         ]);
@@ -75,15 +71,12 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/aircraft-models/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, [
-            'slug' => 'beatae-dolorem-deleniti-porro',
-        ]);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'B5-06']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -104,15 +97,12 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/aircraft-models/{id}/delete" deletes the aircraft model.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, [
-            'slug' => 'beatae-dolorem-deleniti-porro',
-        ]);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'BB51-86']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/aircraft-models',
@@ -143,26 +133,23 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/aircraft-models', ['page' => 101]);
+        $client->request('GET', '/admin/aircraft-models', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
 
     /**
      * @testdox Accessing "/admin/aircraft-models/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, [
-            'slug' => 'est-ea-ut-aut-et-et-odit',
-        ]);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'C429-14']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'A0-3552');
+        self::assertSelectorTextContains('h5', 'C429-14');
     }
 
     /**
@@ -179,15 +166,12 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/aircraft-models/{id}/update" updates the aircraft model.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, [
-            'slug' => 'est-ea-ut-aut-et-et-odit',
-        ]);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'CG0-7']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/aircraft-models',

@@ -18,9 +18,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $property = $this->findEntityBy(Property::class, [
-            'slug' => 'consequatur-sit-impedit-ea',
-        ]);
+        $property = $this->findEntityBy(Property::class, ['name' => 'a']);
         $client->request('GET', '/admin/properties/' . $property->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -62,8 +60,8 @@ final class PropertyControllerTest extends FixturesAwareTestCase
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/properties/create');
         $client->submitForm('Save', [
-            'property[name]' => 'Ut non iste quia aut eos',
-            'property[slug]' => 'ut-non-iste-quia-aut-eos',
+            'property[name]' => 'Abscido',
+            'property[slug]' => 'abscido',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/properties',
         ]);
@@ -81,9 +79,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $property = $this->findEntityBy(Property::class, [
-            'slug' => 'dolore-qui-assumenda-non-sit-quam-officia-quod',
-        ]);
+        $property = $this->findEntityBy(Property::class, ['name' => 'ad']);
         $client->request('GET', '/admin/properties/' . $property->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -110,9 +106,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $property = $this->findEntityBy(Property::class, [
-            'slug' => 'dolore-qui-assumenda-non-sit-quam-officia-quod',
-        ]);
+        $property = $this->findEntityBy(Property::class, ['name' => 'adipisci']);
         $client->request('GET', '/admin/properties/' . $property->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/properties',
@@ -143,7 +137,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/properties', ['page' => 101]);
+        $client->request('GET', '/admin/properties', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -156,13 +150,11 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $property = $this->findEntityBy(Property::class, [
-            'slug' => 'corrupti-iste-rerum-et-assumenda-qui-sint',
-        ]);
+        $property = $this->findEntityBy(Property::class, ['name' => 'alias']);
         $client->request('GET', '/admin/properties/' . $property->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Commodi');
+        self::assertSelectorTextContains('h5', 'alias');
     }
 
     /**
@@ -185,9 +177,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $property = $this->findEntityBy(Property::class, [
-            'slug' => 'corrupti-iste-rerum-et-assumenda-qui-sint',
-        ]);
+        $property = $this->findEntityBy(Property::class, ['name' => 'aliquam']);
         $client->request('GET', '/admin/properties/' . $property->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/properties',

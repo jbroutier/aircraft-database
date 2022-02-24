@@ -18,9 +18,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, [
-            'name' => 'Aperiam.',
-        ]);
+        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'aperiam']);
         $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -62,7 +60,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/property-groups/create');
         $client->submitForm('Save', [
-            'property_group[name]' => 'Harum similique autem omnis',
+            'property_group[name]' => 'Caeleritatis',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/property-groups',
         ]);
@@ -80,9 +78,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, [
-            'name' => 'Est illo.',
-        ]);
+        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'aut']);
         $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -109,9 +105,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, [
-            'name' => 'Est illo.',
-        ]);
+        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'culpa']);
         $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/property-groups',
@@ -142,7 +136,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups', ['page' => 101]);
+        $client->request('GET', '/admin/property-groups', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -155,13 +149,11 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, [
-            'name' => 'Molestiae.',
-        ]);
+        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'ducimus',]);
         $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Molestiae');
+        self::assertSelectorTextContains('h5', 'ducimus');
     }
 
     /**
@@ -184,9 +176,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, [
-            'name' => 'Molestiae.',
-        ]);
+        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'est']);
         $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/property-groups',

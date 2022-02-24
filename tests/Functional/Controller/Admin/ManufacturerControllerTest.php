@@ -18,9 +18,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, [
-            'slug' => 'consequatur-minima-molestiae-quam-odit-atque',
-        ]);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Bashirian, Ferry and Strosin']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -62,8 +60,8 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/manufacturers/create');
         $client->submitForm('Save', [
-            'manufacturer[name]' => 'Voluptatum perferendis nemo',
-            'manufacturer[slug]' => 'voluptatum-perferendis-nemo',
+            'manufacturer[name]' => 'Waters Bergman Ltd',
+            'manufacturer[slug]' => 'waters-bergman-ltd',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',
         ]);
@@ -81,9 +79,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, [
-            'slug' => 'quo-sunt-est-dignissimos-nobis-illum-eum-aspernatur',
-        ]);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Champlin Inc']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -110,9 +106,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, [
-            'slug' => 'quo-sunt-est-dignissimos-nobis-illum-eum-aspernatur',
-        ]);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Kunde-Kuphal']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',
@@ -143,7 +137,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers', ['page' => 101]);
+        $client->request('GET', '/admin/manufacturers', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -156,13 +150,11 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, [
-            'slug' => 'et-error-omnis-fuga-accusamus-architecto-ducimus',
-        ]);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Little, D\'Amore and Bartell']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Baumbach, Goldner and Witting');
+        self::assertSelectorTextContains('h5', 'Little, D\'Amore and Bartell');
     }
 
     /**
@@ -185,9 +177,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, [
-            'slug' => 'et-error-omnis-fuga-accusamus-architecto-ducimus',
-        ]);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'O\'Reilly, Schimmel and Schuster']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',

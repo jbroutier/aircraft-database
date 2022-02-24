@@ -12,15 +12,12 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/engine-models/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, [
-            'slug' => 'quis-omnis-aut-aut-quia-minus-rerum',
-        ]);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AY260-1']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -54,7 +51,6 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/engine-models/create" creates the engine model.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -62,8 +58,8 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
         $client->request('GET', '/admin/engine-models/create');
         $client->submitForm('Save', [
-            'engine_model[name]' => 'Nam libero consequuntur velit',
-            'engine_model[slug]' => 'nam-libero-consequuntur-velit',
+            'engine_model[name]' => 'VD847-554',
+            'engine_model[slug]' => 'VD847-554',
         ], serverParameters: [
             'HTTP_REFERER' => '/admin/engine-models',
         ]);
@@ -75,15 +71,12 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/engine-models/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, [
-            'slug' => 'fugiat-voluptatem-deserunt-dicta',
-        ]);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'B49-4592']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -104,15 +97,12 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/engine-models/{id}/delete" deletes the engine model.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, [
-            'slug' => 'fugiat-voluptatem-deserunt-dicta',
-        ]);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'BK8-9621']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/engine-models',
@@ -143,26 +133,23 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/engine-models', ['page' => 101]);
+        $client->request('GET', '/admin/engine-models', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
 
     /**
      * @testdox Accessing "/admin/engine-models/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, [
-            'slug' => 'possimus-quo-laboriosam-optio-doloremque-suscipit-laborum-officiis',
-        ]);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'C375-1495']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'A7-1');
+        self::assertSelectorTextContains('h5', 'C375-1495');
     }
 
     /**
@@ -179,15 +166,12 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/engine-models/{id}/update" updates the engine model.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, [
-            'slug' => 'possimus-quo-laboriosam-optio-doloremque-suscipit-laborum-officiis',
-        ]);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'CP162-766']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/engine-models',

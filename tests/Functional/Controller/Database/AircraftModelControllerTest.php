@@ -26,25 +26,27 @@ final class AircraftModelControllerTest extends WebTestCase
     public function testListWithInvalidSlug(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models', ['page' => 101]);
+        $client->request('GET', '/database/aircraft-models', ['page' => 100]);
 
         self::assertResponseStatusCodeSame(404);
     }
 
     /**
      * @testdox Accessing "/database/aircraft-models/{slug}" returns an HTTP 200 response.
+     * @noinspection SpellCheckingInspection
      */
     public function testRead(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models/est-ea-ut-aut-et-et-odit');
+        $client->request('GET', '/database/aircraft-models/nihil-est-possimus-commodi-maxime-corrupti-voluptatem');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'A0-3552');
+        self::assertSelectorTextContains('h1', 'A70-634');
     }
 
     /**
      * @testdox Accessing '/database/aircraft-models/{slug}' with an invalid slug returns an HTTP 404 response.
+     * @noinspection SpellCheckingInspection
      */
     public function testReadWithInvalidSlug(): void
     {
