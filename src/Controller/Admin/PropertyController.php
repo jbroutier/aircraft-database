@@ -35,20 +35,7 @@ class PropertyController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $property = clone $property;
-
-        $form = $this->createForm(PropertyType::class, $property);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Property created.'));
-            $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(PropertyType::class, clone $property);
 
         return $this->render('admin/property/create.html.twig', [
             'form' => $form->createView(),

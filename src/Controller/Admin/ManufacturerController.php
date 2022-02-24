@@ -35,20 +35,7 @@ class ManufacturerController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $manufacturer = clone $manufacturer;
-
-        $form = $this->createForm(ManufacturerType::class, $manufacturer);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Manufacturer created.'));
-            $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(ManufacturerType::class, clone $manufacturer);
 
         return $this->render('admin/manufacturer/create.html.twig', [
             'form' => $form->createView(),

@@ -35,20 +35,7 @@ class PropertyGroupController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $propertyGroup = clone $propertyGroup;
-
-        $form = $this->createForm(PropertyGroupType::class, $propertyGroup);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Property group created.'));
-            $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(PropertyGroupType::class, clone $propertyGroup);
 
         return $this->render('admin/property_group/create.html.twig', [
             'form' => $form->createView(),

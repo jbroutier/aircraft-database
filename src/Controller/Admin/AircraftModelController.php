@@ -35,20 +35,7 @@ class AircraftModelController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $aircraftModel = clone $aircraftModel;
-
-        $form = $this->createForm(AircraftModelType::class, $aircraftModel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Aircraft model created.'));
-            $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(AircraftModelType::class, clone $aircraftModel);
 
         return $this->render('admin/aircraft_model/create.html.twig', [
             'form' => $form->createView(),

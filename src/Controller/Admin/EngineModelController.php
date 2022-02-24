@@ -35,20 +35,7 @@ class EngineModelController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $engineModel = clone $engineModel;
-
-        $form = $this->createForm(EngineModelType::class, $engineModel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Engine model created.'));
-            $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(EngineModelType::class, clone $engineModel);
 
         return $this->render('admin/engine_model/create.html.twig', [
             'form' => $form->createView(),

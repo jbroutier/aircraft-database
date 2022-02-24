@@ -35,20 +35,7 @@ class TagController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $tag = clone $tag;
-
-        $form = $this->createForm(TagType::class, $tag);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
-            $this->addFlash('success', $this->translator->trans('Property created.'));
-            $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            return $this->redirect($request->headers->get('Referer', $default));
-        }
+        $form = $this->createForm(TagType::class, clone $tag);
 
         return $this->render('admin/tag/create.html.twig', [
             'form' => $form->createView(),
