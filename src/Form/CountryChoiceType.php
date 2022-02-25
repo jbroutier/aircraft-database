@@ -15,7 +15,7 @@ class CountryChoiceType extends AbstractType
         $resolver->setDefaults([
             'choice_label' => function ($choice, $key, $value) {
                 return '<span class="fp ' . strtolower($value) . ' me-2" aria-hidden="true"></span> ' . $key;
-            }
+            },
         ]);
     }
 

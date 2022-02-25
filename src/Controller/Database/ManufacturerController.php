@@ -17,8 +17,8 @@ class ManufacturerController extends AbstractController
 {
     public function __construct(
         protected Breadcrumbs $breadcrumbs,
-        protected ManufacturerRepository $repository)
-    {
+        protected ManufacturerRepository $repository
+    ) {
     }
 
     #[Route(path: '/database/manufacturers', name: 'database_manufacturer_list')]
@@ -60,7 +60,7 @@ class ManufacturerController extends AbstractController
         $aircraftModels = $manufacturer
             ->getAircraftModelsPaginated()
             ->setMaxPerPage(4)
-            ->setCurrentPage(max($request->query->getInt('aircraftModelsPage', 1),1 ));
+            ->setCurrentPage(max($request->query->getInt('aircraftModelsPage', 1), 1));
 
         $aircraftTypes = $manufacturer
             ->getAircraftTypesPaginated()
