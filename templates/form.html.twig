@@ -40,7 +40,7 @@
       <div class="d-flex flex-column gap-3" data-controller="logo">
 
         {% if form.vars.data is not null and form.vars.data.fileName is not null %}
-          <div id="logo" class="d-flex flex-column gap-1">
+          <div id="logo-container" class="d-flex flex-column gap-1">
             <img class="img-thumbnail" src="{{ asset('logos/' ~ form.vars.data.fileName) }}" height="200" alt="">
             <small class="text-muted">
               {{ form.vars.data.mimeType }} - {{ form.vars.data.size|format_bytes }}
@@ -57,7 +57,7 @@
         {% if form.vars.data is not null and form.vars.data.fileName is not null %}
           <button type="button" class="btn btn-danger"
                   data-action="click->logo#remove"
-                  data-logo-target-param="#logo"
+                  data-logo-target-param="#logo-container"
                   data-logo-url-param="{{ path('admin_logo_delete', { id: form.vars.data.id }) }}">
             {{ 'Remove'|trans }}
           </button>
