@@ -10,6 +10,7 @@ use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
 use App\Entity\Property;
 use App\Entity\Tag;
+use DavidBadura\FakerMarkdownGenerator\FakerProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -32,6 +33,7 @@ class EngineModelFixture extends Fixture implements DependentFixtureInterface, F
     public function load(ObjectManager $manager): void
     {
         $generator = Factory::create();
+        $generator->addProvider(new FakerProvider($generator));
 
         $manufacturers = $manager
             ->getRepository(Manufacturer::class)
@@ -50,6 +52,8 @@ class EngineModelFixture extends Fixture implements DependentFixtureInterface, F
 
             $engineModel = new EngineModel();
             $engineModel
+                /** @phpstan-ignore-next-line */
+                ->setContent($generator->optional()->markdown())
                 ->setManufacturer($generator->optional()->randomElement($manufacturers))
                 ->setName($generator->regexify('[A-Z]{1,2}[0-9]{1,3}\-[0-9]{1,4}'))
                 ->setSlug($generator->unique()->slug());

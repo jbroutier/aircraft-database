@@ -10,6 +10,7 @@ use App\Entity\AircraftType;
 use App\Entity\Manufacturer;
 use App\Entity\Property;
 use App\Entity\Tag;
+use DavidBadura\FakerMarkdownGenerator\FakerProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -32,6 +33,7 @@ class AircraftTypeFixture extends Fixture implements DependentFixtureInterface, 
     public function load(ObjectManager $manager): void
     {
         $generator = Factory::create();
+        $generator->addProvider(new FakerProvider($generator));
 
         $manufacturers = $manager
             ->getRepository(Manufacturer::class)
@@ -50,6 +52,8 @@ class AircraftTypeFixture extends Fixture implements DependentFixtureInterface, 
 
             $aircraftType = new AircraftType();
             $aircraftType
+                /** @phpstan-ignore-next-line */
+                ->setContent($generator->optional()->markdown())
                 ->setIataCode($generator->optional()->regexify('[A-Z0-9]{3}'))
                 ->setIcaoCode($generator->optional()->regexify('[A-Z0-9]{2,4}'))
                 ->setManufacturer($generator->optional(0.95)->randomElement($manufacturers))

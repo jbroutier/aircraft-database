@@ -10,6 +10,7 @@ use App\DataFixtures\Traits\TagsTrait;
 use App\Entity\Manufacturer;
 use App\Entity\Property;
 use App\Entity\Tag;
+use DavidBadura\FakerMarkdownGenerator\FakerProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -32,6 +33,7 @@ class ManufacturerFixture extends Fixture implements DependentFixtureInterface, 
     public function load(ObjectManager $manager): void
     {
         $generator = Factory::create();
+        $generator->addProvider(new FakerProvider($generator));
 
         $properties = $manager
             ->getRepository(Property::class)
@@ -46,6 +48,8 @@ class ManufacturerFixture extends Fixture implements DependentFixtureInterface, 
 
             $manufacturer = new Manufacturer();
             $manufacturer
+                /** @phpstan-ignore-next-line */
+                ->setContent($generator->optional()->markdown())
                 ->setCountry($generator->countryCode())
                 ->setName($generator->unique()->company())
                 ->setSlug($generator->unique()->slug());
