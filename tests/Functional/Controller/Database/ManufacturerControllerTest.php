@@ -38,10 +38,10 @@ final class ManufacturerControllerTest extends WebTestCase
     public function testReadReturnsHttp200(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/database/manufacturers/ipsa-quis-odit-maiores');
+        $client->request('GET', '/database/manufacturers/similique-vero-voluptate-soluta-cupiditate-neque');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'O\'Reilly, Schimmel and Schuster');
+        self::assertSelectorTextContains('h1', 'Bernier Inc');
     }
 
     /**

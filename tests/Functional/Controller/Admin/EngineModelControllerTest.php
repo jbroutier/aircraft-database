@@ -17,7 +17,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AY260-1']);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'A868-466']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -76,7 +76,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'B49-4592']);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AA77-3']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -102,7 +102,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'BK8-9621']);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AG4-014']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/engine-models',
@@ -145,11 +145,11 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'C375-1495']);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AJ90-079']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'C375-1495');
+        self::assertSelectorTextContains('h5', 'AJ90-079');
     }
 
     /**
@@ -171,7 +171,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'CP162-766']);
+        $engineModel = $this->findEntityBy(EngineModel::class, ['name' => 'AM6-5822']);
         $client->request('GET', '/admin/engine-models/' . $engineModel->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/engine-models',

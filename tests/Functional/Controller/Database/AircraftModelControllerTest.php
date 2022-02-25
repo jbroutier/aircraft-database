@@ -38,10 +38,10 @@ final class AircraftModelControllerTest extends WebTestCase
     public function testRead(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models/nihil-est-possimus-commodi-maxime-corrupti-voluptatem');
+        $client->request('GET', '/database/aircraft-models/aliquam-ducimus-omnis-ex-nisi-aut-officiis');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'A70-634');
+        self::assertSelectorTextContains('h1', 'A668-5');
     }
 
     /**

@@ -18,7 +18,7 @@ final class LogoControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $logo = $this->findEntityBy(Logo::class, ['originalName' => 'non-est-quam-provident-suscipit.svg']);
+        $logo = $this->findEntityBy(Logo::class, ['originalName' => 'optio-excepturi-ut-quis-dolorum.svg']);
         $client->request('GET', '/admin/logos/' . $logo->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);

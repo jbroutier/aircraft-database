@@ -38,10 +38,10 @@ final class EngineModelControllerTest extends WebTestCase
     public function testRead(): void
     {
         $client = self::createClient();
-        $client->request('GET', '/database/engine-models/enim-omnis-nemo-aut-eius');
+        $client->request('GET', '/database/engine-models/quo-ipsam-accusamus-soluta-alias');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'D28-86');
+        self::assertSelectorTextContains('h1', 'A868-466');
     }
 
     /**

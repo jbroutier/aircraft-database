@@ -18,7 +18,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Bashirian, Ferry and Strosin']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Bernier Inc']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -79,7 +79,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Champlin Inc']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Carter-Haag']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -106,7 +106,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Kunde-Kuphal']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Cummerata PLC']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',
@@ -150,11 +150,11 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Little, D\'Amore and Bartell']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Kuphal-Kutch']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Little, D\'Amore and Bartell');
+        self::assertSelectorTextContains('h5', 'Kuphal-Kutch');
     }
 
     /**
@@ -177,7 +177,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'O\'Reilly, Schimmel and Schuster']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Mitchell-Conn']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',

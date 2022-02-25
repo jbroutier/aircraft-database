@@ -17,7 +17,7 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'A70-634']);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'A668-5']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/clone');
 
         self::assertResponseStatusCodeSame(200);
@@ -76,7 +76,7 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'B5-06']);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'AF851-2106']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/delete');
 
         self::assertResponseStatusCodeSame(200);
@@ -102,7 +102,7 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'BB51-86']);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'B9-7']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/aircraft-models',
@@ -145,11 +145,11 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'C429-14']);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'BF436-3452']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'C429-14');
+        self::assertSelectorTextContains('h5', 'BF436-3452');
     }
 
     /**
@@ -171,7 +171,7 @@ final class AircraftModelControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'CG0-7']);
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'BN551-171']);
         $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/update');
         $client->submitForm('Save', serverParameters: [
             'HTTP_REFERER' => '/admin/aircraft-models',
