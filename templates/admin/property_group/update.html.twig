@@ -8,12 +8,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
     </div>
     <div class="modal-body">
-      <div class="d-flex flex-column gap-3">
 
-        {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'w-100' } }) }}
-        {{ form_row(form.properties, { label: 'Properties:'|trans, row_attr: { class: 'w-100' } }) }}
+      {% include '_partials/admin/property_group.html.twig' %}
 
-      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

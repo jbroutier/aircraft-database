@@ -8,23 +8,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
     </div>
     <div class="modal-body">
-      <div class="d-flex flex-column gap-3">
-        <div class="row row-cols-1 row-cols-sm-2 g-3">
 
-          {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col' }, attr: {
-            'data-action': 'input->slug#generate',
-            'data-slug-target-param': '#property_slug'
-          } }) }}
-          {{ form_row(form.slug, { label: 'Slug:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.propertyGroup, { label: 'Group:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.type, { label: 'Type:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.unit, { label: 'Unit:'|trans, row_attr: { class: 'col' } }) }}
+      {% include '_partials/admin/property.html.twig' %}
 
-        </div>
-
-        {{ form_row(form.description, { label: 'Description:'|trans, row_attr: { class: 'w-100' } }) }}
-
-      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

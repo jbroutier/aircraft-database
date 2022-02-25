@@ -8,28 +8,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ 'Close'|trans }}"></button>
     </div>
     <div class="modal-body">
-      <div class="d-flex flex-column gap-3">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
 
-          {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col' }, attr: {
-            'data-action': 'input->slug#generate',
-            'data-slug-target-param': '#aircraft_type_slug'
-          } }) }}
-          {{ form_row(form.slug, { label: 'Slug:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.manufacturer, { label: 'Manufacturer:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.engineModels, { label: 'Engine models:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.iataCode, { label: 'IATA code:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.icaoCode, { label: 'ICAO code:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.tags, { label: 'Tags:'|trans, row_attr: { class: 'col' } }) }}
+      {% include '_partials/admin/aircraft_type.html.twig' %}
 
-        </div>
-        <div class="row row-cols-1 row-cols-md-2 g-3">
-
-          {{ form_row(form.pictures, { label: 'Pictures:'|trans, row_attr: { class: 'col' } }) }}
-          {{ form_row(form.propertyValues, { label: 'Properties:'|trans, row_attr: { class: 'col' } }) }}
-
-        </div>
-      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
