@@ -71,6 +71,13 @@
 
           </table>
         </div>
+
+        {% if aircraftType.content is not null %}
+          <div class="mt-3">
+            {{ aircraftType.content|markdown_to_html }}
+          </div>
+        {% endif %}
+
       </div>
 
       {% if aircraftType.manufacturer is not null and aircraftType.manufacturer.logo is not null %}

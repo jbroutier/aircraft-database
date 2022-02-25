@@ -20,6 +20,15 @@
             "config/packages/test/dama_doctrine_test_bundle.yaml"
         ]
     },
+    "davidbadura/faker-markdown-generator": {
+        "version": "1.1.1"
+    },
+    "davidbadura/markdown-builder": {
+        "version": "1.1.1"
+    },
+    "dflydev/dot-access-data": {
+        "version": "v3.0.1"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -151,6 +160,12 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "league/commonmark": {
+        "version": "2.2.2"
+    },
+    "league/config": {
+        "version": "v1.1.1"
+    },
     "liip/imagine-bundle": {
         "version": "2.7",
         "recipe": {
@@ -175,6 +190,12 @@
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"
+    },
+    "nette/schema": {
+        "version": "v1.2.2"
+    },
+    "nette/utils": {
+        "version": "v3.2.7"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
@@ -737,6 +758,9 @@
     },
     "twig/intl-extra": {
         "version": "v3.3.5"
+    },
+    "twig/markdown-extra": {
+        "version": "v3.3.8"
     },
     "twig/twig": {
         "version": "v3.3.7"

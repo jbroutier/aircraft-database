@@ -19,6 +19,12 @@
         </button>
       </li>
       <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contentTab" data-bs-toggle="tab" data-bs-target="#content"
+                type="button" role="tab" aria-controls="content" aria-selected="false">
+          {{ 'Content'|trans }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
         <button class="nav-link" id="picturesTab" data-bs-toggle="tab" data-bs-target="#pictures"
                 type="button" role="tab" aria-controls="pictures" aria-selected="false">
           {{ 'Pictures'|trans }}
@@ -29,6 +35,11 @@
       <div class="tab-pane fade show active" id="properties" role="tabpanel" aria-labelledby="propertiesTab">
 
         {{ form_widget(form.propertyValues) }}
+
+      </div>
+      <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="contentTab">
+
+        {{ form_widget(form.content, { attr: { rows: 10 } }) }}
 
       </div>
       <div class="tab-pane fade" id="pictures" role="tabpanel" aria-labelledby="picturesTab">

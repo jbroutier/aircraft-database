@@ -43,6 +43,13 @@
             </tr>
           </table>
         </div>
+
+        {% if manufacturer.content is not null %}
+          <div class="mt-3">
+            {{ manufacturer.content|markdown_to_html }}
+          </div>
+        {% endif %}
+
       </div>
 
       {% if manufacturer.logo is not null %}

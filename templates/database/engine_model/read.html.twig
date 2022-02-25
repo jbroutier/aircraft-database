@@ -49,6 +49,13 @@
 
           </table>
         </div>
+
+        {% if engineModel.content is not null %}
+          <div class="mt-3">
+            {{ engineModel.content|markdown_to_html }}
+          </div>
+        {% endif %}
+
       </div>
 
       {% if engineModel.manufacturer is not null and engineModel.manufacturer.logo is not null %}

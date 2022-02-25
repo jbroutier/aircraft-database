@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Entity\Interface\BlameableInterface;
+use App\Entity\Interface\ContentAwareInterface;
 use App\Entity\Interface\IdentifiableInterface;
 use App\Entity\Interface\LogoAwareInterface;
 use App\Entity\Interface\NameableInterface;
@@ -14,6 +15,7 @@ use App\Entity\Interface\SluggableInterface;
 use App\Entity\Interface\TagsAwareInterface;
 use App\Entity\Interface\TimestampableInterface;
 use App\Entity\Traits\BlameableTrait;
+use App\Entity\Traits\ContentAwareTrait;
 use App\Entity\Traits\IdentifiableTrait;
 use App\Entity\Traits\LogoAwareTrait;
 use App\Entity\Traits\NameableTrait;
@@ -35,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
 class Manufacturer implements
     BlameableInterface,
+    ContentAwareInterface,
     IdentifiableInterface,
     LogoAwareInterface,
     NameableInterface,
@@ -45,6 +48,7 @@ class Manufacturer implements
     TimestampableInterface
 {
     use BlameableTrait;
+    use ContentAwareTrait;
     use IdentifiableTrait;
     use LogoAwareTrait;
     use NameableTrait;
