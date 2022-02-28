@@ -13,6 +13,7 @@ enum PropertyUnit: string
     case Feet = 'ft';
     case Kilograms = 'kg';
     case Kilonewtons = 'kN';
+    case Knots = 'Kt';
     case Litres = 'l';
     case Metres = 'm';
     case NauticalMiles = 'nm';
