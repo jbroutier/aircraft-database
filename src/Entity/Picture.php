@@ -115,6 +115,7 @@ class Picture implements IdentifiableInterface, TimestampableInterface
     public function setFile(?File $file): Picture
     {
         $this->file = $file;
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         return $this;
     }
 
