@@ -33,6 +33,18 @@
 
                   {% if aircraftType.manufacturer is not null %}
                     <p class="card-text">
+
+                      {% if aircraftType.manufacturer.country is not null %}
+                        <span data-bs-toggle="tooltip"
+                              title="{{ aircraftType.manufacturer.country|country_name|escape('html_attr') }}">
+                          <span class="fp {{ aircraftType.manufacturer.country|lower }} me-2"></span>
+                        </span>
+                      {% else %}
+                        <span data-bs-toggle="tooltip" data-bs-tooltip="{{ 'International'|trans }}">
+                          <span class="fp intl me-2"></span>
+                        </span>
+                      {% endif %}
+
                       {{ aircraftType.manufacturer.name }}
                     </p>
                   {% endif %}
