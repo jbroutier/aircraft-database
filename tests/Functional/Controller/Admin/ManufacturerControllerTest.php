@@ -106,7 +106,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
     {
         $client = self::createClient();
         $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Cummerata PLC']);
+        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Gusikowski, Rolfson and Schoen']);
         $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
         $client->submitForm('Delete', serverParameters: [
             'HTTP_REFERER' => '/admin/manufacturers',
