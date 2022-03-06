@@ -75,9 +75,8 @@ class Manufacturer implements
     /**
      * @var string|null The country of origin of the manufacturer, as an ISO 3166 alpha 2 country code.
      */
-    #[Assert\NotBlank]
     #[Assert\Country]
-    #[ORM\Column(name: 'country', type: 'string', length: 2)]
+    #[ORM\Column(name: 'country', type: 'string', length: 2, nullable: true)]
     protected ?string $country = null;
 
     /**

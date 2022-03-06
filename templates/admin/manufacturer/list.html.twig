@@ -47,8 +47,15 @@
             <tr>
               <td>{{ manufacturer.name }}</td>
               <td>
-                <span class="fp {{ manufacturer.country|lower }} me-2"></span>
-                {{ manufacturer.country|country_name }}
+
+                {% if manufacturer.country is not null %}
+                  <span class="fp {{ manufacturer.country|lower }} me-2"></span>
+                  {{ manufacturer.country|country_name }}
+                {% else %}
+                  <span class="fp intl me-2"></span>
+                  {{ 'International'|trans }}
+                {% endif %}
+
               </td>
               <td>
                 {{ manufacturer.createdAt|date }}
