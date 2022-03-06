@@ -50,7 +50,7 @@ class ManufacturerFixture extends Fixture implements DependentFixtureInterface, 
             $manufacturer
                 /** @phpstan-ignore-next-line */
                 ->setContent($generator->optional()->markdown())
-                ->setCountry($generator->countryCode())
+                ->setCountry($generator->optional()->countryCode())
                 ->setName($generator->unique()->company())
                 ->setSlug($generator->unique()->slug());
 
