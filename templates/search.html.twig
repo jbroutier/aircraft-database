@@ -97,9 +97,9 @@
           {% if result is instanceOf('App\\Entity\\Manufacturer') %}
             <p class="card-text">
 
-              {% if manufacturer.country is not null %}
-                <span class="fp {{ manufacturer.country|lower }} me-2"></span>
-                {{ manufacturer.country|country_name }}
+              {% if result.country is not null %}
+                <span class="fp {{ result.country|lower }} me-2"></span>
+                {{ result.country|country_name }}
               {% else %}
                 <span class="fp intl me-2"></span>
                 {{ 'International'|trans }}
