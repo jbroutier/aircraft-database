@@ -78,6 +78,18 @@
 
           {% if result.manufacturer is defined and result.manufacturer is not null %}
             <p class="card-text">
+
+              {% if result.manufacturer.country is not null %}
+                <span data-bs-toggle="tooltip"
+                      title="{{ result.manufacturer.country|country_name|escape('html_attr') }}">
+                  <span class="fp {{ result.manufacturer.country|lower }} me-2"></span>
+                </span>
+              {% else %}
+                <span data-bs-toggle="tooltip" title="{{ 'International'|trans }}">
+                  <span class="fp intl me-2"></span>
+                </span>
+              {% endif %}
+
               {{ result.manufacturer.name }}
             </p>
           {% endif %}
