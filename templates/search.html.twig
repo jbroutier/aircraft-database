@@ -70,14 +70,26 @@
           </div>
         </a>
         <div class="card-body">
-          <h3 class="card-title">
+          <h4 class="card-title">
             <a href="{{ path(route, { slug: result.slug }) }}">
               {{ result.name }}
             </a>
-          </h3>
+          </h4>
 
           {% if result.manufacturer is defined and result.manufacturer is not null %}
             <p class="card-text">
+
+              {% if result.manufacturer.country is not null %}
+                <span data-bs-toggle="tooltip"
+                      title="{{ result.manufacturer.country|country_name|escape('html_attr') }}">
+                  <span class="fp {{ result.manufacturer.country|lower }} me-2"></span>
+                </span>
+              {% else %}
+                <span data-bs-toggle="tooltip" title="{{ 'International'|trans }}">
+                  <span class="fp intl me-2"></span>
+                </span>
+              {% endif %}
+
               {{ result.manufacturer.name }}
             </p>
           {% endif %}
@@ -85,9 +97,9 @@
           {% if result is instanceOf('App\\Entity\\Manufacturer') %}
             <p class="card-text">
 
-              {% if manufacturer.country is not null %}
-                <span class="fp {{ manufacturer.country|lower }} me-2"></span>
-                {{ manufacturer.country|country_name }}
+              {% if result.country is not null %}
+                <span class="fp {{ result.country|lower }} me-2"></span>
+                {{ result.country|country_name }}
               {% else %}
                 <span class="fp intl me-2"></span>
                 {{ 'International'|trans }}
