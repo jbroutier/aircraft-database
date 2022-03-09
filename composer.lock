@@ -2919,16 +2919,16 @@
         },
         {
             "name": "pagerfanta/pagerfanta",
-            "version": "v3.5.2",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/Pagerfanta.git",
-                "reference": "3472786bde6f41ef43a39a54beca5b169603e9c8"
+                "reference": "0bc7335c5be27e8a38f7724b14d871bc915d8bea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/3472786bde6f41ef43a39a54beca5b169603e9c8",
-                "reference": "3472786bde6f41ef43a39a54beca5b169603e9c8",
+                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/0bc7335c5be27e8a38f7724b14d871bc915d8bea",
+                "reference": "0bc7335c5be27e8a38f7724b14d871bc915d8bea",
                 "shasum": ""
             },
             "require": {
@@ -2969,7 +2969,7 @@
                 "friendsofphp/php-cs-fixer": "3.4.0",
                 "jackalope/jackalope-doctrine-dbal": "^1.6",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "1.4.1",
+                "phpstan/phpstan": "1.4.8",
                 "phpstan/phpstan-phpunit": "1.0.0",
                 "phpunit/phpunit": "^9.5",
                 "ruflin/elastica": "^6.0 || ^7.0",
@@ -3011,7 +3011,7 @@
             ],
             "support": {
                 "issues": "https://github.com/BabDev/Pagerfanta/issues",
-                "source": "https://github.com/BabDev/Pagerfanta/tree/v3.5.2"
+                "source": "https://github.com/BabDev/Pagerfanta/tree/v3.6.0"
             },
             "funding": [
                 {
@@ -3019,7 +3019,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-24T23:41:02+00:00"
+            "time": "2022-03-09T00:04:34+00:00"
         },
         {
             "name": "php-http/client-common",
