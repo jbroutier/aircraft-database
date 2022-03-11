@@ -21,7 +21,6 @@ class Logo implements IdentifiableInterface, TimestampableInterface
     use IdentifiableTrait;
     use TimestampableTrait;
 
-    #[Assert\Expression(expression: 'this.getFile() !== null || this.getFileName() !== null')]
     #[Assert\Image(maxSize: '512Ki', mimeTypes: ['image/svg', 'image/svg+xml'])]
     #[Vich\UploadableField(mapping: 'logo', fileNameProperty: 'fileName', size: 'size', mimeType: 'mimeType',
         originalName: 'originalName')]

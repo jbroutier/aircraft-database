@@ -9,6 +9,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ManufacturerType extends AbstractType
@@ -24,6 +26,16 @@ class ManufacturerType extends AbstractType
             ->add('propertyValues', PropertyValueCollectionType::class)
             ->add('slug', TextType::class)
             ->add('tags', TagChoiceType::class, ['multiple' => true]);
+
+       $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+           $data = $event->getData();
+
+           if ($data->getLogo()->getFileName() === null && $data->getLogo()->getFile() === null) {
+               $data->setLogo(null);
+           }
+
+           $event->setData($data);
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void
