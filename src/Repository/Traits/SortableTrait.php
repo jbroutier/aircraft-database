@@ -31,5 +31,9 @@ trait SortableTrait
                 }
             }
         }
+
+        if (count(array_filter($orderBy)) === 0) {
+            $builder->addOrderBy($rootAlias . '.name', 'ASC');
+        }
     }
 }

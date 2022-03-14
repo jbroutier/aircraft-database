@@ -46,6 +46,7 @@ class SearchController extends AbstractController
 
         $manufacturersBuilder
             ->where($manufacturersBuilder->expr()->like('m.name', ':query'))
+            ->addOrderBy('m.name', 'ASC')
             ->setParameter(':query', '%' . $form->getData()['query'] . '%');
 
         $aircraftTypesBuilder = $this->entityManager
@@ -56,6 +57,7 @@ class SearchController extends AbstractController
             ->leftJoin('at.manufacturer', 'm')
             ->where($aircraftTypesBuilder->expr()->like('at.name', ':query'))
             ->orWhere($aircraftTypesBuilder->expr()->like('m.name', ':query'))
+            ->addOrderBy('at.name', 'ASC')
             ->setParameter(':query', '%' . $form->getData()['query'] . '%');
 
         $aircraftModelsBuilder = $this->entityManager
@@ -66,6 +68,7 @@ class SearchController extends AbstractController
             ->leftJoin('am.manufacturer', 'm')
             ->where($aircraftModelsBuilder->expr()->like('am.name', ':query'))
             ->orWhere($aircraftModelsBuilder->expr()->like('m.name', ':query'))
+            ->addOrderBy('am.name', 'ASC')
             ->setParameter(':query', '%' . $form->getData()['query'] . '%');
 
         $engineModelsBuilder = $this->entityManager
@@ -76,6 +79,7 @@ class SearchController extends AbstractController
             ->leftJoin('em.manufacturer', 'm')
             ->where($aircraftModelsBuilder->expr()->like('em.name', ':query'))
             ->orWhere($aircraftTypesBuilder->expr()->like('m.name', ':query'))
+            ->addOrderBy('em.name', 'ASC')
             ->setParameter(':query', '%' . $form->getData()['query'] . '%');
 
         $adapter = new ConcatenationAdapter([

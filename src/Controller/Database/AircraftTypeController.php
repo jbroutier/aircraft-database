@@ -31,7 +31,7 @@ class AircraftTypeController extends AbstractController
         $form->handleRequest($request);
 
         $aircraftTypes = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? ['name' => 'ASC'])
+            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
             ->setMaxPerPage(12)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
