@@ -18,7 +18,7 @@ export function initSentry () {
       })
     ],
     release: html.dataset.release,
-    tracesSampleRate: 1.0
+    tracesSampleRate: 0.05
   })
 
   setTags({
