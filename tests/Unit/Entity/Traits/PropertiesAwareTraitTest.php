@@ -26,6 +26,16 @@ final class PropertiesAwareTraitTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
+     * @testdox Method getProperties() returns an empty collection by default.
+     */
+    public function testGetProperties(): void
+    {
+        $entity = new PropertiesAwareEntity();
+
+        self::assertEmpty($entity->getProperties());
+    }
+
+    /**
      * @testdox Method getPropertyGroups() returns an empty collection by default.
      */
     public function testGetPropertyGroups(): void
