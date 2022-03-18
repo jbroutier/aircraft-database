@@ -37,7 +37,7 @@
         "@sentry/webpack-plugin": "^1.18.8",
         "@squoosh/lib": "^0.4.1",
         "@symfony/stimulus-bridge": "^3.0.0",
-        "@symfony/webpack-encore": "^1.8.1",
+        "@symfony/webpack-encore": "^1.8.2",
         "core-js": "^3.21.1",
         "eslint": "^8.11.0",
         "eslint-config-standard": "^17.0.0-1",
