@@ -16,7 +16,7 @@ jobs:
             -   name: Setup Node.js
                 uses: actions/setup-node@v2
                 with:
-                    node-version: '17.1'
+                    node-version: '17.7'
 
             -   name: Get npm cache directory
                 id: npm-cache-dir
@@ -49,7 +49,7 @@ jobs:
             -   name: Setup Node.js
                 uses: actions/setup-node@v2
                 with:
-                    node-version: '17.1'
+                    node-version: '17.7'
 
             -   name: Get npm cache directory
                 id: npm-cache-dir
