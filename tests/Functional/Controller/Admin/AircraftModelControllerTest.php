@@ -11,6 +11,20 @@ use Tests\Functional\FixturesAwareTestCase;
 final class AircraftModelControllerTest extends FixturesAwareTestCase
 {
     /**
+     * @testdox Accessing "/admin/aircraft-models/{id}/autofill" returns an HTTP 200 response.
+     */
+    public function testAutofill(): void
+    {
+        $client = self::createClient();
+        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
+        $aircraftModel = $this->findEntityBy(AircraftModel::class, ['name' => 'C089-279']);
+        $client->request('GET', '/admin/aircraft-models/' . $aircraftModel->getId() . '/autofill');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h5', 'C089-279');
+    }
+
+    /**
      * @testdox Accessing "/admin/aircraft-models/{id}/clone" returns an HTTP 200 response.
      */
     public function testClone(): void
