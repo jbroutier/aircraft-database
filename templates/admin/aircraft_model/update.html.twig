@@ -16,6 +16,10 @@
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
         {{ 'Cancel'|trans }}
       </button>
+      <button type="button" class="btn btn-success" data-action="click->modal#update"
+              data-modal-url-param="{{ path('admin_aircraft_model_autofill', { id: aircraftModel.id }) }}">
+        {{ 'Autofill'|trans }}
+      </button>
       <button type="button" class="btn btn-primary" data-action="click->modal#submit"
               data-modal-url-param="{{ path('admin_aircraft_model_update', { id: aircraftModel.id }) }}">
         {{ 'Save'|trans }}

@@ -3,7 +3,7 @@ import Encore from '@symfony/webpack-encore'
 import ESLintWebpackPlugin from 'eslint-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
-import {resolve} from 'path'
+import { resolve } from 'path'
 import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {

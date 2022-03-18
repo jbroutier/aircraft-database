@@ -42,4 +42,19 @@ export default class extends Controller {
         }
       })
   }
+
+  update (event) {
+    const { url } = event.params
+
+    Axios
+      .get(url)
+      .then(response => {
+        const parser = new DOMParser()
+        const fragment = parser.parseFromString(response.data, 'text/html')
+        initSelect(fragment)
+        fragment.querySelector('.modal-content')
+        const modalContent = event.target.closest('.modal-content')
+        modalContent.replaceWith(fragment.querySelector('.modal-content'))
+      })
+  }
 }

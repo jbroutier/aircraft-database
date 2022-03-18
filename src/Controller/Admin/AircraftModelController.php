@@ -26,6 +26,37 @@ class AircraftModelController extends AbstractController
     ) {
     }
 
+    #[Route(path: '/admin/aircraft-models/{id}/autofill', name: 'admin_aircraft_model_autofill')]
+    public function autofill(Request $request): Response
+    {
+        $id = $request->attributes->get('id');
+
+        if (is_null($aircraftModel = $this->repository->findOneBy(['id' => $id]))) {
+            throw new NotFoundHttpException();
+        }
+
+        if (!is_null($aircraftType = $aircraftModel->getAircraftType())) {
+            if ($aircraftModel->getEngineModels()->isEmpty()) {
+                $aircraftModel->setEngineModels($aircraftType->getEngineModels()->toArray());
+            }
+
+            foreach ($aircraftType->getPropertyValues() as $propertyValue) {
+                if (!is_null($propertyValue->getProperty()) &&
+                    !$aircraftModel->getProperties()->contains($propertyValue->getProperty())) {
+                    $aircraftModel->addPropertyValue(clone $propertyValue);
+                }
+            }
+        }
+
+        $form = $this->createForm(AircraftModelType::class, $aircraftModel);
+        $form->handleRequest($request);
+
+        return $this->render('admin/aircraft_model/update.html.twig', [
+            'aircraftModel' => $aircraftModel,
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route(path: '/admin/aircraft-models/{id}/clone', name: 'admin_aircraft_model_clone')]
     public function clone(Request $request): Response
     {
