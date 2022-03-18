@@ -22,7 +22,6 @@
         "@sentry/tracing": "^6.18.2",
         "axios": "^0.26.1",
         "bootstrap": "^5.1.3",
-        "choices.js": "^10.0.0",
         "flagpack": "^1.0.5",
         "flagpack-core": "^2.0.0",
         "masonry-layout": "^4.2.2",
