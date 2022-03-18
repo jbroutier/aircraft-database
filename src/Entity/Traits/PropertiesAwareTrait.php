@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Traits;
 
+use App\Entity\Property;
 use App\Entity\PropertyGroup;
 use App\Entity\PropertyValue;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,6 +23,23 @@ trait PropertiesAwareTrait
     #[ORM\JoinColumn(name: 'entity', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'property_value', referencedColumnName: 'id', unique: true, nullable: false, onDelete: 'CASCADE')]
     protected Collection $propertyValues;
+
+    /**
+     * @return Collection<int, Property>
+     */
+    public function getProperties(): Collection
+    {
+        $properties = new ArrayCollection();
+
+        foreach ($this->getPropertyValues() as $propertyValue) {
+            $property = $propertyValue->getProperty();
+            if (!$properties->contains($property)) {
+                $properties->add($property);
+            }
+        }
+
+        return $properties;
+    }
 
     /**
      * @return Collection<int, PropertyGroup>
