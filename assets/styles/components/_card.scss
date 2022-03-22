@@ -2,3 +2,11 @@
   height: 100%;
   width: 240px;
 }
+
+.card-content {
+  margin-top: 1rem;
+
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
