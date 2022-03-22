@@ -36,11 +36,9 @@
             <div class="card-body">
               <div class="d-flex justify-content-between gap-3">
                 <div>
-                  <h4 class="card-title">
-                    <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
-                      {{ engineModel.name }}
-                    </a>
-                  </h4>
+                  <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                    <h4>{{ engineModel.name }}</h4>
+                  </a>
 
                   {% if engineModel.manufacturer is not null %}
                     <p class="card-text">

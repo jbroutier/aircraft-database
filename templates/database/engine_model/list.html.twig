@@ -9,7 +9,7 @@
 
 {% block main_content %}
   <div class="card card-body">
-    <h1 class="card-title">{{ 'Engine models'|trans }}</h1>
+    <h1>{{ 'Engine models'|trans }}</h1>
     <p class="card-text text-muted">
       {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
         '%count%': engineModels.nbResults,
@@ -46,11 +46,9 @@
           <div class="card-body">
             <div class="d-flex justify-content-between gap-3">
               <div>
-                <h4 class="card-title">
-                  <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
-                    {{ engineModel.name }}
-                  </a>
-                </h4>
+                <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                  <h4>{{ engineModel.name }}</h4>
+                </a>
 
                 {% if engineModel.manufacturer is not null %}
                   <p class="card-text">

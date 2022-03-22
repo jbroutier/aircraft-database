@@ -12,9 +12,7 @@
 
   </div>
   <div class="card card-body">
-    <h3 class="card-title">
-      {{ 'Search results for «%query%»'|trans({ '%query%': app.request.query.get('query') }) }}
-    </h3>
+    <h3>{{ 'Search results for «%query%»'|trans({ '%query%': app.request.query.get('query') }) }}</h3>
     <p class="card-text text-muted">
       {{ '{0}No results found|{1}1 result found|]1,Inf[%nbResults% results found'|trans({
         '%count%': results.nbResults,
@@ -70,11 +68,9 @@
           </div>
         </a>
         <div class="card-body">
-          <h4 class="card-title">
-            <a href="{{ path(route, { slug: result.slug }) }}">
-              {{ result.name }}
-            </a>
-          </h4>
+          <a href="{{ path(route, { slug: result.slug }) }}">
+            <h4>{{ result.name }}</h4>
+          </a>
 
           {% if result.manufacturer is defined and result.manufacturer is not null %}
             <p class="card-text">

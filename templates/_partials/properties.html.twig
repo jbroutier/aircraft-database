@@ -3,7 +3,7 @@
   {% for propertyGroup in propertyGroups|sort((a, b) => a.name <=> b.name) %}
     <div class="col">
       <div class="card card-body">
-        <h3 class="card-title">{{ propertyGroup.name }}</h3>
+        <h3>{{ propertyGroup.name }}</h3>
         <div class="table-responsive">
           <table class="table mb-0">
 
