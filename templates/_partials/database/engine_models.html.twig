@@ -1,6 +1,17 @@
 {% if engineModels.count %}
-  <section id="engineModels" class="d-flex flex-column gap-3">
+  <section id="engineModels">
     <h3>{{ 'Engine models'|trans }}</h3>
+    <p class="text-muted">
+      {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
+        '%count%': aircraftModels.nbResults,
+        '%nbResults%': aircraftModels.nbResults|format_number
+      })|raw }}
+      -
+      {{ 'Page %currentPage% out of %nbPages%'|trans({
+        '%currentPage%': aircraftModels.currentPage|format_number,
+        '%nbPages%': aircraftModels.nbPages|format_number
+      })|raw }}
+    </p>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3">
 
       {% for engineModel in engineModels %}
@@ -66,7 +77,7 @@
     </div>
 
     {% if engineModels.haveToPaginate %}
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center mt-3">
         {{ pagerfanta(engineModels, 'custom', {
           pageParameter: '[engineModelsPage]',
           routeParams: { _fragment: 'engineModels' }
