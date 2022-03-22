@@ -25,6 +25,7 @@
     <meta property="og:title" content="{{ block('title') }}">
     <meta property="og:description" content="{{ block('description') }}">
     <meta property="og:url" content="{{ absolute_url(path(route, routeParams)) }}">
+    <meta property="og:site_name" content="{{ site.title }}">
     <meta property="og:locale" content="{{ app.request.locale }}">
 
     {% block images %}
