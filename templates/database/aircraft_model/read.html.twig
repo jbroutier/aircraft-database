@@ -43,7 +43,7 @@
 
             {% if aircraftModel.manufacturer is not null %}
               <tr>
-                <th scope="row" class="col-1">{{ 'Manufacturer:'|trans }}</th>
+                <th scope="row" class="col-auto">{{ 'Manufacturer:'|trans }}</th>
                 <td class="col-auto">
 
                   {% if aircraftModel.manufacturer.country is not null %}
@@ -66,7 +66,7 @@
 
             {% if aircraftModel.aircraftType is not null %}
               <tr>
-                <th scope="row" class="col-1">{{ 'Aircraft type:'|trans }}</th>
+                <th scope="row" class="col-auto">{{ 'Aircraft type:'|trans }}</th>
                 <td class="col-auto">
                   <a href="{{ path('database_aircraft_type_read', { slug: aircraftModel.aircraftType.slug }) }}">
                     {{ aircraftModel.aircraftType.name }}

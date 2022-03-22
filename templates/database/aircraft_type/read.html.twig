@@ -43,7 +43,7 @@
 
             {% if aircraftType.manufacturer is not null %}
               <tr>
-                <th scope="row" class="col-1">{{ 'Manufacturer:'|trans }}</th>
+                <th scope="row" class="col-auto">{{ 'Manufacturer:'|trans }}</th>
                 <td class="col-auto">
 
                   {% if aircraftType.manufacturer.country is not null %}
@@ -66,7 +66,7 @@
 
             {% if aircraftType.icaoCode is not null %}
               <tr>
-                <th scope="row" class="col-1">{{ 'ICAO code:'|trans }}</th>
+                <th scope="row" class="col-auto">{{ 'ICAO code:'|trans }}</th>
                 <td class="col-auto">
                   <a href="{{ path('database_aircraft_type_list', { filters: { icaoCode: aircraftType.icaoCode } }) }}">
                     {{ aircraftType.icaoCode }}
@@ -77,7 +77,7 @@
 
             {% if aircraftType.iataCode is not null %}
               <tr>
-                <th scope="row" class="col-1">{{ 'IATA code:'|trans }}</th>
+                <th scope="row" class="col-auto">{{ 'IATA code:'|trans }}</th>
                 <td class="col-auto">
                   <a href="{{ path('database_aircraft_type_list', { filters: { iataCode: aircraftType.iataCode } }) }}">
                     {{ aircraftType.iataCode }}
