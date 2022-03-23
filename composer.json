@@ -1,7 +1,7 @@
 {
     "name": "jbroutier/aircraft-database",
     "description": "Global database of aircraft manufacturers, types, models & engines.",
-    "version": "1.4.0",
+    "version": "1.5.1",
     "type": "project",
     "license": "MIT",
     "homepage": "https://aircraft-database.com",
