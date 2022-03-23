@@ -3,13 +3,13 @@
     <h3>{{ 'Engine models'|trans }}</h3>
     <p class="text-muted">
       {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
-        '%count%': aircraftModels.nbResults,
-        '%nbResults%': aircraftModels.nbResults|format_number
+        '%count%': engineModels.nbResults,
+        '%nbResults%': engineModels.nbResults|format_number
       })|raw }}
       -
       {{ 'Page %currentPage% out of %nbPages%'|trans({
-        '%currentPage%': aircraftModels.currentPage|format_number,
-        '%nbPages%': aircraftModels.nbPages|format_number
+        '%currentPage%': engineModels.currentPage|format_number,
+        '%nbPages%': engineModels.nbPages|format_number
       })|raw }}
     </p>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-4 g-3">
