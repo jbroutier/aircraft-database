@@ -45,42 +45,44 @@ class SearchController extends AbstractController
             ->createQueryBuilder('m');
 
         $manufacturersBuilder
-            ->where($manufacturersBuilder->expr()->like('m.name', ':query'))
+            ->select('m, MATCH_AGAINST (m.content, m.name) AGAINST (:query) AS score')
+            ->where('MATCH_AGAINST (m.content, m.name) AGAINST (:query) >= 0.85')
+            ->addOrderBy('score', 'DESC')
             ->addOrderBy('m.name', 'ASC')
-            ->setParameter(':query', '%' . $form->getData()['query'] . '%');
+            ->setParameter(':query', $form->getData()['query']);
 
         $aircraftTypesBuilder = $this->entityManager
             ->getRepository(AircraftType::class)
             ->createQueryBuilder('at');
 
         $aircraftTypesBuilder
-            ->leftJoin('at.manufacturer', 'm')
-            ->where($aircraftTypesBuilder->expr()->like('at.name', ':query'))
-            ->orWhere($aircraftTypesBuilder->expr()->like('m.name', ':query'))
+            ->select('at, MATCH_AGAINST (at.content, at.name) AGAINST (:query) AS score')
+            ->where('MATCH_AGAINST (at.content, at.name) AGAINST (:query) >= 0.85')
+            ->addOrderBy('score', 'DESC')
             ->addOrderBy('at.name', 'ASC')
-            ->setParameter(':query', '%' . $form->getData()['query'] . '%');
+            ->setParameter(':query', $form->getData()['query']);
 
         $aircraftModelsBuilder = $this->entityManager
             ->getRepository(AircraftModel::class)
             ->createQueryBuilder('am');
 
         $aircraftModelsBuilder
-            ->leftJoin('am.manufacturer', 'm')
-            ->where($aircraftModelsBuilder->expr()->like('am.name', ':query'))
-            ->orWhere($aircraftModelsBuilder->expr()->like('m.name', ':query'))
+            ->select('am, MATCH_AGAINST (am.content, am.name) AGAINST (:query) AS score')
+            ->where('MATCH_AGAINST (am.content, am.name) AGAINST (:query) >= 0.85')
+            ->addOrderBy('score', 'DESC')
             ->addOrderBy('am.name', 'ASC')
-            ->setParameter(':query', '%' . $form->getData()['query'] . '%');
+            ->setParameter(':query', $form->getData()['query']);
 
         $engineModelsBuilder = $this->entityManager
             ->getRepository(EngineModel::class)
             ->createQueryBuilder('em');
 
         $engineModelsBuilder
-            ->leftJoin('em.manufacturer', 'm')
-            ->where($aircraftModelsBuilder->expr()->like('em.name', ':query'))
-            ->orWhere($aircraftTypesBuilder->expr()->like('m.name', ':query'))
+            ->select('em, MATCH_AGAINST (em.content, em.name) AGAINST (:query) AS score')
+            ->where('MATCH_AGAINST (em.content, em.name) AGAINST (:query) >= 0.85')
+            ->addOrderBy('score', 'DESC')
             ->addOrderBy('em.name', 'ASC')
-            ->setParameter(':query', '%' . $form->getData()['query'] . '%');
+            ->setParameter(':query', $form->getData()['query']);
 
         $adapter = new ConcatenationAdapter([
             new QueryAdapter($manufacturersBuilder),

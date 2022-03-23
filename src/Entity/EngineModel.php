@@ -33,6 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['slug'])]
 #[ORM\Entity(repositoryClass: EngineModelRepository::class)]
+#[ORM\Index(columns: ['content', 'name'], flags: ['fulltext'])]
 class EngineModel implements
     BlameableInterface,
     ContentAwareInterface,

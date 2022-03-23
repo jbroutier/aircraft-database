@@ -35,6 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['slug'])]
 #[ORM\Entity(repositoryClass: ManufacturerRepository::class)]
+#[ORM\Index(columns: ['content', 'name'], flags: ['fulltext'])]
 class Manufacturer implements
     BlameableInterface,
     ContentAwareInterface,

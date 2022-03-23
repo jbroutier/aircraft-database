@@ -30,6 +30,8 @@
 
     {% for result in results %}
 
+      {% set result = result|first %}
+
       {% if result is instanceOf('App\\Entity\\AircraftModel') %}
         {% set route = 'database_aircraft_model_read' %}
       {% elseif result is instanceOf('App\\Entity\\AircraftType') %}
