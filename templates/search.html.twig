@@ -18,12 +18,15 @@
         '%count%': results.nbResults,
         '%nbResults%': results.nbResults|format_number
       })|raw }}
-      -
-      {{ 'Page %currentPage% out of %nbPages%'|trans({
-        '%currentPage%': results.currentPage|format_number,
-        '%nbPages%': results.nbPages|format_number
-      })
-      |raw }}
+
+      {% if results is not empty %}
+        -
+        {{ 'Page %currentPage% out of %nbPages%'|trans({
+          '%currentPage%': results.currentPage|format_number,
+          '%nbPages%': results.nbPages|format_number
+        })|raw }}
+      {% endif %}
+
     </p>
   </div>
   <div class="d-flex flex-column gap-2">
