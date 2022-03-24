@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-pro": "^6.1.1",
-        "@fontsource/noto-sans": "^4.5.5",
+        "@fontsource/noto-sans": "^4.5.7",
         "@hotwired/stimulus": "^3.0.1",
         "@sentry/browser": "^6.19.1",
         "@sentry/tracing": "^6.19.1",
