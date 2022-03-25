@@ -85,10 +85,10 @@ class SearchController extends AbstractController
             ->setParameter(':query', $form->getData()['query']);
 
         $adapter = new ConcatenationAdapter([
-            new QueryAdapter($manufacturersBuilder),
-            new QueryAdapter($aircraftTypesBuilder),
-            new QueryAdapter($aircraftModelsBuilder),
             new QueryAdapter($engineModelsBuilder),
+            new QueryAdapter($aircraftModelsBuilder),
+            new QueryAdapter($aircraftTypesBuilder),
+            new QueryAdapter($manufacturersBuilder),
         ]);
 
         $results = new Pagerfanta($adapter);
