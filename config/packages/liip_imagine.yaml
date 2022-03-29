@@ -9,12 +9,12 @@ liip_imagine:
                 cache_prefix: cache
 
     filter_sets:
-        thumbnail_1200x1200: # OpenGraph images
+        thumbnail_1200x630: # OpenGraph images
             format: webp
             quality: 100
             filters:
-                thumbnail: { size: [ 1200, 1200 ], mode: outbound }
-                background: { size: [ 1200, 1200 ], position: center, color: '#212529' }
+                thumbnail: { size: [ 1200, 630 ], mode: inset }
+                background: { size: [ 1200, 630 ], position: center, color: '#212529' }
 
         thumbnail_1400x800: # Carousel slides
             format: webp

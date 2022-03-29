@@ -9,10 +9,10 @@
 {% block images %}
   {% for picture in engineModel.pictures %}
     <meta property="og:image"
-          content="{{ absolute_url(asset('pictures/' ~ picture)|imagine_filter('thumbnail_1200x1200')) }}">
+          content="{{ absolute_url(asset('pictures/' ~ picture)|imagine_filter('thumbnail_1200x630')) }}">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="1200">
+    <meta property="og:image:height" content="630">
 
     {% if picture.description is not null %}
       <meta property="og:image:alt" content="{{ picture.description|escape('html_attr') }}">
