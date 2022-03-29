@@ -13,7 +13,7 @@ liip_imagine:
             format: webp
             quality: 100
             filters:
-                thumbnail: { size: [ 1200, 630 ], mode: inset }
+                thumbnail: { size: [ 1200, 630 ], mode: outbound }
                 background: { size: [ 1200, 630 ], position: center, color: '#212529' }
 
         thumbnail_1400x800: # Carousel slides
