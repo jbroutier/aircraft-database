@@ -46,10 +46,10 @@ class SearchController extends AbstractController
 
         $manufacturersBuilder
             ->select('m, MATCH_AGAINST (m.content, m.name) AGAINST (:query) AS score')
-            ->where('MATCH_AGAINST (m.content, m.name) AGAINST (:query) >= 0.5')
+            ->where('MATCH_AGAINST (m.content, m.name) AGAINST (:query BOOLEAN) > 0')
             ->addOrderBy('score', 'DESC')
             ->addOrderBy('m.name', 'ASC')
-            ->setParameter(':query', $form->getData()['query']);
+            ->setParameter(':query', '"+' . $form->getData()['query'] . '"');
 
         $aircraftTypesBuilder = $this->entityManager
             ->getRepository(AircraftType::class)
@@ -57,10 +57,10 @@ class SearchController extends AbstractController
 
         $aircraftTypesBuilder
             ->select('at, MATCH_AGAINST (at.content, at.name) AGAINST (:query) AS score')
-            ->where('MATCH_AGAINST (at.content, at.name) AGAINST (:query) >= 0.75')
+            ->where('MATCH_AGAINST (at.content, at.name) AGAINST (:query BOOLEAN) > 0')
             ->addOrderBy('score', 'DESC')
             ->addOrderBy('at.name', 'ASC')
-            ->setParameter(':query', $form->getData()['query']);
+            ->setParameter(':query', '"+' . $form->getData()['query'] . '"');
 
         $aircraftModelsBuilder = $this->entityManager
             ->getRepository(AircraftModel::class)
@@ -68,10 +68,10 @@ class SearchController extends AbstractController
 
         $aircraftModelsBuilder
             ->select('am, MATCH_AGAINST (am.content, am.name) AGAINST (:query) AS score')
-            ->where('MATCH_AGAINST (am.content, am.name) AGAINST (:query) >= 1')
+            ->where('MATCH_AGAINST (am.content, am.name) AGAINST (:query BOOLEAN) > 0')
             ->addOrderBy('score', 'DESC')
             ->addOrderBy('am.name', 'ASC')
-            ->setParameter(':query', $form->getData()['query']);
+            ->setParameter(':query', '"+' . $form->getData()['query'] . '"');
 
         $engineModelsBuilder = $this->entityManager
             ->getRepository(EngineModel::class)
@@ -79,10 +79,10 @@ class SearchController extends AbstractController
 
         $engineModelsBuilder
             ->select('em, MATCH_AGAINST (em.content, em.name) AGAINST (:query) AS score')
-            ->where('MATCH_AGAINST (em.content, em.name) AGAINST (:query) >= 1')
+            ->where('MATCH_AGAINST (em.content, em.name) AGAINST (:query BOOLEAN) > 0')
             ->addOrderBy('score', 'DESC')
             ->addOrderBy('em.name', 'ASC')
-            ->setParameter(':query', $form->getData()['query']);
+            ->setParameter(':query', '"+' . $form->getData()['query'] . '"');
 
         $adapter = new ConcatenationAdapter([
             new QueryAdapter($engineModelsBuilder),
