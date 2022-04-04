@@ -3,7 +3,7 @@
     "name": "@jbroutier/aircraft-database",
     "description": "Global database of aircraft manufacturers, types, models & engines.",
     "homepage": "https://aircraft-database.com",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "license": "MIT",
     "author": {
         "name": "Jérémie BROUTIER",
@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-pro": "^6.1.1",
-        "@fontsource/noto-sans": "^4.5.7",
+        "@fontsource/noto-sans": "^4.5.9",
         "@hotwired/stimulus": "^3.0.1",
         "@sentry/browser": "^6.19.3",
         "@sentry/tracing": "^6.19.3",
@@ -53,7 +53,7 @@
         "postcss-preset-env": "^7.4.3",
         "postcss-scss": "^4.0.3",
         "regenerator-runtime": "^0.13.9",
-        "sass": "^1.49.10",
+        "sass": "^1.49.11",
         "sass-loader": "^12.6.0",
         "stylelint": "^14.6.1",
         "stylelint-config-standard": "^25.0.0",
