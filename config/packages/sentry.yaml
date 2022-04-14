@@ -5,7 +5,16 @@ sentry:
     dsn: '%env(SENTRY_DSN)%'
     register_error_listener: false
 
+    messenger:
+        enabled: true
+        capture_soft_fails: true
+
     options:
-        environment: '%kernel.environment%'
+        traces_sampler: sentry.callback.traces_sampler
         release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
-        traces_sample_rate: 0.1
+        send_default_pii: true
+
+services:
+    sentry.callback.traces_sampler:
+        class: App\Service\Sentry
+        factory: [ '@App\Service\Sentry', getTracesSampler ]

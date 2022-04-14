@@ -1,7 +1,9 @@
 import SentryWebpackPlugin from '@sentry/webpack-plugin'
 import Encore from '@symfony/webpack-encore'
+import { config } from 'dotenv'
 import ESLintWebpackPlugin from 'eslint-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
+import { existsSync } from 'fs'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
 import { resolve } from 'path'
 import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
@@ -29,6 +31,18 @@ Encore
     from: './assets/images',
     pattern: /\.(jpe?g|png|svg|webp)$/,
     to: 'images/[path][name]' + (Encore.isProduction() ? '.[hash:8].[ext]' : '.[ext]')
+  })
+  .configureDefinePlugin(options => {
+    const envFiles = ['.env', '.env.local']
+    envFiles.forEach(envFile => {
+      const envFilePath = resolve(__dirname, envFile)
+      if (existsSync(envFilePath)) {
+        const envVars = config({ path: envFilePath }).parsed
+        Object.keys(envVars).forEach(envVar => {
+          options['process.env.' + envVar] = JSON.stringify(envVars[envVar])
+        })
+      }
+    })
   })
   .configureFontRule({
     type: 'asset',

@@ -3,14 +3,12 @@
 
 <!DOCTYPE html>
 <html
-  lang="{{ app.request.locale }}"
-  data-debug="{{ app.debug ? 'true' : 'false' }}"
+  data-debug="{{ app.debug }}"
   data-environment="{{ app.environment }}"
   data-locale="{{ app.request.locale }}"
   data-release="{{ site.release }}"
-  data-user-id="{{ app.user is not null ? app.user.id }}"
-  data-user-ip-address="{{ app.request.clientIp }}"
-  data-user-name="{{ app.user is not null ? app.user.username }}"
+  data-route="{{ route }}"
+  lang="{{ app.request.locale }}"
   prefix="og: https://ogp.me/ns#"
 >
   <head>
@@ -20,6 +18,8 @@
     <meta name="google" content="notranslate">
     <meta name="robots" content="{% block robots %}noarchive{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {{ sentry_trace_meta() }}
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ block('title') }}">
