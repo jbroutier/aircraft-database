@@ -38,7 +38,7 @@
         "@squoosh/lib": "^0.4.1",
         "@symfony/stimulus-bridge": "^3.0.0",
         "@symfony/webpack-encore": "^1.8.2",
-        "core-js": "^3.21.1",
+        "core-js": "^3.22.0",
         "eslint": "^8.13.0",
         "eslint-config-standard": "^17.0.0-1",
         "eslint-import-resolver-webpack": "^0.13.2",
