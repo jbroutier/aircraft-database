@@ -65,7 +65,7 @@
         "vich/uploader-bundle": "^1.19.0"
     },
     "require-dev": {
-        "dama/doctrine-test-bundle": "^6.7.5",
+        "dama/doctrine-test-bundle": "^7.0.0",
         "davidbadura/faker-markdown-generator": "^1.1.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4.1",
         "ekino/phpstan-banned-code": "^1.0.0",
