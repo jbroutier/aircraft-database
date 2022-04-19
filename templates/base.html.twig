@@ -3,11 +3,14 @@
 
 <!DOCTYPE html>
 <html
+  data-client-ip="{{ app.request.clientIp }}"
   data-debug="{{ app.debug }}"
   data-environment="{{ app.environment }}"
   data-locale="{{ app.request.locale }}"
   data-release="{{ site.release }}"
   data-route="{{ route }}"
+  data-user="{{ app.user is not null ? app.user.id }}"
+  data-username="{{ app.user is not null ? app.user.username }}"
   lang="{{ app.request.locale }}"
   prefix="og: https://ogp.me/ns#"
 >

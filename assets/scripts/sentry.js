@@ -1,4 +1,4 @@
-import { init } from '@sentry/browser'
+import { configureScope, init } from '@sentry/browser'
 import { BrowserTracing } from '@sentry/tracing'
 
 export function initSentry () {
@@ -10,7 +10,6 @@ export function initSentry () {
     environment: html.dataset.environment,
     integrations: [
       new BrowserTracing({
-        beforeNavigate: context => ({ ...context, name: html.dataset.route }),
         tracingOrigins: [
           'aircraft-database.com',
           'aircraft-database.local'
@@ -20,5 +19,17 @@ export function initSentry () {
     release: html.dataset.release,
     sampleRate: 1.0,
     tracesSampler: samplingContext => !samplingContext.location.pathname.match(/^\/admin\//i)
+  })
+
+  configureScope(scope => {
+    scope.setTransactionName(html.dataset.route)
+    scope.setTags({
+      locale: html.dataset.locale
+    })
+    scope.setUser({
+      id: html.dataset.user,
+      ip_address: html.dataset.clientIp,
+      username: html.dataset.username
+    })
   })
 }

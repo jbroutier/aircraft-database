@@ -22,7 +22,7 @@ class SentryEventSubscriber implements EventSubscriberInterface
     {
         $transaction = SentrySdk::getCurrentHub()->getTransaction();
 
-        if (!is_null($transaction) && $transaction->getSampled()) {
+        if (!is_null($transaction) && $transaction->getSampled() === true) {
             if (!is_null($routeName = $event->getRequest()->attributes->get('_route'))) {
                 $transaction->setName($routeName);
             }

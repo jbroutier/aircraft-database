@@ -16,13 +16,19 @@ class Sentry
     public function getTracesSampler(): callable
     {
         return function (SamplingContext $samplingContext): float {
-            $request = $this->requestStack->getCurrentRequest();
-
-            if (preg_match('/\/(admin|media|_profiler|_wdt)\//', $request->getRequestUri())) {
-                return 0.0;
+            if ($samplingContext->getParentSampled() === true) {
+                return 1;
             }
 
-            return 1.0;
+            if (is_null($request = $this->requestStack->getCurrentRequest())) {
+                return 0;
+            }
+
+            if (preg_match('/\/(admin|media|_profiler|_wdt)\//', $request->getRequestUri()) !== false) {
+                return 0;
+            }
+
+            return 1;
         };
     }
 }
