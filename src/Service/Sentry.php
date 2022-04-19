@@ -24,7 +24,7 @@ class Sentry
                 return 0;
             }
 
-            if (preg_match('/\/(admin|media|_profiler|_wdt)\//', $request->getRequestUri()) !== false) {
+            if (preg_match('/\/(admin|media|_profiler|_wdt)\//', $request->getRequestUri()) === 1) {
                 return 0;
             }
 
