@@ -102,7 +102,7 @@ Encore
 if (Encore.isProduction()) {
   Encore.addPlugin(new SentryWebpackPlugin({
     include: '.',
-    org: 'jbroutier',
+    org: 'aircraft-database',
     project: 'aircraft-database',
     release: 'aircraft-database@' + process.env.npm_package_version
   }))
