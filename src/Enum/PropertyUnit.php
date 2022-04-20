@@ -11,8 +11,10 @@ enum PropertyUnit: string
     case CubicMetres = 'm³';
     case FahrenheitDegrees = '°F';
     case Feet = 'ft';
+    case Horsepower = 'hp';
     case Kilograms = 'kg';
     case Kilonewtons = 'kN';
+    case Kilowatts = 'kW';
     case Knots = 'Kt';
     case Litres = 'l';
     case Metres = 'm';
