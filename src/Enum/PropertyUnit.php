@@ -9,6 +9,7 @@ enum PropertyUnit: string
     case CelsiusDegrees = '°C';
     case Centimetres = 'cm';
     case CubicMetres = 'm³';
+    case DecaNewtonsMetres = 'daNm';
     case FahrenheitDegrees = '°F';
     case Feet = 'ft';
     case Horsepower = 'hp';
