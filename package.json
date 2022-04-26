@@ -52,7 +52,7 @@
         "postcss-flexbugs-fixes": "^5.0.2",
         "postcss-loader": "^6.2.1",
         "postcss-preset-env": "^7.4.3",
-        "postcss-scss": "^4.0.3",
+        "postcss-scss": "^4.0.4",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.50.1",
         "sass-loader": "^12.6.0",
