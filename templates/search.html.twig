@@ -47,7 +47,7 @@
 
       <div class="card flex-md-row">
         <a href="{{ path(route, { slug: result.slug }) }}">
-          <div class="card-img-top d-md-none">
+          <div class="card-img-top overflow-hidden d-md-none">
 
             {% if result.pictures is not empty %}
               <img class="img-fluid"
@@ -59,7 +59,7 @@
             {% endif %}
 
           </div>
-          <div class="card-img-left d-none d-md-block">
+          <div class="card-img-left overflow-hidden d-none d-md-block">
 
             {% if result.pictures is not empty %}
               <img class="img-fluid"
