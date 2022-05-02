@@ -16,7 +16,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-pro": "^6.1.1",
-        "@fontsource/inter": "^4.5.7",
+        "@fontsource/inter": "^4.5.10",
         "@hotwired/stimulus": "^3.0.1",
         "@sentry/browser": "^6.19.7",
         "@sentry/tracing": "^6.19.7",
