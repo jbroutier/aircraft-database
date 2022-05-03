@@ -18,7 +18,17 @@ export function initSentry () {
     ],
     release: html.dataset.release,
     sampleRate: 1.0,
-    tracesSampler: samplingContext => !samplingContext.location.pathname.match(/^\/admin\//i)
+    tracesSampler: samplingContext => {
+      if (samplingContext.parentSampled) {
+        return 1
+      }
+
+      if (samplingContext.location.pathname.match(/^\/admin\//i)) {
+        return 0
+      }
+
+      return 0.25
+    }
   })
 
   configureScope(scope => {
