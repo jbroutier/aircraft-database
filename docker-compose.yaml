@@ -81,7 +81,7 @@ services:
                 ipv4_address: 172.8.1.7
 
     redis:
-        image: redis:6.2
+        image: redis:7.0
         container_name: aircraft-database-redis
         volumes:
             -   type: volume
