@@ -15,8 +15,8 @@
         "url": "https://github.com/jbroutier/aircraft-database.git"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-pro": "^6.1.1",
         "@fontsource/inter": "^4.5.10",
+        "@fortawesome/fontawesome-pro": "^6.1.1",
         "@hotwired/stimulus": "^3.0.1",
         "@sentry/browser": "^6.19.7",
         "@sentry/tracing": "^6.19.7",
@@ -37,7 +37,7 @@
         "@sentry/webpack-plugin": "^1.18.9",
         "@squoosh/lib": "0.4.0",
         "@symfony/stimulus-bridge": "^3.1.0",
-        "@symfony/webpack-encore": "^1.8.2",
+        "@symfony/webpack-encore": "^2.1.0",
         "core-js": "^3.22.4",
         "dotenv": "^16.0.0",
         "eslint": "^8.14.0",
