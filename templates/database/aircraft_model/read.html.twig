@@ -1,7 +1,7 @@
 {% extends '_layouts/default.html.twig' %}
 
 {% block title %}{{ aircraftModel.manufacturer is not null ? aircraftModel.manufacturer.name }} {{ aircraftModel.name }} - {{ parent() }}{% endblock %}
-{% block description %}{{ 'Technical data on %manufacturer% %name%: Dimensions, weight, range, performance,…'|trans({
+{% block description %}{{ '%manufacturer% %name% technical data: Dimensions, weight, speed, engines,…'|trans({
   '%manufacturer%': aircraftModel.manufacturer is not null ? aircraftModel.manufacturer.name,
   '%name%': aircraftModel.name
 }) }}{% endblock %}

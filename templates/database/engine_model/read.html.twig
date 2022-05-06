@@ -1,7 +1,7 @@
 {% extends '_layouts/default.html.twig' %}
 
 {% block title %}{{ engineModel.manufacturer is not null ? engineModel.manufacturer.name }} {{ engineModel.name }} - {{ parent() }}{% endblock %}
-{% block description %}{{ 'Technical data on %manufacturer% %name%: Dimensions, weight, thrust,…'|trans({
+{% block description %}{{ '%manufacturer% %name% technical data: Dimensions, weight, rotation speed, power,…'|trans({
   '%manufacturer%': engineModel.manufacturer is not null ? engineModel.manufacturer.name,
   '%name%': engineModel.name
 }) }}{% endblock %}

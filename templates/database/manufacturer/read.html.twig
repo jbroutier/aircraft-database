@@ -1,7 +1,7 @@
 {% extends '_layouts/default.html.twig' %}
 
 {% block title %}{{ manufacturer.name }} - {{ parent() }}{% endblock %}
-{% block description %}{{ 'Data on %manufacturer%: Engines, aircraft models,…'|trans({
+{% block description %}{{ '%manufacturer% data: Engines, aircraft types, aircraft models,…'|trans({
   '%manufacturer%': manufacturer.name
 }) }}{% endblock %}
 
