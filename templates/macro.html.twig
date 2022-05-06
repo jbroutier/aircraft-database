@@ -117,9 +117,7 @@
 
       {{ propertyValue.value|format_number(format_args) }}&nbsp;kN
 
-      {% if propertyValue.value > 50 %}
-        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
-      {% endif %}
+      {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
 
       <div class="small text-muted">
         {{ (propertyValue.value * 224.8089)|format_number(format_args) }}&nbsp;lbf
