@@ -10,7 +10,7 @@
 {% block main_content %}
   <div class="card card-body">
     <h1>{{ 'Aircraft types'|trans }}</h1>
-    <p class="card-text text-muted">
+    <p class="card-text text-muted" data-nosnippet>
       {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
         '%count%': aircraftTypes.nbResults,
         '%nbResults%': aircraftTypes.nbResults|format_number
