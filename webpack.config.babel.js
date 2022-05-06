@@ -17,6 +17,7 @@ Encore
   .setPublicPath('/assets')
   .addEntry('scripts/app', './assets/scripts/app.js')
   .addStyleEntry('styles/app', './assets/styles/app.scss')
+  .addStyleEntry('styles/fonts', './assets/styles/fonts.scss')
   .enableStimulusBridge('./assets/controllers.json')
   .splitEntryChunks()
   .enableSingleRuntimeChunk()
