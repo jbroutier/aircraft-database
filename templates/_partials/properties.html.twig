@@ -1,3 +1,5 @@
+{% from 'macro.html.twig' import property_value %}
+
 <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3" data-masonry='{ "percentPosition": true }'>
 
   {% for propertyGroup in propertyGroups|sort((a, b) => a.name <=> b.name) %}
@@ -24,63 +26,7 @@
                     {% endif %}
 
                   </th>
-                  <td>
-
-                    {% if propertyValue.property.type.value == 'boolean' %}
-
-                      {% if propertyValue.value|boolean is not null %}
-                        {{ propertyValue.value|boolean ? 'Yes'|trans : 'No'|trans }}
-                      {% else %}
-                        -
-                      {% endif %}
-
-                    {% elseif propertyValue.property.type.value == 'float' %}
-
-                      {% if propertyValue.value|float is not null %}
-                        {{ propertyValue.value|float|format_number }}
-
-                        {% if propertyValue.property.unit is not null %}
-                          {{ propertyValue.property.unit.value }}
-                        {% endif %}
-
-                      {% else %}
-                        -
-                      {% endif %}
-
-                    {% elseif propertyValue.property.type.value == 'integer' %}
-
-                      {% if propertyValue.value|integer is not null %}
-                        {{ propertyValue.value|integer|format_number }}
-
-                        {% if propertyValue.property.unit is not null %}
-                          {{ propertyValue.property.unit.value }}
-                        {% endif %}
-
-                      {% else %}
-                        -
-                      {% endif %}
-
-                    {% elseif propertyValue.property.type.value == 'string' %}
-
-                      {% if propertyValue.value|string is not null %}
-                        {{ propertyValue.value|string }}
-                      {% else %}
-                        -
-                      {% endif %}
-
-                    {% elseif propertyValue.property.type.value == 'url' %}
-
-                      {% if propertyValue.value|url is not null %}
-                        <a rel="noopener noreferrer" href="{{ propertyValue.value|url }}">
-                          {{ propertyValue.value|url }}
-                        </a>
-                      {% else %}
-                        -
-                      {% endif %}
-
-                    {% endif %}
-
-                  </td>
+                  <td>{{ property_value(propertyValue) }}</td>
                 </tr>
               {% endif %}
             {% endfor %}
