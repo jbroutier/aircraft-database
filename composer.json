@@ -1,7 +1,7 @@
 {
     "name": "jbroutier/aircraft-database",
     "description": "Global database of aircraft manufacturers, types, models & engines.",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "type": "project",
     "license": "MIT",
     "homepage": "https://aircraft-database.com",
@@ -62,7 +62,7 @@
         "twig/intl-extra": "^3.3.5",
         "twig/markdown-extra": "^3.3.8",
         "twig/twig": "^3.3.10",
-        "vich/uploader-bundle": "^1.19.0"
+        "vich/uploader-bundle": "^1.19.1"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^7.0.0",

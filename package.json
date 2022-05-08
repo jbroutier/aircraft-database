@@ -3,7 +3,7 @@
     "name": "@jbroutier/aircraft-database",
     "description": "Global database of aircraft manufacturers, types, models & engines.",
     "homepage": "https://aircraft-database.com",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "license": "MIT",
     "author": {
         "name": "Jérémie BROUTIER",
@@ -40,7 +40,7 @@
         "@symfony/webpack-encore": "^2.1.0",
         "core-js": "^3.22.4",
         "dotenv": "^16.0.0",
-        "eslint": "^8.14.0",
+        "eslint": "^8.15.0",
         "eslint-config-standard": "^17.0.0",
         "eslint-import-resolver-webpack": "^0.13.2",
         "eslint-plugin-compat": "^4.0.2",
