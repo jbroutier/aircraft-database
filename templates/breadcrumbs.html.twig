@@ -17,7 +17,11 @@
               <span itemprop="name">{{ breadcrumb.text }}</span>
             </a>
           {% else %}
-            <meta itemprop="item" content="{{ breadcrumb.url }}"/>
+
+            {% if breadcrumb.url %}
+              <meta itemprop="item" content="{{ breadcrumb.url }}"/>
+            {% endif %}
+
             <span itemprop="name">{{ breadcrumb.text }}</span>
           {% endif %}
 
