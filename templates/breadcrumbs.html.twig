@@ -13,13 +13,13 @@
           {% endif %}
 
           {% if breadcrumb.url and not loop.last %}
-            <a itemprop="item" href="{{ breadcrumb.url }}">
+            <a itemprop="item" href="{{ absolute_url(breadcrumb.url) }}">
               <span itemprop="name">{{ breadcrumb.text }}</span>
             </a>
           {% else %}
 
             {% if breadcrumb.url %}
-              <meta itemprop="item" content="{{ breadcrumb.url }}"/>
+              <meta itemprop="item" content="{{ absolute_url(breadcrumb.url) }}"/>
             {% endif %}
 
             <span itemprop="name">{{ breadcrumb.text }}</span>
