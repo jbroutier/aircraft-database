@@ -3,7 +3,8 @@ webpack_encore:
     output_path: '%kernel.project_dir%/public/assets'
     preload: true
 
-    link_attributes: ~
+    link_attributes:
+        async: true
 
     script_attributes:
         defer: true
