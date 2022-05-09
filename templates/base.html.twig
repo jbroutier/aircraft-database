@@ -44,6 +44,8 @@
     <link rel="canonical" href="{{ absolute_url(path(route, routeParams)) }}">
 
     {{ encore_entry_link_tags('styles/app') }}
+    {{ encore_entry_link_tags('styles/fonts') }}
+    {{ encore_entry_script_tags('scripts/app') }}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicons/apple-touch-icon-180x180.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicons/favicon-16x16.png') }}">
@@ -58,9 +60,6 @@
   <body data-controller="modal">
 
     {% block body %}{% endblock %}
-
-    {{ encore_entry_link_tags('styles/fonts') }}
-    {{ encore_entry_script_tags('scripts/app') }}
 
   </body>
 </html>
