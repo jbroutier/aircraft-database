@@ -3,8 +3,3 @@ parameters:
     paths:
         - src
         - tests
-
-    # Temporary fix for issue introduced by https://github.com/doctrine/orm/pull/9708
-    reportUnmatchedIgnoredErrors: true
-    ignoreErrors:
-        - '#Parameter \$repositoryClass of attribute class Doctrine\\ORM\\Mapping\\Entity#'
