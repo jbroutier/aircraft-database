@@ -30,7 +30,7 @@ Encore
   .enableIntegrityHashes(Encore.isProduction(), ['sha256', 'sha384', 'sha512'])
   .copyFiles({
     from: './assets/images',
-    pattern: /\.(jpe?g|png|svg|webp)$/,
+    pattern: /\.(gif|jpe?g|png|svg|webp)$/,
     to: 'images/[path][name]' + (Encore.isProduction() ? '.[hash:8].[ext]' : '.[ext]')
   })
   .configureDefinePlugin(options => {
