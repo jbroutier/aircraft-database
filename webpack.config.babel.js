@@ -87,7 +87,7 @@ Encore
         },
         appleStartup: false,
         coast: false,
-        favicons: true,
+        favicons: false,
         firefox: false,
         windows: false,
         yandex: false
