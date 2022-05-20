@@ -54,7 +54,7 @@
         "postcss-preset-env": "^7.5.0",
         "postcss-scss": "^4.0.4",
         "regenerator-runtime": "^0.13.9",
-        "sass": "^1.51.0",
+        "sass": "^1.52.0",
         "sass-loader": "^13.0.0",
         "stylelint": "^14.8.1",
         "stylelint-config-standard": "^25.0.0",
