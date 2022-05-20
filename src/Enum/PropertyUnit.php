@@ -20,7 +20,7 @@ enum PropertyUnit: string
     case Knots = 'Kt';
     case Litres = 'l';
     case Metres = 'm';
-    case Millimetre = 'mm';
+    case Millimetres = 'mm';
     case NauticalMiles = 'nm';
     case SquareMetres = 'm²';
 
