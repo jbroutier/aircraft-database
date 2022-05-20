@@ -8,6 +8,7 @@ enum PropertyUnit: string
 {
     case CelsiusDegrees = '°C';
     case Centimetres = 'cm';
+    case CubicCentimetres = 'cm³';
     case CubicMetres = 'm³';
     case DecaNewtonsMetres = 'daNm';
     case FahrenheitDegrees = '°F';
@@ -19,6 +20,7 @@ enum PropertyUnit: string
     case Knots = 'Kt';
     case Litres = 'l';
     case Metres = 'm';
+    case Millimetre = 'mm';
     case NauticalMiles = 'nm';
     case SquareMetres = 'm²';
 
