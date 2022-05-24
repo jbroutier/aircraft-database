@@ -19,6 +19,7 @@ trait FilterableTrait
     public function applyFilters(QueryBuilder $builder, array $filters): void
     {
         $rootAlias = $builder->getRootAliases()[0];
+        /** @psalm-var class-string<object> $rootEntity */
         $rootEntity = $builder->getRootEntities()[0];
 
         $classMetadata = $builder

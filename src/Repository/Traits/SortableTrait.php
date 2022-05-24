@@ -14,6 +14,7 @@ trait SortableTrait
     protected function applyOrder(QueryBuilder $builder, array $orderBy = []): void
     {
         $rootAlias = $builder->getRootAliases()[0];
+        /** @psalm-var class-string<object> $rootEntity */
         $rootEntity = $builder->getRootEntities()[0];
 
         $classMetadata = $builder
