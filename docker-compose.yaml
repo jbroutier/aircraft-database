@@ -62,7 +62,7 @@ services:
             - 'redis: 172.8.1.8'
 
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin:5.1
+        image: phpmyadmin/phpmyadmin:5.2
         container_name: aircraft-database-phpmyadmin
         environment:
             PMA_HOST: mysql
