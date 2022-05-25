@@ -73,9 +73,13 @@ services:
                 ipv4_address: 172.8.1.6
 
     rabbitmq:
-        image: aircraft-database/rabbitmq:3.9
+        image: aircraft-database/rabbitmq:3.10
         build: docker/rabbitmq
         container_name: aircraft-database-rabbitmq
+        volumes:
+            -   type: volume
+                source: rabbitmq-data
+                target: /var/lib/rabbitmq
         networks:
             internal:
                 ipv4_address: 172.8.1.7
@@ -101,4 +105,5 @@ networks:
 
 volumes:
     mysql-data:
+    rabbitmq-data:
     redis-data:
