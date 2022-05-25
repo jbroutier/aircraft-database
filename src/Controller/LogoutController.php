@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LogoutController extends AbstractController
 {
     #[Route(path: '/logout', name: 'logout')]
-    public function index(): Response
+    public function __invoke(): Response
     {
         return new Response();
     }
