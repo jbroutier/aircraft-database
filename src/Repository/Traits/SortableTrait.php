@@ -33,7 +33,7 @@ trait SortableTrait
             }
         }
 
-        if (count(array_filter($orderBy)) === 0) {
+        if (count(array_filter($orderBy)) === 0 && $classMetadata->hasField('name')) {
             $builder->addOrderBy($rootAlias . '.name', 'ASC');
         }
     }
