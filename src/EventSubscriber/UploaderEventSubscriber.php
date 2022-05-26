@@ -13,7 +13,7 @@ use Vich\UploaderBundle\Event\Events;
 
 class UploaderEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(protected MessageBusInterface $messageBus)
+    public function __construct(protected readonly MessageBusInterface $messageBus)
     {
     }
 

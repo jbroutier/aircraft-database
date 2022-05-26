@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class SitemapEventSubscriber implements EventSubscriberInterface
 {
-    public function __construct(protected SitemapGenerator $sitemapGenerator)
+    public function __construct(protected readonly SitemapGenerator $sitemapGenerator)
     {
     }
 

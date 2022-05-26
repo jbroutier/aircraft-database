@@ -15,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class LogoController extends AbstractController
 {
     public function __construct(
-        protected LogoRepository $repository,
-        protected EntityManagerInterface $entityManager
+        protected readonly LogoRepository $repository,
+        protected readonly EntityManagerInterface $entityManager
     ) {
     }
 

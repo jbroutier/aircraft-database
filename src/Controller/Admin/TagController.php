@@ -20,9 +20,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TagController extends AbstractController
 {
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected TagRepository $repository,
-        protected TranslatorInterface $translator
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly TagRepository $repository,
+        protected readonly TranslatorInterface $translator
     ) {
     }
 

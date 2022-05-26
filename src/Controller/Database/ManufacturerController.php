@@ -16,8 +16,8 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class ManufacturerController extends AbstractController
 {
     public function __construct(
-        protected Breadcrumbs $breadcrumbs,
-        protected ManufacturerRepository $repository
+        protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly ManufacturerRepository $repository
     ) {
     }
 

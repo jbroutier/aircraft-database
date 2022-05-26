@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class Sentry
 {
-    public function __construct(protected RequestStack $requestStack)
+    public function __construct(protected readonly RequestStack $requestStack)
     {
     }
 

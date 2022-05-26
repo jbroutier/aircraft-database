@@ -18,9 +18,9 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class ContactController extends AbstractController
 {
     public function __construct(
-        protected Breadcrumbs $breadcrumbs,
-        protected MailerInterface $mailer,
-        protected TranslatorInterface $translator
+        protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly MailerInterface $mailer,
+        protected readonly TranslatorInterface $translator
     ) {
     }
 

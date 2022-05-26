@@ -16,8 +16,8 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class AircraftTypeController extends AbstractController
 {
     public function __construct(
-        protected AircraftTypeRepository $repository,
-        protected Breadcrumbs $breadcrumbs
+        protected readonly AircraftTypeRepository $repository,
+        protected readonly Breadcrumbs $breadcrumbs
     ) {
     }
 

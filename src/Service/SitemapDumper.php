@@ -11,9 +11,9 @@ use Symfony\Component\HttpFoundation\UrlHelper;
 class SitemapDumper implements DumperInterface
 {
     public function __construct(
-        protected DumperInterface $decorated,
-        protected UrlHelper $urlHelper,
-        protected string $directory
+        protected readonly DumperInterface $decorated,
+        protected readonly UrlHelper $urlHelper,
+        protected readonly string $directory
     ) {
     }
 

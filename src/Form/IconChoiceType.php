@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IconChoiceType extends AbstractType
 {
-    public function __construct(protected string $projectDir)
+    public function __construct(protected readonly string $projectDir)
     {
     }
 

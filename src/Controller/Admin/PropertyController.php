@@ -20,9 +20,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PropertyController extends AbstractController
 {
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected PropertyRepository $repository,
-        protected TranslatorInterface $translator
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly PropertyRepository $repository,
+        protected readonly TranslatorInterface $translator
     ) {
     }
 

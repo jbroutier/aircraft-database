@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Security;
 
 class BlameableEventSubscriber implements EventSubscriber
 {
-    public function __construct(protected Security $security)
+    public function __construct(protected readonly Security $security)
     {
     }
 

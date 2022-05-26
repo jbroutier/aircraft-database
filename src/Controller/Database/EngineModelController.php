@@ -16,8 +16,8 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class EngineModelController extends AbstractController
 {
     public function __construct(
-        protected Breadcrumbs $breadcrumbs,
-        protected EngineModelRepository $repository
+        protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly EngineModelRepository $repository
     ) {
     }
 

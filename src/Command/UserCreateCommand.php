@@ -27,8 +27,8 @@ use Symfony\Component\Validator\Validation;
 class UserCreateCommand extends Command
 {
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected UserPasswordHasherInterface $userPasswordHasher
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly UserPasswordHasherInterface $userPasswordHasher
     ) {
         parent::__construct();
     }

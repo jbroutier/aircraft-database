@@ -22,8 +22,8 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class SearchController extends AbstractController
 {
     public function __construct(
-        protected Breadcrumbs $breadcrumbs,
-        protected EntityManagerInterface $entityManager
+        protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly EntityManagerInterface $entityManager
     ) {
     }
 

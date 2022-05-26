@@ -16,8 +16,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class SitemapGenerator
 {
     public function __construct(
-        protected EntityManagerInterface $entityManager,
-        protected UrlGeneratorInterface $urlGenerator,
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly UrlGeneratorInterface $urlGenerator,
     ) {
     }
 

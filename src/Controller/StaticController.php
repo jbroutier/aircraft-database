@@ -13,8 +13,8 @@ use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 class StaticController extends AbstractController
 {
     public function __construct(
-        protected Breadcrumbs $breadcrumbs,
-        protected TranslatorInterface $translator
+        protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly TranslatorInterface $translator
     ) {
     }
 

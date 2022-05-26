@@ -20,9 +20,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AircraftModelController extends AbstractController
 {
     public function __construct(
-        protected AircraftModelRepository $repository,
-        protected EntityManagerInterface $entityManager,
-        protected TranslatorInterface $translator
+        protected readonly AircraftModelRepository $repository,
+        protected readonly EntityManagerInterface $entityManager,
+        protected readonly TranslatorInterface $translator
     ) {
     }
 
