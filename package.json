@@ -15,7 +15,7 @@
         "url": "https://github.com/jbroutier/aircraft-database.git"
     },
     "dependencies": {
-        "@babel/runtime": "^7.18.2",
+        "@babel/runtime": "^7.18.3",
         "@fontsource/inter": "^4.5.10",
         "@fortawesome/fontawesome-pro": "^6.1.1",
         "@hotwired/stimulus": "^3.0.1",
