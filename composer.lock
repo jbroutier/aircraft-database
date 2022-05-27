@@ -6358,20 +6358,20 @@
         },
         {
             "name": "symfony/lock",
-            "version": "v6.0.7",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/lock.git",
-                "reference": "dcbb2a00ddf90f0ea8d370c354e0cde1303bf4a5"
+                "reference": "abb85cd54d0638b8432ff5ef7a346ad213a70373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/lock/zipball/dcbb2a00ddf90f0ea8d370c354e0cde1303bf4a5",
-                "reference": "dcbb2a00ddf90f0ea8d370c354e0cde1303bf4a5",
+                "url": "https://api.github.com/repos/symfony/lock/zipball/abb85cd54d0638b8432ff5ef7a346ad213a70373",
+                "reference": "abb85cd54d0638b8432ff5ef7a346ad213a70373",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=8.1",
                 "psr/log": "^1|^2|^3"
             },
             "conflict": {
@@ -6415,7 +6415,7 @@
                 "semaphore"
             ],
             "support": {
-                "source": "https://github.com/symfony/lock/tree/v6.0.7"
+                "source": "https://github.com/symfony/lock/tree/v6.1.0"
             },
             "funding": [
                 {
@@ -6431,7 +6431,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-22T16:12:04+00:00"
+            "time": "2022-04-01T07:15:35+00:00"
         },
         {
             "name": "symfony/mailer",
@@ -6840,20 +6840,20 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v6.0.3",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "51f7006670febe4cbcbae177cbffe93ff833250d"
+                "reference": "a3016f5442e28386ded73c43a32a5b68586dd1c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/51f7006670febe4cbcbae177cbffe93ff833250d",
-                "reference": "51f7006670febe4cbcbae177cbffe93ff833250d",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/a3016f5442e28386ded73c43a32a5b68586dd1c4",
+                "reference": "a3016f5442e28386ded73c43a32a5b68586dd1c4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=8.1",
                 "symfony/deprecation-contracts": "^2.1|^3"
             },
             "type": "library",
@@ -6887,7 +6887,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v6.0.3"
+                "source": "https://github.com/symfony/options-resolver/tree/v6.1.0"
             },
             "funding": [
                 {
@@ -6903,7 +6903,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:55:41+00:00"
+            "time": "2022-02-25T11:15:52+00:00"
         },
         {
             "name": "symfony/password-hasher",
@@ -7296,20 +7296,20 @@
         },
         {
             "name": "symfony/rate-limiter",
-            "version": "v6.0.8",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/rate-limiter.git",
-                "reference": "1c773d205ef8001eff97a0b70a6aac3dbc04d20b"
+                "reference": "5ef087ea3549b2d4c62044bad2ecdf496e0b0bf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/rate-limiter/zipball/1c773d205ef8001eff97a0b70a6aac3dbc04d20b",
-                "reference": "1c773d205ef8001eff97a0b70a6aac3dbc04d20b",
+                "url": "https://api.github.com/repos/symfony/rate-limiter/zipball/5ef087ea3549b2d4c62044bad2ecdf496e0b0bf6",
+                "reference": "5ef087ea3549b2d4c62044bad2ecdf496e0b0bf6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0.2",
+                "php": ">=8.1",
                 "symfony/lock": "^5.4|^6.0",
                 "symfony/options-resolver": "^5.4|^6.0"
             },
@@ -7346,7 +7346,7 @@
                 "rate-limiter"
             ],
             "support": {
-                "source": "https://github.com/symfony/rate-limiter/tree/v6.0.8"
+                "source": "https://github.com/symfony/rate-limiter/tree/v6.1.0"
             },
             "funding": [
                 {
@@ -7362,7 +7362,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-03T13:04:20+00:00"
+            "time": "2022-05-14T12:53:54+00:00"
         },
         {
             "name": "symfony/routing",
