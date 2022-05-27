@@ -178,6 +178,9 @@
             "config/routes/liip_imagine.yaml"
         ]
     },
+    "masterminds/html5": {
+        "version": "2.7.5"
+    },
     "mhujer/breadcrumbs-bundle": {
         "version": "1.5.8"
     },
@@ -539,12 +542,12 @@
         }
     },
     "symfony/messenger": {
-        "version": "6.0",
+        "version": "6.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "4.3",
-            "ref": "25e3c964d3aee480b3acc3114ffb7940c89edfed"
+            "branch": "main",
+            "version": "6.0",
+            "ref": "2523f7d31488903e247a522e760dc279be7f7aaf"
         },
         "files": [
             "config/packages/messenger.yaml"
@@ -605,12 +608,12 @@
         "version": "v6.0.2"
     },
     "symfony/routing": {
-        "version": "6.0",
+        "version": "6.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "6.0",
-            "ref": "eb3b377a4dc07006c4bdb2c773652cc9434f5246"
+            "branch": "main",
+            "version": "6.1",
+            "ref": "a44010c0d06989bd4f154aa07d2542d47caf5b83"
         },
         "files": [
             "config/packages/routing.yaml",
@@ -621,12 +624,12 @@
         "version": "v6.0.0"
     },
     "symfony/security-bundle": {
-        "version": "6.0",
+        "version": "6.1",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.3",
-            "ref": "98f1f2b0d635908c2b40f3675da2d23b1a069d30"
+            "branch": "main",
+            "version": "6.0",
+            "ref": "8a5b112826f7d3d5b07027f93786ae11a1c7de48"
         },
         "files": [
             "config/packages/security.yaml"
@@ -723,9 +726,9 @@
         "version": "1.14",
         "recipe": {
             "repo": "github.com/symfony/recipes",
-            "branch": "master",
+            "branch": "main",
             "version": "1.10",
-            "ref": "2858aeed7e1d81a45365c049eb533cc8827e380b"
+            "ref": "642c9239e1c76e037f5b65446d09eba836ea147f"
         },
         "files": [
             "assets/app.js",
