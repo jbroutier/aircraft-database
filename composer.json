@@ -31,7 +31,7 @@
         "doctrine/orm": "^2.12.2",
         "league/commonmark": "^2.3.1",
         "liip/imagine-bundle": "^2.7.6",
-        "monolog/monolog": "^2.6.0",
+        "monolog/monolog": "^3.0.0",
         "mhujer/breadcrumbs-bundle": "^1.5.8",
         "pagerfanta/pagerfanta": "^3.6.1",
         "presta/sitemap-bundle": "^3.3.0",
