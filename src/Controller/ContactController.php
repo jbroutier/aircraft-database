@@ -38,9 +38,9 @@ class ContactController extends AbstractController
 
             $email = new Email();
             $email
-                ->replyTo(new Address($data->getAddress(), $data->getName()))
-                ->subject($data->getSubject())
-                ->text($data->getMessage());
+                ->replyTo(new Address($data->address, $data->name))
+                ->subject($data->subject)
+                ->text($data->message);
 
             $this->mailer->send($email);
 
