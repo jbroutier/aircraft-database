@@ -2584,16 +2584,16 @@
         },
         {
             "name": "liip/imagine-bundle",
-            "version": "2.7.6",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "9baad226c7cbc85e7cd751d2bc587c35b0ad0325"
+                "reference": "6063279c79f0c119475bad8a0066bf2513a6cfca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/9baad226c7cbc85e7cd751d2bc587c35b0ad0325",
-                "reference": "9baad226c7cbc85e7cd751d2bc587c35b0ad0325",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/6063279c79f0c119475bad8a0066bf2513a6cfca",
+                "reference": "6063279c79f0c119475bad8a0066bf2513a6cfca",
                 "shasum": ""
             },
             "require": {
@@ -2680,9 +2680,9 @@
             ],
             "support": {
                 "issues": "https://github.com/liip/LiipImagineBundle/issues",
-                "source": "https://github.com/liip/LiipImagineBundle/tree/2.7.6"
+                "source": "https://github.com/liip/LiipImagineBundle/tree/2.8.0"
             },
-            "time": "2022-01-14T16:46:57+00:00"
+            "time": "2022-05-30T13:06:31+00:00"
         },
         {
             "name": "mhujer/breadcrumbs-bundle",
@@ -4179,23 +4179,23 @@
         },
         {
             "name": "sentry/sentry-symfony",
-            "version": "4.2.10",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-symfony.git",
-                "reference": "d1d2895c028676113cb191516b80b91abcde31f3"
+                "reference": "12d0f9674b8a829fdf1a2cfbb3fd6b94ec4de893"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/d1d2895c028676113cb191516b80b91abcde31f3",
-                "reference": "d1d2895c028676113cb191516b80b91abcde31f3",
+                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/12d0f9674b8a829fdf1a2cfbb3fd6b94ec4de893",
+                "reference": "12d0f9674b8a829fdf1a2cfbb3fd6b94ec4de893",
                 "shasum": ""
             },
             "require": {
                 "jean85/pretty-package-versions": "^1.5 || ^2.0",
                 "php": "^7.2||^8.0",
                 "php-http/discovery": "^1.11",
-                "sentry/sdk": "^3.1",
+                "sentry/sdk": "^3.2",
                 "symfony/cache-contracts": "^1.1||^2.4||^3.0",
                 "symfony/config": "^3.4.44||^4.4.20||^5.0.11||^6.0",
                 "symfony/console": "^3.4.44||^4.4.20||^5.0.11||^6.0",
@@ -4240,7 +4240,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.2.x-dev",
+                    "dev-master": "4.3.x-dev",
                     "releases/3.2.x": "3.2.x-dev",
                     "releases/2.x": "2.x-dev",
                     "releases/1.x": "1.x-dev"
@@ -4278,7 +4278,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-symfony/issues",
-                "source": "https://github.com/getsentry/sentry-symfony/tree/4.2.10"
+                "source": "https://github.com/getsentry/sentry-symfony/tree/4.3.0"
             },
             "funding": [
                 {
@@ -4290,7 +4290,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-05-17T08:20:17+00:00"
+            "time": "2022-05-30T12:09:35+00:00"
         },
         {
             "name": "symfony/amqp-messenger",
@@ -10634,16 +10634,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "dfb81bf8d11e96bb5b51cf6e70ccb817a4b23be7"
+                "reference": "1af9271ea529f995e57a1f493bebba6b830a97d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dfb81bf8d11e96bb5b51cf6e70ccb817a4b23be7",
-                "reference": "dfb81bf8d11e96bb5b51cf6e70ccb817a4b23be7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1af9271ea529f995e57a1f493bebba6b830a97d0",
+                "reference": "1af9271ea529f995e57a1f493bebba6b830a97d0",
                 "shasum": ""
             },
             "require": {
@@ -10669,7 +10669,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.7.5"
+                "source": "https://github.com/phpstan/phpstan/tree/1.7.6"
             },
             "funding": [
                 {
@@ -10689,7 +10689,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-30T16:14:54+00:00"
+            "time": "2022-05-30T21:29:45+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
