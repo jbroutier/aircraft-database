@@ -36,6 +36,6 @@ final class ContactControllerTest extends WebTestCase
         ]);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Message sent');
+        self::assertSelectorTextContains('div', 'Your message has been sent');
     }
 }
