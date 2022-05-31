@@ -8,7 +8,6 @@ use App\Form\ConfirmType;
 use App\Form\PropertyQueryType;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PropertyController extends AbstractController
 {
     public function __construct(
-        protected readonly EntityManagerInterface $entityManager,
         protected readonly PropertyRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -49,9 +47,7 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
+            $this->repository->add($form->getData(), true);
             $this->addFlash('success', $this->translator->trans('Property created.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -76,9 +72,7 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($property);
-            $this->entityManager->flush();
-
+            $this->repository->remove($property, true);
             $this->addFlash('success', $this->translator->trans('Property deleted.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -121,9 +115,7 @@ class PropertyController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($property);
-            $this->entityManager->flush();
-
+            $this->repository->add($property, true);
             $this->addFlash('success', $this->translator->trans('Property updated.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 

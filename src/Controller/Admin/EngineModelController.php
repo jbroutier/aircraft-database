@@ -8,7 +8,6 @@ use App\Form\ConfirmType;
 use App\Form\EngineModelQueryType;
 use App\Form\EngineModelType;
 use App\Repository\EngineModelRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +20,6 @@ class EngineModelController extends AbstractController
 {
     public function __construct(
         protected readonly EngineModelRepository $repository,
-        protected readonly EntityManagerInterface $entityManager,
         protected readonly TranslatorInterface $translator
     ) {
     }
@@ -49,9 +47,7 @@ class EngineModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
+            $this->repository->add($form->getData(), true);
             $this->addFlash('success', $this->translator->trans('Engine model created.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -76,9 +72,7 @@ class EngineModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($engineModel);
-            $this->entityManager->flush();
-
+            $this->repository->remove($engineModel, true);
             $this->addFlash('success', $this->translator->trans('Engine model deleted.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -121,9 +115,7 @@ class EngineModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($engineModel);
-            $this->entityManager->flush();
-
+            $this->repository->add($engineModel, true);
             $this->addFlash('success', $this->translator->trans('Engine model updated.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 

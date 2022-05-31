@@ -13,12 +13,12 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
 /**
+ * @extends ServiceEntityRepository<AircraftModel>
+ *
  * @method AircraftModel|null find($id, $lockMode = null, $lockVersion = null)
  * @method AircraftModel|null findOneBy(array $criteria, array $orderBy = null)
- * @method AircraftModel[]    findAll()
- * @method AircraftModel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- *
- * @extends ServiceEntityRepository<AircraftModel>
+ * @method array<AircraftModel> findAll()
+ * @method array<AircraftModel> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AircraftModelRepository extends ServiceEntityRepository
 {
@@ -28,6 +28,15 @@ class AircraftModelRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AircraftModel::class);
+    }
+
+    public function add(AircraftModel $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     /**
@@ -42,5 +51,14 @@ class AircraftModelRepository extends ServiceEntityRepository
         $this->applyOrder($builder, $orderBy);
 
         return new Pagerfanta(new QueryAdapter($builder));
+    }
+
+    public function remove(AircraftModel $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

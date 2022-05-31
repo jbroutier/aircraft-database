@@ -8,7 +8,6 @@ use App\Form\ConfirmType;
 use App\Form\ManufacturerQueryType;
 use App\Form\ManufacturerType;
 use App\Repository\ManufacturerRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ManufacturerController extends AbstractController
 {
     public function __construct(
-        protected readonly EntityManagerInterface $entityManager,
         protected readonly ManufacturerRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -49,9 +47,7 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
+            $this->repository->add($form->getData(), true);
             $this->addFlash('success', $this->translator->trans('Manufacturer created.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -76,9 +72,7 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($manufacturer);
-            $this->entityManager->flush();
-
+            $this->repository->remove($manufacturer, true);
             $this->addFlash('success', $this->translator->trans('Manufacturer deleted.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -121,9 +115,7 @@ class ManufacturerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($manufacturer);
-            $this->entityManager->flush();
-
+            $this->repository->add($manufacturer, true);
             $this->addFlash('success', $this->translator->trans('Manufacturer updated.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 

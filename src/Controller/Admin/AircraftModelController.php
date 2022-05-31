@@ -8,7 +8,6 @@ use App\Form\AircraftModelQueryType;
 use App\Form\AircraftModelType;
 use App\Form\ConfirmType;
 use App\Repository\AircraftModelRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +20,6 @@ class AircraftModelController extends AbstractController
 {
     public function __construct(
         protected readonly AircraftModelRepository $repository,
-        protected readonly EntityManagerInterface $entityManager,
         protected readonly TranslatorInterface $translator
     ) {
     }
@@ -80,9 +78,7 @@ class AircraftModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
+            $this->repository->add($form->getData(), true);
             $this->addFlash('success', $this->translator->trans('Aircraft model created.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -110,9 +106,7 @@ class AircraftModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($aircraftModel);
-            $this->entityManager->flush();
-
+            $this->repository->remove($aircraftModel, true);
             $this->addFlash('success', $this->translator->trans('Aircraft model deleted.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -155,9 +149,7 @@ class AircraftModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($aircraftModel);
-            $this->entityManager->flush();
-
+            $this->repository->add($aircraftModel, true);
             $this->addFlash('success', $this->translator->trans('Aircraft model updated.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 

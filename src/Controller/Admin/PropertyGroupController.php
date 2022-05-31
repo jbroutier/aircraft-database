@@ -8,7 +8,6 @@ use App\Form\ConfirmType;
 use App\Form\PropertyGroupQueryType;
 use App\Form\PropertyGroupType;
 use App\Repository\PropertyGroupRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +19,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PropertyGroupController extends AbstractController
 {
     public function __construct(
-        protected readonly EntityManagerInterface $entityManager,
         protected readonly PropertyGroupRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -49,9 +47,7 @@ class PropertyGroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($form->getData());
-            $this->entityManager->flush();
-
+            $this->repository->add($form->getData(), true);
             $this->addFlash('success', $this->translator->trans('Property group created.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -76,9 +72,7 @@ class PropertyGroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->remove($propertyGroup);
-            $this->entityManager->flush();
-
+            $this->repository->remove($propertyGroup, true);
             $this->addFlash('success', $this->translator->trans('Property group deleted.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -121,9 +115,7 @@ class PropertyGroupController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($propertyGroup);
-            $this->entityManager->flush();
-
+            $this->repository->add($propertyGroup, true);
             $this->addFlash('success', $this->translator->trans('Property group updated.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 

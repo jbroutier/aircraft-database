@@ -13,12 +13,12 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 
 /**
+ * @extends ServiceEntityRepository<Property>
+ *
  * @method Property|null find($id, $lockMode = null, $lockVersion = null)
  * @method Property|null findOneBy(array $criteria, array $orderBy = null)
- * @method Property[]    findAll()
- * @method Property[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- *
- * @extends ServiceEntityRepository<Property>
+ * @method array<Property> findAll()
+ * @method array<Property> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PropertyRepository extends ServiceEntityRepository
 {
@@ -28,6 +28,15 @@ class PropertyRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Property::class);
+    }
+
+    public function add(Property $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     /**
@@ -42,5 +51,14 @@ class PropertyRepository extends ServiceEntityRepository
         $this->applyOrder($builder, $orderBy);
 
         return new Pagerfanta(new QueryAdapter($builder));
+    }
+
+    public function remove(Property $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 }

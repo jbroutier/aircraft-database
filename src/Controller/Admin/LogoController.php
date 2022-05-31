@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Repository\LogoRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LogoController extends AbstractController
 {
-    public function __construct(
-        protected readonly LogoRepository $repository,
-        protected readonly EntityManagerInterface $entityManager
-    ) {
+    public function __construct(protected readonly LogoRepository $repository)
+    {
     }
 
     #[Route(path: '/admin/logos/{id}/delete', name: 'admin_logo_delete')]
@@ -29,8 +26,7 @@ class LogoController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $this->entityManager->remove($logo);
-        $this->entityManager->flush();
+        $this->repository->remove($logo, true);
 
         return new Response();
     }
