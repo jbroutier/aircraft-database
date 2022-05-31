@@ -22,6 +22,7 @@
     "Aircraft type": "Aircraft type",
     "Aircraft types technical data: Dimensions, weight, speed, engines,…": "Aircraft types technical data: Dimensions, weight, speed, engines,…",
     "Aircraft types": "Aircraft types",
+    "An error has occurred. Please try again later.": "An error has occurred. Please try again later.",
     "Apply": "Apply",
     "Are you sure you want to delete the aircraft model \u00ab%name%\u00bb?": "Are you sure you want to delete the aircraft model \u00ab%name%\u00bb?",
     "Are you sure you want to delete the aircraft type \u00ab%name%\u00bb?": "Are you sure you want to delete the aircraft type \u00ab%name%\u00bb?",
@@ -179,5 +180,6 @@
     "Value:": "Value:",
     "Warning": "Warning",
     "Website %link1% is published under the terms of the %link2% license.": "Website %link1% is published under the terms of the %link2% license.",
-    "Yes": "Yes"
+    "Yes": "Yes",
+    "Your message has been sent.": "Your message has been sent."
 }

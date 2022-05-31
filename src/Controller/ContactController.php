@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\ContactType;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -19,6 +21,7 @@ class ContactController extends AbstractController
 {
     public function __construct(
         protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly LoggerInterface $logger,
         protected readonly MailerInterface $mailer,
         protected readonly TranslatorInterface $translator
     ) {
@@ -42,9 +45,13 @@ class ContactController extends AbstractController
                 ->subject($data->subject)
                 ->text($data->message);
 
-            $this->mailer->send($email);
-
-            $this->addFlash('success', $this->translator->trans('Message sent.'));
+            try {
+                $this->mailer->send($email);
+                $this->addFlash('success', $this->translator->trans('Your message has been sent.'));
+            } catch (TransportExceptionInterface $exception) {
+                $this->logger->error($exception->getMessage());
+                $this->addFlash('danger', $this->translator->trans('An error has occurred. Please try again later.'));
+            }
         }
 
         return $this->render('contact.html.twig', [
