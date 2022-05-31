@@ -14,10 +14,6 @@ sentry:
         release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
         send_default_pii: true
 
-    tracing:
-        dbal:
-            enabled: false
-
 services:
     sentry.callback.traces_sampler:
         class: App\Service\Sentry
