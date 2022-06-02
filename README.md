@@ -5,9 +5,9 @@
 [![Node](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml)
 [![PHP](https://github.com/jbroutier/aircraft-database/actions/workflows/php.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/php.yml)
 [![Codecov](https://codecov.io/gh/jbroutier/aircraft-database/branch/master/graph/badge.svg?token=1NSIYQDVJQ)](https://codecov.io/gh/jbroutier/aircraft-database)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Faircraft-database.com?logo=)](https://aircraft-database.com)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Faircraft-database.com&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABYklEQVQ4y+2RsYpTURRF1z1zfXnJqDEwMQRNLQQLu7FNMc1AuuQR/BIrSRr/QjIG0iTFg1T+gmjjIIygjYXNCKZIgq94924LHckI/sHs7mw463D2hhu5/UGSm8/nd5Ik8VmW/bjyx+Oxtdvtg0aj4YfDYbFcLq3ZbLper1e6f4l5nt8LITwaDAZvARaLxcF6vTbgVrVavZ0kyYmZPZO0NrP5NcBsNjus1WodSS+AN8B3SZ8AYoypmVUkdSR9GY1GFwBekuV5flSW5amZfYwxHjnnzoCBpA5wX9JL7/05oLIsv7Varc9XR71zLgKXwBnAdDpN6/X63RBCFXgu6bWZnUp6Kum99/7DZrNJgBLA7wfV7XaPY4zHIYSfklqS3pnZRtID4CFwGGNc9fv94r8tTCYT9wcYAVarVW232z3x3iPpMfAqy7Lw94VrnTonQPteURSqVCrabrfnaZp+3V++0W/9Ag9Ro4Msd4TwAAAAAElFTkSuQmCC)](https://aircraft-database.com)
 [![PHP version](https://img.shields.io/badge/php-8.1-787cb5?logo=php)](https://github.com/jbroutier/aircraft-database)
-[![Symfony version](https://img.shields.io/badge/symfony-6.0-000000?logo=symfony)](https://github.com/jbroutier/aircraft-database)
+[![Symfony version](https://img.shields.io/badge/symfony-6.1-000000?logo=symfony)](https://github.com/jbroutier/aircraft-database)
 
 # Aircraft database
 
