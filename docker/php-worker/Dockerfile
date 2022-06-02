@@ -6,6 +6,7 @@ RUN userdel -f www-data && \
     apt-get update && \
     apt-get install -y libfreetype6-dev libicu-dev libjpeg62-turbo-dev libpng-dev librabbitmq-dev libwebp-dev \
             supervisor uuid-dev zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/* && \
     pecl install amqp redis uuid && \
     docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd intl pdo pdo_mysql sysvsem && \
