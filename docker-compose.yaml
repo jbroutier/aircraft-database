@@ -58,8 +58,25 @@ services:
                 ipv4_address: 172.8.1.5
         extra_hosts:
             - 'mysql: 172.8.1.2'
-            - 'rabbitmq: 172.8.1.7'
-            - 'redis: 172.8.1.8'
+            - 'rabbitmq: 172.8.1.8'
+            - 'redis: 172.8.1.9'
+
+    php-worker:
+        image: aircraft-database/php-worker:8.1
+        build: docker/php-worker
+        container_name: aircraft-database-php-worker
+        working_dir: /usr/share/nginx/html
+        volumes:
+            -   type: bind
+                source: .
+                target: /usr/share/nginx/html
+        networks:
+            internal:
+                ipv4_address: 172.8.1.6
+        extra_hosts:
+            - 'mysql: 172.8.1.2'
+            - 'rabbitmq: 172.8.1.8'
+            - 'redis: 172.8.1.9'
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin:5.2
@@ -70,7 +87,7 @@ services:
             PMA_PASSWORD: root
         networks:
             internal:
-                ipv4_address: 172.8.1.6
+                ipv4_address: 172.8.1.7
 
     rabbitmq:
         image: aircraft-database/rabbitmq:3.10
@@ -82,7 +99,7 @@ services:
                 target: /var/lib/rabbitmq
         networks:
             internal:
-                ipv4_address: 172.8.1.7
+                ipv4_address: 172.8.1.8
 
     redis:
         image: redis:7.0
@@ -93,7 +110,7 @@ services:
                 target: /data
         networks:
             internal:
-                ipv4_address: 172.8.1.8
+                ipv4_address: 172.8.1.9
 
 networks:
     internal:
