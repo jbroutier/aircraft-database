@@ -33,6 +33,7 @@ jobs:
                 run: |
                     ssh remote <<EOF
                         cd /usr/share/nginx/html
+                        git pull
                         npm install
                         npm run build:prod
                         composer dump-env prod
