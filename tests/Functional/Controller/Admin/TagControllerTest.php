@@ -12,7 +12,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/tags/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
@@ -52,7 +51,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/tags/create" creates the tag.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -74,7 +72,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/tags/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
@@ -101,7 +98,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/tags/{id}/delete" deletes the tag.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
@@ -145,7 +141,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/tags/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
@@ -172,7 +167,6 @@ final class TagControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/tags/{id}/update" updates the tag.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {

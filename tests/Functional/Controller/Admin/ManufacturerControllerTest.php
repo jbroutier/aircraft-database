@@ -12,7 +12,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/manufacturers/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
@@ -52,7 +51,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/manufacturers/create" creates the manufacturer.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -73,7 +71,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/manufacturers/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
@@ -100,7 +97,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/manufacturers/{id}/delete" deletes the manufacturer.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
@@ -144,7 +140,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/manufacturers/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
@@ -171,7 +166,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/manufacturers/{id}/update" updates the manufacturer.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {

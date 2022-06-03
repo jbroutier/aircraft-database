@@ -12,7 +12,6 @@ final class LogoControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/logos/{id}/delete" deletes the logo.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {

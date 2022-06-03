@@ -33,7 +33,6 @@ final class EngineModelControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing "/database/engine-models/{slug}" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testRead(): void
     {
@@ -46,7 +45,6 @@ final class EngineModelControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing "/database/engine-models/{slug}" with an invalid slug returns an HTTP 404 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testReadWithInvalidSlug(): void
     {

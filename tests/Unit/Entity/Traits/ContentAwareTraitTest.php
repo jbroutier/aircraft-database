@@ -30,7 +30,6 @@ final class ContentAwareTraitTest extends TestCase
 
     /**
      * @testdox Method setContent() sets the content.
-     * @noinspection SpellCheckingInspection
      */
     public function testSetContent(): void
     {

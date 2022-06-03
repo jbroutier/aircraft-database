@@ -12,7 +12,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/property-groups/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
@@ -52,7 +51,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/property-groups/create" creates the property group.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -72,7 +70,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/property-groups/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
@@ -99,7 +96,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/property-groups/{id}/delete" deletes the property group.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
@@ -143,7 +139,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/property-groups/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
@@ -170,7 +165,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/property-groups/{id}/update" updates the property group.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {

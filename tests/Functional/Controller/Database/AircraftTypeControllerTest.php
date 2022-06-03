@@ -33,7 +33,6 @@ final class AircraftTypeControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing "/database/aircraft-types/{slug}" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testRead(): void
     {
@@ -46,7 +45,6 @@ final class AircraftTypeControllerTest extends WebTestCase
 
     /**
      * @testdox Accessing "/database/aircraft-types/{slug}" with an invalid slug returns an HTTP 404 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testReadWithInvalidSlug(): void
     {

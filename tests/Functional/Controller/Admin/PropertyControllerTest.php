@@ -12,7 +12,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 {
     /**
      * @testdox Accessing "/admin/properties/{id}/clone" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testClone(): void
     {
@@ -52,7 +51,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/properties/create" creates the property.
-     * @noinspection SpellCheckingInspection
      */
     public function testCreateSubmit(): void
     {
@@ -73,7 +71,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/properties/{id}/delete" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testDelete(): void
     {
@@ -100,7 +97,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/properties/{id}/delete" deletes the property.
-     * @noinspection SpellCheckingInspection
      */
     public function testDeleteSubmit(): void
     {
@@ -144,7 +140,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Accessing "/admin/properties/{id}/update" returns an HTTP 200 response.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdate(): void
     {
@@ -171,7 +166,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
 
     /**
      * @testdox Submitting "/admin/properties/{id}/update" updates the property.
-     * @noinspection SpellCheckingInspection
      */
     public function testUpdateSubmit(): void
     {
