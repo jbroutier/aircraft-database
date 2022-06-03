@@ -1,0 +1,45 @@
+name: SSH
+
+on:
+    workflow_dispatch:
+    push:
+        tags:
+            - '*'
+
+jobs:
+    deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        env:
+            SSH_HOST: ${{ secrets.SSH_HOST }}
+            SSH_KEY: ${{ secrets.SSH_KEY }}
+            SSH_USER: ${{ secrets.SSH_USER }}
+
+        steps:
+            -   name: Setup SSH
+                run: |
+                    mkdir -p ~/.ssh
+                    echo "$SSH_KEY" > ~/.ssh/id_rsa
+                    chmod 600 ~/.ssh/id_rsa
+                    cat >>~/.ssh/config <<END
+                        Host remote
+                        HostName $SSH_HOST
+                        User $SSH_USER
+                        IdentityFile ~/.ssh/id_rsa
+                        StrictHostKeyChecking no
+                    END
+
+            -   name: Execute remote commands
+                run: |
+                    ssh remote <<EOF
+                        cd /usr/share/nginx/html
+                        npm install
+                        npm run build:prod
+                        composer dump-env prod
+                        composer install --no-dev --optimize-autoloader
+                        php bin/console doctrine:migrations:migrate --no-interaction
+                        php bin/console doctrine:cache:clear-metadata
+                        php bin/console doctrine:cache:clear-query
+                        php bin/console doctrine:cache:clear-result
+                        supervisorctl restart all
+                    EOF
