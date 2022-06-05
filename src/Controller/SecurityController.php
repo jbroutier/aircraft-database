@@ -12,22 +12,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class LoginController extends AbstractController
+class SecurityController extends AbstractController
 {
-    #[Route(path: '/login', name: 'login')]
-    public function __invoke(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function __construct(protected readonly AuthenticationUtils $authenticationUtils)
+    {
+    }
+
+    #[Route(path: '/login', name: 'security_login')]
+    public function login(Request $request): Response
     {
         $form = $this->createForm(LoginType::class);
         $form->handleRequest($request);
 
-        if (!is_null($error = $authenticationUtils->getLastAuthenticationError())) {
+        if (!is_null($error = $this->authenticationUtils->getLastAuthenticationError())) {
             $form->get('username')->addError(
                 new FormError($error->getMessage(), $error->getMessageKey(), $error->getMessageData())
             );
         }
 
-        return $this->render('login.html.twig', [
+        return $this->render('security/login.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route(path: '/logout', name: 'security_logout')]
+    public function logout(): void
+    {
     }
 }

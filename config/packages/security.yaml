@@ -19,8 +19,8 @@ security:
             provider: app_user_provider
 
             form_login:
-                login_path: login
-                check_path: login
+                login_path: security_login
+                check_path: security_login
                 username_parameter: login[username]
                 password_parameter: login[password]
 
@@ -29,7 +29,7 @@ security:
                 interval: '15 minutes'
 
             logout:
-                path: logout
+                path: security_logout
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
