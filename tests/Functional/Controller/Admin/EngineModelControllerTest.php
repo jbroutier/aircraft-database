@@ -66,7 +66,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Engine model created');
+        self::assertSelectorTextContains('div', 'The engine model has been created');
     }
 
     /**
@@ -110,7 +110,7 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Engine model deleted');
+        self::assertSelectorTextContains('div', 'The engine model has been deleted');
     }
 
     /**
@@ -179,6 +179,6 @@ final class EngineModelControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Engine model updated');
+        self::assertSelectorTextContains('div', 'The engine model has been updated');
     }
 }

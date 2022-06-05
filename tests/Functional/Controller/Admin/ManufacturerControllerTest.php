@@ -66,7 +66,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Manufacturer created');
+        self::assertSelectorTextContains('div', 'The manufacturer has been created');
     }
 
     /**
@@ -110,7 +110,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Manufacturer deleted');
+        self::assertSelectorTextContains('div', 'The manufacturer has been deleted');
     }
 
     /**
@@ -179,6 +179,6 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Manufacturer updated');
+        self::assertSelectorTextContains('div', 'The manufacturer has been updated');
     }
 }

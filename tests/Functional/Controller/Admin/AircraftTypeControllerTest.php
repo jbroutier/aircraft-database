@@ -66,7 +66,7 @@ final class AircraftTypeControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Aircraft type created');
+        self::assertSelectorTextContains('div', 'The aircraft type has been created');
     }
 
     /**
@@ -110,7 +110,7 @@ final class AircraftTypeControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Aircraft type deleted');
+        self::assertSelectorTextContains('div', 'The aircraft type has been deleted');
     }
 
     /**
@@ -179,6 +179,6 @@ final class AircraftTypeControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Aircraft type updated');
+        self::assertSelectorTextContains('div', 'The aircraft type has been updated');
     }
 }

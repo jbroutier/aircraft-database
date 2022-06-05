@@ -66,7 +66,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property created');
+        self::assertSelectorTextContains('div', 'The property has been created');
     }
 
     /**
@@ -110,7 +110,7 @@ final class PropertyControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property deleted');
+        self::assertSelectorTextContains('div', 'The property has been deleted');
     }
 
     /**
@@ -179,6 +179,6 @@ final class PropertyControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property updated');
+        self::assertSelectorTextContains('div', 'The property has been updated');
     }
 }

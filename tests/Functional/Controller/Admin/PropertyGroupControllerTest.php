@@ -65,7 +65,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property group created');
+        self::assertSelectorTextContains('div', 'The property group has been created');
     }
 
     /**
@@ -109,7 +109,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property group deleted');
+        self::assertSelectorTextContains('div', 'The property group has been deleted');
     }
 
     /**
@@ -178,6 +178,6 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Property group updated');
+        self::assertSelectorTextContains('div', 'The property group has been updated');
     }
 }

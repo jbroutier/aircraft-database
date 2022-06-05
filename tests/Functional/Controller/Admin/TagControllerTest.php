@@ -67,7 +67,7 @@ final class TagControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Tag created');
+        self::assertSelectorTextContains('div', 'The tag has been created');
     }
 
     /**
@@ -111,7 +111,7 @@ final class TagControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Tag deleted');
+        self::assertSelectorTextContains('div', 'The tag has been deleted');
     }
 
     /**
@@ -180,6 +180,6 @@ final class TagControllerTest extends FixturesAwareTestCase
         $client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'Tag updated');
+        self::assertSelectorTextContains('div', 'The tag has been updated');
     }
 }
