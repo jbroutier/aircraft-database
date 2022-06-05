@@ -32,26 +32,10 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
     protected array $roles = [];
 
     /**
-     * @var string|null The password user to authenticate the user.
+     * @var string|null The password used to authenticate the user.
      */
     #[ORM\Column(name: 'password', type: 'string', length: 255)]
     protected ?string $password = null;
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(?string $username): User
-    {
-        $this->username = $username;
-        return $this;
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return (string)$this->username;
-    }
 
     /**
      * @return array<string>
@@ -82,6 +66,22 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
     {
         $this->password = $password;
         return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): User
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string)$this->username;
     }
 
     /**
