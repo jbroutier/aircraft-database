@@ -38,6 +38,11 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
     protected ?string $password = null;
 
     /**
+     * @var string|null The plain-text password to be hashed.
+     */
+    protected ?string $plainPassword = null;
+
+    /**
      * @return array<string>
      */
     public function getRoles(): array
@@ -68,6 +73,17 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): User
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
     public function getUsername(): ?string
     {
         return $this->username;
@@ -84,10 +100,8 @@ class User implements IdentifiableInterface, UserInterface, PasswordAuthenticate
         return (string)$this->username;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function eraseCredentials(): void
     {
+        $this->plainPassword = null;
     }
 }

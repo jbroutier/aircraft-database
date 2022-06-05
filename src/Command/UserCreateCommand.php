@@ -13,7 +13,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
@@ -26,10 +25,8 @@ use Symfony\Component\Validator\Validation;
 )]
 class UserCreateCommand extends Command
 {
-    public function __construct(
-        protected readonly EntityManagerInterface $entityManager,
-        protected readonly UserPasswordHasherInterface $userPasswordHasher
-    ) {
+    public function __construct(protected readonly EntityManagerInterface $entityManager,)
+    {
         parent::__construct();
     }
 
@@ -62,7 +59,7 @@ class UserCreateCommand extends Command
 
         $user = new User();
         $user
-            ->setPassword($this->userPasswordHasher->hashPassword($user, $password))
+            ->setPlainPassword($password)
             ->setUsername($username);
 
         if ($admin === true) {
