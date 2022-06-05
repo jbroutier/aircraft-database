@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Validation;
 )]
 class UserCreateCommand extends Command
 {
-    public function __construct(protected readonly EntityManagerInterface $entityManager,)
+    public function __construct(protected readonly UserRepository $repository)
     {
         parent::__construct();
     }
@@ -66,9 +66,7 @@ class UserCreateCommand extends Command
             $user->setRoles(['ROLE_ADMIN']);
         }
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
+        $this->repository->add($user, true);
         $io->success('User has been created.');
 
         return Command::SUCCESS;
