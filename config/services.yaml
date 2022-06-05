@@ -11,7 +11,6 @@ services:
     App\:
         resource: '%kernel.project_dir%/src/'
         exclude:
-            - '%kernel.project_dir%/src/DataFixtures/'
             - '%kernel.project_dir%/src/Entity/'
             - '%kernel.project_dir%/src/Kernel.php'
 

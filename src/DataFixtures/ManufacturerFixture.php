@@ -16,7 +16,10 @@ use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\DependencyInjection\Attribute\When;
 
+#[When('dev')]
+#[When('test')]
 class ManufacturerFixture extends Fixture implements DependentFixtureInterface, FixtureGroupInterface
 {
     use LogoTrait;
