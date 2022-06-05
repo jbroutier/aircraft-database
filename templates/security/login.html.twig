@@ -6,6 +6,12 @@
   <div class="card card-body mx-auto max-w-500px">
     <h1 class="display-6 mb-3 text-center">{{ 'Login'|trans }}</h1>
 
+    {% if error is not null %}
+      <div class="alert alert-danger" role="alert">
+        {{ error.messageKey|trans(error.messageData) }}
+      </div>
+    {% endif %}
+
     {{ form_start(form) }}
 
     <div class="row g-3">
