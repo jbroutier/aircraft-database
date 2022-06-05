@@ -20,18 +20,6 @@ class User implements IdentifiableInterface, PasswordAuthenticatedUserInterface,
     use TimestampableTrait;
 
     /**
-     * @var string|null The username used to authenticate the user.
-     */
-    #[ORM\Column(name: 'username', type: 'string', length: 180, unique: true)]
-    protected ?string $username = null;
-
-    /**
-     * @var array<string> The roles granted to the user.
-     */
-    #[ORM\Column(name: 'roles', type: 'json')]
-    protected array $roles = [];
-
-    /**
      * @var string|null The password used to authenticate the user.
      */
     #[ORM\Column(name: 'password', type: 'string', length: 255)]
@@ -41,6 +29,18 @@ class User implements IdentifiableInterface, PasswordAuthenticatedUserInterface,
      * @var string|null The plain-text password to be hashed.
      */
     protected ?string $plainPassword = null;
+
+    /**
+     * @var array<string> The roles granted to the user.
+     */
+    #[ORM\Column(name: 'roles', type: 'json')]
+    protected array $roles = [];
+
+    /**
+     * @var string|null The username used to authenticate the user.
+     */
+    #[ORM\Column(name: 'username', type: 'string', length: 180, unique: true)]
+    protected ?string $username = null;
 
     /**
      * @return array<string>
