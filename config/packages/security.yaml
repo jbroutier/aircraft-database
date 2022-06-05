@@ -25,10 +25,6 @@ security:
                 username_parameter: login[username]
                 password_parameter: login[password]
 
-            login_throttling:
-                max_attempts: 3
-                interval: '15 minutes'
-
             logout:
                 path: security_logout
 
@@ -37,6 +33,14 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+
+when@prod:
+    security:
+        firewalls:
+            main:
+                login_throttling:
+                    max_attempts: 3
+                    interval: '15 minutes'
 
 when@test:
     security:
