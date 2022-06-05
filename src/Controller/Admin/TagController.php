@@ -48,7 +48,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Tag created.'));
+            $this->addFlash('success', $this->translator->trans('The tag has been created.'));
             $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -73,7 +73,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($tag, true);
-            $this->addFlash('success', $this->translator->trans('Tag deleted.'));
+            $this->addFlash('success', $this->translator->trans('The tag has been deleted.'));
             $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -116,7 +116,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($tag, true);
-            $this->addFlash('success', $this->translator->trans('Tag updated.'));
+            $this->addFlash('success', $this->translator->trans('The tag has been updated.'));
             $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));

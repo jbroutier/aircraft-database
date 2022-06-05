@@ -48,7 +48,7 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Manufacturer created.'));
+            $this->addFlash('success', $this->translator->trans('The manufacturer has been created.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -73,7 +73,7 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($manufacturer, true);
-            $this->addFlash('success', $this->translator->trans('Manufacturer deleted.'));
+            $this->addFlash('success', $this->translator->trans('The manufacturer has been deleted.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -116,7 +116,7 @@ class ManufacturerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($manufacturer, true);
-            $this->addFlash('success', $this->translator->trans('Manufacturer updated.'));
+            $this->addFlash('success', $this->translator->trans('The manufacturer has been updated.'));
             $default = $this->generateUrl('admin_manufacturer_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));

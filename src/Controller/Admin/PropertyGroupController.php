@@ -48,7 +48,7 @@ class PropertyGroupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Property group created.'));
+            $this->addFlash('success', $this->translator->trans('The property group has been created.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -73,7 +73,7 @@ class PropertyGroupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($propertyGroup, true);
-            $this->addFlash('success', $this->translator->trans('Property group deleted.'));
+            $this->addFlash('success', $this->translator->trans('The property group has been deleted.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -116,7 +116,7 @@ class PropertyGroupController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($propertyGroup, true);
-            $this->addFlash('success', $this->translator->trans('Property group updated.'));
+            $this->addFlash('success', $this->translator->trans('The property group has been updated.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));

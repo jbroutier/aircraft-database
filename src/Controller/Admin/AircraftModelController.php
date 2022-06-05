@@ -79,7 +79,7 @@ class AircraftModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Aircraft model created.'));
+            $this->addFlash('success', $this->translator->trans('The aircraft model has been created.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -107,7 +107,7 @@ class AircraftModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($aircraftModel, true);
-            $this->addFlash('success', $this->translator->trans('Aircraft model deleted.'));
+            $this->addFlash('success', $this->translator->trans('The aircraft model has been deleted.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -150,7 +150,7 @@ class AircraftModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($aircraftModel, true);
-            $this->addFlash('success', $this->translator->trans('Aircraft model updated.'));
+            $this->addFlash('success', $this->translator->trans('The aircraft model has been updated.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));

@@ -48,7 +48,7 @@ class PropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Property created.'));
+            $this->addFlash('success', $this->translator->trans('The property has been created.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -73,7 +73,7 @@ class PropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($property, true);
-            $this->addFlash('success', $this->translator->trans('Property deleted.'));
+            $this->addFlash('success', $this->translator->trans('The property has been deleted.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -116,7 +116,7 @@ class PropertyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($property, true);
-            $this->addFlash('success', $this->translator->trans('Property updated.'));
+            $this->addFlash('success', $this->translator->trans('The property has been updated.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));

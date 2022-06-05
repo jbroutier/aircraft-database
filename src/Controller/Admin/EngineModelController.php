@@ -48,7 +48,7 @@ class EngineModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($form->getData(), true);
-            $this->addFlash('success', $this->translator->trans('Engine model created.'));
+            $this->addFlash('success', $this->translator->trans('The engine model has been created.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -73,7 +73,7 @@ class EngineModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($engineModel, true);
-            $this->addFlash('success', $this->translator->trans('Engine model deleted.'));
+            $this->addFlash('success', $this->translator->trans('The engine model has been deleted.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
@@ -116,7 +116,7 @@ class EngineModelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($engineModel, true);
-            $this->addFlash('success', $this->translator->trans('Engine model updated.'));
+            $this->addFlash('success', $this->translator->trans('The engine model has been updated.'));
             $default = $this->generateUrl('admin_engine_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
             return $this->redirect($request->headers->get('Referer', $default));
