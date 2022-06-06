@@ -25,21 +25,21 @@ $white: #fff;
 $black: #000;
 
 $colors: (
-  red: $red,
-  pink: $pink,
-  purple: $purple,
-  indigo: $indigo,
-  blue: $blue,
-  cyan: $cyan,
-  teal: $teal,
-  green: $green,
-  yellow: $yellow,
-  orange: $orange,
-  brown: $brown,
-  gray: $gray,
-  gray-dark: $gray-dark,
-  white: $white,
-  black: $black,
+  "red": $red,
+  "pink": $pink,
+  "purple": $purple,
+  "indigo": $indigo,
+  "blue": $blue,
+  "cyan": $cyan,
+  "teal": $teal,
+  "green": $green,
+  "yellow": $yellow,
+  "orange": $orange,
+  "brown": $brown,
+  "gray": $gray,
+  "gray-dark": $gray-dark,
+  "white": $white,
+  "black": $black,
 );
 
 $primary: $blue;
@@ -52,14 +52,14 @@ $light: $gray-100;
 $dark: $gray-900;
 
 $theme-colors: (
-  primary: $primary,
-  secondary: $secondary,
-  success: $success,
-  info: $info,
-  warning: $warning,
-  danger: $danger,
-  light: $light,
-  dark: $dark,
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "info": $info,
+  "warning": $warning,
+  "danger": $danger,
+  "light": $light,
+  "dark": $dark,
 );
 
 $badge-font-size: 0.8125rem;
