@@ -8,5 +8,5 @@ import 'bootstrap'
 import 'masonry-layout'
 
 initSentry()
-initSelect(document)
-initTooltip(document)
+initSelect()
+initTooltip()
