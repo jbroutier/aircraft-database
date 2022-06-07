@@ -27,7 +27,7 @@ export function initSentry () {
         return 0
       }
 
-      return 0.25
+      return 0.05
     }
   })
 
