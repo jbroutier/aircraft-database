@@ -1,7 +1,7 @@
 import { Controller } from '@hotwired/stimulus'
-import { initSelect } from '@scripts/select'
 import Axios from 'axios'
 import { Modal } from 'bootstrap'
+import { initSelect } from '../select'
 
 export default class extends Controller {
   show (event) {

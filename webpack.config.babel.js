@@ -94,11 +94,6 @@ Encore
       }
     }
   }))
-  .addAliases({
-    '@images': resolve(__dirname, 'assets/images'),
-    '@scripts': resolve(__dirname, 'assets/scripts'),
-    '@styles': resolve(__dirname, 'assets/styles')
-  })
 
 if (Encore.isProduction()) {
   Encore.addPlugin(new SentryWebpackPlugin({
