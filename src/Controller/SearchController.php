@@ -93,7 +93,6 @@ class SearchController extends AbstractController
 
         $results = new Pagerfanta($adapter);
         $results
-            ->setMaxNbPages(10)
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
