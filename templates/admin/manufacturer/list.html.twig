@@ -49,10 +49,10 @@
               <td>
 
                 {% if manufacturer.country is not null %}
-                  <span class="fp {{ manufacturer.country|lower }} me-2"></span>
+                  <span class="fi fi-{{ manufacturer.country|lower }} me-2"></span>
                   {{ manufacturer.country|country_name }}
                 {% else %}
-                  <span class="fp intl me-2"></span>
+                  <span class="fi fi-xx me-2"></span>
                   {{ 'International'|trans }}
                 {% endif %}
 
