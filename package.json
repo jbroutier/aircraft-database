@@ -70,7 +70,6 @@
         "build:prod": "encore production --progress",
         "lint:scripts": "eslint --color \"assets/scripts/**/*.js\"",
         "lint:styles": "stylelint --color \"assets/styles/**/*.scss\"",
-        "serve": "encore dev-server",
         "watch": "encore dev --watch"
     }
 }
