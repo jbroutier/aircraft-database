@@ -22,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="card position-relative">
+  <div class="card position-relative overflow-hidden">
 
     {% if engineModel.pictures|length %}
       {% include '_partials/carousel.html.twig' with { pictures: engineModel.pictures } %}
