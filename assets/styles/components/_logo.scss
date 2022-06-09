@@ -2,20 +2,20 @@
 
 [class*="logo-container"] {
   flex-shrink: 0;
-  height: 55px;
-  width: 55px;
+  height: 50px;
+  width: 100px;
 
   img {
     height: 100%;
     object-fit: contain;
-    object-position: center right;
+    object-position: top right;
     width: 100%;
   }
 
   @include media-breakpoint-up("sm") {
     &.logo-container-lg {
-      height: 100px;
-      width: 100px;
+      height: 75px;
+      width: 150px;
     }
   }
 }
