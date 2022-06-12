@@ -24,7 +24,7 @@
         "@sentry/tracing": "^7.0.0",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0-beta1",
-        "flag-icons": "^6.4.4",
+        "flag-icons": "^6.4.5",
         "masonry-layout": "^4.2.2",
         "slugify": "^1.6.5",
         "tom-select": "^2.0.3"
