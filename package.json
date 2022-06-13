@@ -1,18 +1,25 @@
 {
-    "private": true,
     "name": "@jbroutier/aircraft-database",
+    "version": "1.10.1",
+    "private": true,
     "description": "Global database of aircraft manufacturers, types, models & engines.",
     "homepage": "https://aircraft-database.com",
-    "version": "1.10.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jbroutier/aircraft-database.git"
+    },
     "license": "MIT",
     "author": {
         "name": "Jérémie BROUTIER",
         "email": "jeremie.broutier@posteo.net",
         "url": "https://github.com/jbroutier"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/jbroutier/aircraft-database.git"
+    "scripts": {
+        "build:dev": "encore dev",
+        "build:prod": "encore production --progress",
+        "lint:scripts": "eslint --color \"assets/scripts/**/*.js\"",
+        "lint:styles": "stylelint --color \"assets/styles/**/*.scss\"",
+        "watch": "encore dev --watch"
     },
     "dependencies": {
         "@babel/runtime": "^7.18.3",
@@ -65,12 +72,5 @@
     },
     "peerDependencies": {
         "tapable": "^2.2.1"
-    },
-    "scripts": {
-        "build:dev": "encore dev",
-        "build:prod": "encore production --progress",
-        "lint:scripts": "eslint --color \"assets/scripts/**/*.js\"",
-        "lint:styles": "stylelint --color \"assets/styles/**/*.scss\"",
-        "watch": "encore dev --watch"
     }
 }
