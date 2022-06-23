@@ -47,7 +47,7 @@
         "@symfony/stimulus-bridge": "^3.2.0",
         "@symfony/webpack-encore": "^2.1.0",
         "dotenv": "^16.0.1",
-        "eslint": "^8.17.0",
+        "eslint": "^8.18.0",
         "eslint-config-standard": "^17.0.0",
         "eslint-import-resolver-webpack": "^0.13.2",
         "eslint-plugin-compat": "^4.0.2",
