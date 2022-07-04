@@ -2,7 +2,7 @@ version: 2
 updates:
     -   package-ecosystem: composer
         directory: /
-        target-branch: master
+        target-branch: main
         open-pull-requests-limit: 20
         labels:
             - 'dependencies'
@@ -12,7 +12,7 @@ updates:
 
     -   package-ecosystem: npm
         directory: /
-        target-branch: master
+        target-branch: main
         open-pull-requests-limit: 20
         labels:
             - 'dependencies'
