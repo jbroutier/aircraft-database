@@ -23,9 +23,7 @@ final class SluggableTraitTest extends TestCase
      */
     public function testGetSlug(): void
     {
-        $entity = new SluggableEntity();
-
-        self::assertNull($entity->getSlug());
+        self::assertNull((new SluggableEntity())->getSlug());
     }
 
     /**
@@ -33,9 +31,9 @@ final class SluggableTraitTest extends TestCase
      */
     public function testSetSlug(): void
     {
-        $entity = new SluggableEntity();
-        $entity->setSlug('odio-euismod-lacinia-at-quis');
+        $entity = (new SluggableEntity())
+            ->setSlug('s-64-skycrane');
 
-        self::assertEquals('odio-euismod-lacinia-at-quis', $entity->getSlug());
+        self::assertEquals('s-64-skycrane', $entity->getSlug());
     }
 }

@@ -5,10 +5,7 @@ on: [ push, pull_request ]
 jobs:
     lint-scripts:
         name: Lint scripts
-        runs-on: ubuntu-latest
-        env:
-            FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-
+        runs-on: ubuntu-22.04
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -38,10 +35,7 @@ jobs:
 
     lint-styles:
         name: Lint styles
-        runs-on: ubuntu-latest
-        env:
-            FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-
+        runs-on: ubuntu-22.04
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2

@@ -1,12 +1,9 @@
-{% extends '_layouts/database.html.twig' %}
+{% extends 'layouts/database.html.twig' %}
 
 {% block title %}{{ 'Engine models'|trans }} - {{ parent() }}{% endblock %}
+{% block filters %}{% include 'partials/filters/engine_model.html.twig' %}{% endblock %}
 
-{% block side_content %}
-  {% include '_partials/filters/engine_models.html.twig' %}
-{% endblock %}
-
-{% block main_content %}
+{% block content %}
   <div class="card card-body">
     <div class="d-flex justify-content-between align-items-center">
       <div>
@@ -15,12 +12,12 @@
           {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
             '%count%': engineModels.nbResults,
             '%nbResults%': engineModels.nbResults|format_number
-          })|raw }}
+          }) }}
           -
           {{ 'Page %currentPage% out of %nbPages%'|trans({
             '%currentPage%': engineModels.currentPage|format_number,
             '%nbPages%': engineModels.nbPages|format_number
-          })|raw }}
+          }) }}
         </p>
       </div>
       <button type="button" class="btn btn-success" data-action="click->modal#show"
@@ -56,23 +53,23 @@
 
               </td>
               <td>
-                {{ engineModel.createdAt|date }}
+                {{ engineModel.createdAt|format_datetime }}
 
                 {% if engineModel.createdBy is not null %}
-                  <br>{{ 'by'|trans }} {{ engineModel.createdBy.username }}
+                  <br>{{ 'by %name%'|trans({ '%name%': engineModel.createdBy.fullName }) }}
                 {% endif %}
 
               </td>
               <td>
 
                 {% if engineModel.updatedAt is not null %}
-                  {{ engineModel.updatedAt|date }}
+                  {{ engineModel.updatedAt|format_datetime }}
                 {% else %}
                   -
                 {% endif %}
 
                 {% if engineModel.updatedBy is not null %}
-                  <br>{{ 'by'|trans }} {{ engineModel.updatedBy.username }}
+                  <br>{{ 'by %name%'|trans({ '%name%': engineModel.updatedBy.fullName }) }}
                 {% endif %}
 
               </td>

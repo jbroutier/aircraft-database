@@ -1,0 +1,66 @@
+<div id="carousel" class="carousel carousel-fade slide" data-bs-ride="carousel">
+
+  {% if pictures|length > 1 %}
+    <div class="carousel-indicators">
+
+      {% for picture in pictures %}
+        <button type="button" data-bs-target="#carousel" data-bs-slide-to="{{ loop.index0 }}"
+                aria-label="{{ 'Slide %number%'|trans({ '%number%': loop.index0 }) }}"
+                {% if loop.first %}aria-current="true" class="active"{% endif %}></button>
+      {% endfor %}
+
+    </div>
+  {% endif %}
+
+  <div class="carousel-inner">
+
+    {% for picture in pictures %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        <a rel="noopener noreferrer" href="{{ picture.source }}" target="_blank">
+          <img class="img-fluid" src="{{ asset('pictures/' ~ picture)|imagine_filter('thumbnail_1400x800') }}"
+               width="1400" height="800" alt="{{ picture.description|escape('html_attr') }}">
+        </a>
+        <div class="carousel-caption">
+
+          {% if picture.description is not null %}
+            {{ picture.description|nl2br|raw }}
+          {% endif %}
+
+          {{ 'Copyright'|trans }}
+
+          {% if picture.authorProfile is not null %}
+            <a class="text-reset" rel="author noopener noreferrer" href="{{ picture.authorProfile }}">
+              <u>{{ picture.authorName }}</u>
+            </a>
+          {% else %}
+            {{ picture.authorName }}
+          {% endif %}
+
+          -
+
+          {% if picture.license|license_url is not null %}
+            <a class="text-reset" rel="license noopener noreferrer" href="{{ picture.license|license_url }}">
+              <u>{{ picture.license|license_name }}</u>
+            </a>
+          {% else %}
+            {{ 'Unknown license'|trans }}
+          {% endif %}
+
+        </div>
+      </div>
+    {% endfor %}
+
+  </div>
+
+  {% if pictures|length > 1 %}
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">{{ 'Previous'|trans }}</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">{{ 'Next'|trans }}</span>
+    </button>
+  {% endif %}
+
+</div>

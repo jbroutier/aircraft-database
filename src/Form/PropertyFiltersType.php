@@ -4,17 +4,35 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PropertyFiltersType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['required' => false])
-            ->add('propertyGroup', PropertyGroupChoiceType::class, ['required' => false])
-            ->add('type', PropertyTypeChoiceType::class, ['required' => false]);
+            ->add('name', TextFilterType::class, [
+                'condition_pattern' => FilterOperands::STRING_CONTAINS,
+                'required' => false,
+            ])
+            ->add('propertyGroup', PropertyGroupFilterType::class, ['required' => false])
+            ->add('type', PropertyTypeFilterType::class, ['required' => false]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false,
+            'validation_groups' => false,
+        ]);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return 'filters';
     }
 }

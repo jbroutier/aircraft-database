@@ -1,0 +1,11 @@
+{% extends 'email.mjml.twig' %}
+
+{% block content %}
+  <mj-section>
+    <mj-column>
+      <mj-text color="#343a40" font-family="Inter, sans-serif" font-size="15px" line-height="20px">
+        {{ message|striptags|nl2br }}
+      </mj-text>
+    </mj-column>
+  </mj-section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% mjml %}
+  <mjml>
+    <mj-head>
+      <mj-font name="Inter" href="https://fonts.googleapis.com/css2?family=Inter&amp;display=swap" />
+    </mj-head>
+    <mj-body>
+      <mj-section>
+        <mj-column>
+          <mj-image align="center" src="{{ absolute_url(asset('assets/images/logo.svg')) }}"
+                    width="200px" height="200px" />
+          <mj-spacer height="20px" />
+          <mj-text align="center" color="#343a40" font-family="Inter, sans-serif" font-size="35px">
+            {{ email.subject }}
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      {% block content %}{% endblock %}
+
+    </mj-body>
+  </mjml>
+{% endmjml %}

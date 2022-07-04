@@ -1,8 +1,10 @@
 parameters:
     env(COMPOSER_JSON): '%kernel.project_dir%/composer.json'
+    sentry.sample_rate: 1.0
+    sentry.traces_sample_rate: 0.025
 
 sentry:
-    dsn: '%env(SENTRY_DSN)%'
+    dsn: '%env(resolve:SENTRY_DSN)%'
     register_error_listener: false
 
     messenger:
@@ -10,11 +12,15 @@ sentry:
         capture_soft_fails: true
 
     options:
-        traces_sampler: sentry.callback.traces_sampler
         release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
+        sample_rate: '%sentry.sample_rate%'
         send_default_pii: true
+        traces_sample_rate: '%sentry.traces_sample_rate%'
 
-services:
-    sentry.callback.traces_sampler:
-        class: App\Service\Sentry
-        factory: [ '@App\Service\Sentry', getTracesSampler ]
+twig:
+    globals:
+        sentry:
+            dsn: '%env(resolve:SENTRY_DSN)%'
+            release: 'aircraft-database@%env(key:version:json:file:COMPOSER_JSON)%'
+            sampleRate: '%sentry.sample_rate%'
+            traceSampleRate: '%sentry.traces_sample_rate%'

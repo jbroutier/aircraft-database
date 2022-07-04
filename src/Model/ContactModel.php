@@ -9,12 +9,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContactModel
 {
     #[Assert\NotBlank]
-    #[Assert\Length(max: 180)]
     #[Assert\Email]
+    #[Assert\Length(max: 180)]
     public ?string $address = null;
 
     #[Assert\IsTrue]
-    public ?bool $consent = null;
+    public ?bool $consenting = null;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 10000)]

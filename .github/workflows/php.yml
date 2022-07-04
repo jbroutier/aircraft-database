@@ -5,7 +5,7 @@ on: [ push, pull_request ]
 jobs:
     static-analysis:
         name: Static analysis
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
 
     unit-tests:
         name: Unit tests
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         steps:
             -   name: Checkout
                 uses: actions/checkout@v2
@@ -78,7 +78,7 @@ jobs:
 
     functional-tests:
         name: Functional tests
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-22.04
         env:
             DATABASE_URL: mysql://db_user:db_password@127.0.0.1:3306/db_name
             DEFAULT_URI: http://127.0.0.1:8080
@@ -128,14 +128,31 @@ jobs:
             -   name: Install dependencies
                 run: composer install --prefer-dist --no-progress
 
+            -   name: Setup Node.js
+                uses: actions/setup-node@v2
+                with:
+                    node-version: '16.15'
+
+            -   name: Get npm cache directory
+                id: npm-cache-dir
+                run: echo "::set-output name=dir::$(npm get cache)"
+
+            -   name: Cache dependencies
+                id: npm-cache
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.npm-cache-dir.outputs.dir }}
+                    key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+                    restore-keys: ${{ runner.os }}-npm-
+
+            -   name: Install dependencies
+                run: npm install
+
             -   name: Start PHP web server
                 run: nohup php -S 127.0.0.1:8080 -t public/ &
 
             -   name: Create database schema
                 run: php bin/console doctrine:schema:create
-
-            -   name: Load fixtures
-                run: php bin/console doctrine:fixtures:load --group=base --no-interaction
 
             -   name: Run functional tests
                 run: composer run tests:functional

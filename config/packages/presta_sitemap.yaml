@@ -1,3 +1,6 @@
+parameters:
+    sitemap.directory: 'sitemap'
+
 presta_sitemap:
     default_section: default
     dumper: App\Service\SitemapDumper

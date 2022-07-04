@@ -1,4 +1,4 @@
 framework:
     cache:
-        default_redis_provider: '%env(resolve:REDIS_DSN)%'
         prefix_seed: jbroutier/aircraft-database
+        default_redis_provider: '%env(resolve:REDIS_DSN)%'

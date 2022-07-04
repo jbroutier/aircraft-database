@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Entity\Interface\DescriptionAwareInterface;
 use App\Entity\Interface\IdentifiableInterface;
 use App\Entity\Interface\TimestampableInterface;
 use App\Entity\Traits\DescriptionAwareTrait;
@@ -17,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
-class Picture implements IdentifiableInterface, TimestampableInterface
+class Picture implements DescriptionAwareInterface, IdentifiableInterface, TimestampableInterface
 {
     use DescriptionAwareTrait;
     use IdentifiableTrait;
@@ -34,19 +35,19 @@ class Picture implements IdentifiableInterface, TimestampableInterface
     protected ?string $authorProfile = null;
 
     /**
-     * @var array<int>|null
+     * @var int[]|null
      */
     #[ORM\Column(name: 'dimensions', type: 'array', nullable: true)]
     protected ?array $dimensions = null;
 
     #[Assert\Expression(expression: 'this.getFile() !== null || this.getFileName() !== null')]
-    #[Assert\Image(maxSize: '5Mi', mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
-        maxWidth: 3000, maxHeight: 2000)]
+    #[Assert\Image(maxSize: '5Mi', mimeTypes: ['image/jpeg', 'image/png', 'image/webp'], maxWidth: 3000,
+        maxHeight: 2000)]
     #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'fileName', size: 'size', mimeType: 'mimeType',
         originalName: 'originalName', dimensions: 'dimensions')]
     protected ?File $file = null;
 
-    #[ORM\Column(name: 'fileName', type: 'string', length: 255, nullable: true)]
+    #[ORM\Column(name: 'file_name', type: 'string', length: 255, nullable: true)]
     protected ?string $fileName = null;
 
     #[Assert\NotBlank]
@@ -91,7 +92,7 @@ class Picture implements IdentifiableInterface, TimestampableInterface
     }
 
     /**
-     * @return array<int>|null
+     * @return int[]|null
      */
     public function getDimensions(): ?array
     {
@@ -99,7 +100,7 @@ class Picture implements IdentifiableInterface, TimestampableInterface
     }
 
     /**
-     * @param array<int>|null $dimensions
+     * @param int[]|null $dimensions
      */
     public function setDimensions(?array $dimensions): Picture
     {
@@ -115,7 +116,7 @@ class Picture implements IdentifiableInterface, TimestampableInterface
     public function setFile(?File $file): Picture
     {
         $this->file = $file;
-        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC')); // Force the entity update.
         return $this;
     }
 

@@ -17,6 +17,9 @@ class UploaderEventSubscriber implements EventSubscriberInterface
     {
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public static function getSubscribedEvents(): array
     {
         return [

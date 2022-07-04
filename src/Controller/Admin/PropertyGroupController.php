@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\PropertyGroup;
 use App\Form\ConfirmType;
-use App\Form\PropertyGroupQueryType;
+use App\Form\PropertyGroupFiltersType;
 use App\Form\PropertyGroupType;
 use App\Repository\PropertyGroupRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PropertyGroupController extends AbstractController
 {
     public function __construct(
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly PropertyGroupRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -43,11 +48,14 @@ class PropertyGroupController extends AbstractController
     #[Route(path: '/admin/property-groups/create', name: 'admin_property_group_create')]
     public function create(Request $request): Response
     {
-        $form = $this->createForm(PropertyGroupType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyGroupType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->repository->add($form->getData(), true);
+            /** @var PropertyGroup $propertyGroup */
+            $propertyGroup = $form->getData();
+            $this->repository->add($propertyGroup, true);
             $this->addFlash('success', $this->translator->trans('The property group has been created.'));
             $default = $this->generateUrl('admin_property_group_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -68,8 +76,9 @@ class PropertyGroupController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ConfirmType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($propertyGroup, true);
@@ -88,11 +97,15 @@ class PropertyGroupController extends AbstractController
     #[Route(path: '/admin/property-groups', name: 'admin_property_group_list')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(PropertyGroupQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyGroupFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $propertyGroups = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
+        $builder = $this->repository->createQueryBuilder('pg');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('pg.name', 'ASC');
+
+        $propertyGroups = (new Pagerfanta(new QueryAdapter($builder)))
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
@@ -111,8 +124,9 @@ class PropertyGroupController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(PropertyGroupType::class, $propertyGroup);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyGroupType::class, $propertyGroup)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($propertyGroup, true);

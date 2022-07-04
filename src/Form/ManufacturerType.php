@@ -22,15 +22,15 @@ class ManufacturerType extends AbstractType
             ->add('country', CountryChoiceType::class, ['required' => false])
             ->add('logo', LogoType::class)
             ->add('name', TextType::class)
-            ->add('pictures', PictureCollectionType::class)
             ->add('propertyValues', PropertyValueCollectionType::class)
             ->add('slug', TextType::class)
             ->add('tags', TagChoiceType::class, ['multiple' => true]);
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            /** @var Manufacturer $data */
             $data = $event->getData();
 
-            if ($data->getLogo()->getFileName() === null && $data->getLogo()->getFile() === null) {
+            if ($data->getLogo()?->getFileName() === null && $data->getLogo()?->getFile() === null) {
                 $data->setLogo(null);
             }
 

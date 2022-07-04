@@ -9,8 +9,10 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Symfony\Component\Security\Core\Security;
 
+#[AutoconfigureTag(name: 'doctrine.event_subscriber', attributes: ['connection' => 'default'])]
 class BlameableEventSubscriber implements EventSubscriber
 {
     public function __construct(protected readonly Security $security)
@@ -29,7 +31,7 @@ class BlameableEventSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof BlameableInterface) {
+        if ($entity instanceof BlameableInterface && is_null($entity->getCreatedBy())) {
             $entity->setCreatedBy($this->security->getUser());
         }
     }

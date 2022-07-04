@@ -32,10 +32,11 @@ final class TagsAwareTraitTest extends TestCase
     {
         $tag = \Mockery::mock(Tag::class);
 
-        $entity = new TagsAwareEntity();
-        $entity->addTag($tag);
+        $entity = (new TagsAwareEntity())
+            ->addTag($tag);
 
-        self::assertEquals($tag, $entity->getTags()->first());
+        self::assertCount(1, $entity->getTags());
+        self::assertContains($tag, $entity->getTags());
     }
 
     /**
@@ -58,14 +59,12 @@ final class TagsAwareTraitTest extends TestCase
      */
     public function testSetTags(): void
     {
-        $tags = [
-            \Mockery::mock(Tag::class),
-            \Mockery::mock(Tag::class),
-        ];
+        $tag = \Mockery::mock(Tag::class);
 
-        $entity = new TagsAwareEntity();
-        $entity->setTags($tags);
+        $entity = (new TagsAwareEntity())
+            ->setTags([$tag]);
 
-        self::assertEquals($tags, $entity->getTags()->toArray());
+        self::assertCount(1, $entity->getTags());
+        self::assertContains($tag, $entity->getTags());
     }
 }

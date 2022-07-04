@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class SentryEventSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public static function getSubscribedEvents(): array
     {
         return [
@@ -23,7 +26,7 @@ class SentryEventSubscriber implements EventSubscriberInterface
         $transaction = SentrySdk::getCurrentHub()->getTransaction();
 
         if (!is_null($transaction) && $transaction->getSampled() === true) {
-            if (!is_null($routeName = $event->getRequest()->attributes->get('_route'))) {
+            if (is_string($routeName = $event->getRequest()->attributes->get('_route'))) {
                 $transaction->setName($routeName);
             }
         }

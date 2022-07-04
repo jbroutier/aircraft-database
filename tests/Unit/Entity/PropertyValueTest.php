@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity;
 
 use App\Entity\Property;
+use App\Entity\PropertyGroup;
 use App\Entity\PropertyValue;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -18,9 +19,7 @@ final class PropertyValueTest extends TestCase
      */
     public function testGetProperty(): void
     {
-        $propertyValue = new PropertyValue();
-
-        self::assertNull($propertyValue->getProperty());
+        self::assertNull((new PropertyValue())->getProperty());
     }
 
     /**
@@ -29,11 +28,29 @@ final class PropertyValueTest extends TestCase
     public function testSetProperty(): void
     {
         $property = \Mockery::mock(Property::class);
-
-        $propertyValue = new PropertyValue();
-        $propertyValue->setProperty($property);
+        $propertyValue = (new PropertyValue())
+            ->setProperty($property);
 
         self::assertEquals($property, $propertyValue->getProperty());
+    }
+
+    /**
+     * @testdox Method getPropertyGroup() returns the property group.
+     */
+    public function testGetPropertyGroup(): void
+    {
+        $propertyGroup = \Mockery::mock(PropertyGroup::class);
+
+        $property = \Mockery::mock(Property::class);
+        $property
+            ->expects('getPropertyGroup')
+            ->once()
+            ->andReturn($propertyGroup);
+
+        $propertyValue = (new PropertyValue())
+            ->setProperty($property);
+
+        self::assertEquals($propertyGroup, $propertyValue->getPropertyGroup());
     }
 
     /**
@@ -41,9 +58,7 @@ final class PropertyValueTest extends TestCase
      */
     public function testGetValue(): void
     {
-        $propertyValue = new PropertyValue();
-
-        self::assertNull($propertyValue->getValue());
+        self::assertNull((new PropertyValue())->getValue());
     }
 
     /**
@@ -51,9 +66,9 @@ final class PropertyValueTest extends TestCase
      */
     public function testSetValue(): void
     {
-        $propertyValue = new PropertyValue();
-        $propertyValue->setValue('42');
+        $propertyValue = (new PropertyValue())
+            ->setValue('37.8541');
 
-        self::assertEquals('42', $propertyValue->getValue());
+        self::assertEquals('37.8541', $propertyValue->getValue());
     }
 }

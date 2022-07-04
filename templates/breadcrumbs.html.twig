@@ -1,33 +1,35 @@
 {% if breadcrumbs|length %}
-  <nav aria-label="{{ 'Breadcrumbs'|trans }}">
-    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+  <div class="container-fluid">
+    <nav aria-label="{{ 'Breadcrumbs'|trans }}">
+      <ol class="breadcrumb mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
 
-      {% for breadcrumb in breadcrumbs %}
-        <li class="breadcrumb-item {% if loop.last %}active{% endif %}"
-            itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"
-            {% if loop.last %}aria-current="page"{% endif %}>
-          <meta itemprop="position" content="{{ loop.index }}"/>
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item d-inline-flex align-items-center {% if loop.last %}active{% endif %}"
+              itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"
+              {% if loop.last %}aria-current="page"{% endif %}>
+            <meta itemprop="position" content="{{ loop.index }}" />
 
-          {% if loop.first %}
-            <span class="fal fa-home me-2" aria-hidden="true"></span>
-          {% endif %}
-
-          {% if breadcrumb.url and not loop.last %}
-            <a itemprop="item" href="{{ absolute_url(breadcrumb.url) }}">
-              <span itemprop="name">{{ breadcrumb.text }}</span>
-            </a>
-          {% else %}
-
-            {% if breadcrumb.url %}
-              <meta itemprop="item" content="{{ absolute_url(breadcrumb.url) }}"/>
+            {% if loop.first %}
+              <span class="bi-house me-2" aria-hidden="true"></span>
             {% endif %}
 
-            <span itemprop="name">{{ breadcrumb.text }}</span>
-          {% endif %}
+            {% if breadcrumb.url and not loop.last %}
+              <a itemprop="item" href="{{ absolute_url(breadcrumb.url) }}">
+                <span itemprop="name">{{ breadcrumb.text }}</span>
+              </a>
+            {% else %}
 
-        </li>
-      {% endfor %}
+              {% if breadcrumb.url %}
+                <meta itemprop="item" content="{{ absolute_url(breadcrumb.url) }}" />
+              {% endif %}
 
-    </ol>
-  </nav>
+              <span itemprop="name">{{ breadcrumb.text }}</span>
+            {% endif %}
+
+          </li>
+        {% endfor %}
+
+      </ol>
+    </nav>
+  </div>
 {% endif %}

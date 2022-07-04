@@ -9,7 +9,9 @@ use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Events;
+use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
+#[AutoconfigureTag(name: 'doctrine.event_subscriber', attributes: ['connection' => 'default'])]
 class TimestampableEventSubscriber implements EventSubscriber
 {
     public function getSubscribedEvents(): array
@@ -24,7 +26,7 @@ class TimestampableEventSubscriber implements EventSubscriber
     {
         $entity = $args->getObject();
 
-        if ($entity instanceof TimestampableInterface) {
+        if ($entity instanceof TimestampableInterface && is_null($entity->getCreatedAt())) {
             $entity->setCreatedAt(new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
         }
     }

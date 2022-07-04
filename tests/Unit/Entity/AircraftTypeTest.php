@@ -9,6 +9,8 @@ use App\Entity\AircraftType;
 use App\Entity\EngineModel;
 use App\Entity\Manufacturer;
 use App\Entity\Picture;
+use App\Enum\AircraftFamily;
+use App\Enum\EngineFamily;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
@@ -17,35 +19,30 @@ final class AircraftTypeTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
+     * @testdox Method getAircraftFamily() returns null by default.
+     */
+    public function testGetAircraftFamily(): void
+    {
+        self::assertNull((new AircraftType())->getAircraftFamily());
+    }
+
+    /**
+     * @testdox Method setAircraftFamily() sets the aircraft family.
+     */
+    public function testSetAircraftFamily(): void
+    {
+        $aircraftType = (new AircraftType())
+            ->setAircraftFamily(AircraftFamily::Airplane);
+
+        self::assertEquals(AircraftFamily::Airplane, $aircraftType->getAircraftFamily());
+    }
+
+    /**
      * @testdox Method getAircraftModels() returns an empty collection by default.
      */
     public function testGetAircraftModels(): void
     {
-        $aircraftType = new AircraftType();
-
-        self::assertEmpty($aircraftType->getAircraftModels());
-    }
-
-    /**
-     * @testdox Method getAircraftModelsPaginated() returns the aircraft models as a paginated collection.
-     */
-    public function testGetAircraftModelsPaginated(): void
-    {
-        $aircraftModels = [
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-        ];
-
-        $aircraftType = new AircraftType();
-        $aircraftType->setAircraftModels($aircraftModels);
-
-        $paginated = $aircraftType
-            ->getAircraftModelsPaginated()
-            ->setMaxPerPage(2);
-
-        self::assertEquals(3, $paginated->getNbResults());
-        self::assertEquals(2, $paginated->getNbPages());
+        self::assertEmpty((new AircraftType())->getAircraftModels());
     }
 
     /**
@@ -64,7 +61,8 @@ final class AircraftTypeTest extends TestCase
 
         $aircraftType->addAircraftModel($aircraftModel);
 
-        self::assertEquals($aircraftModel, $aircraftType->getAircraftModels()->first());
+        self::assertCount(1, $aircraftType->getAircraftModels());
+        self::assertContains($aircraftModel, $aircraftType->getAircraftModels());
     }
 
     /**
@@ -74,8 +72,8 @@ final class AircraftTypeTest extends TestCase
     {
         $aircraftModel = \Mockery::mock(AircraftModel::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->setAircraftModels([$aircraftModel]);
+        $aircraftType = (new AircraftType())
+            ->setAircraftModels([$aircraftModel]);
 
         $aircraftModel
             ->expects('getAircraftType')
@@ -98,15 +96,51 @@ final class AircraftTypeTest extends TestCase
      */
     public function testSetAircraftModels(): void
     {
-        $aircraftModels = [
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-        ];
+        $aircraftModel = \Mockery::mock(AircraftModel::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->setAircraftModels($aircraftModels);
+        $aircraftType = (new AircraftType())
+            ->setAircraftModels([$aircraftModel]);
 
-        self::assertEquals($aircraftModels, $aircraftType->getAircraftModels()->toArray());
+        self::assertCount(1, $aircraftType->getAircraftModels());
+        self::assertContains($aircraftModel, $aircraftType->getAircraftModels());
+    }
+
+    /**
+     * @testdox Method getEngineCount() returns null by default.
+     */
+    public function testGetEngineCount(): void
+    {
+        self::assertNull((new AircraftType())->getEngineCount());
+    }
+
+    /**
+     * @testdox Method setEngineCount() sets the engine count.
+     */
+    public function testSetEngineCount(): void
+    {
+        $aircraftType = (new AircraftType())
+            ->setEngineCount(2);
+
+        self::assertEquals(2, $aircraftType->getEngineCount());
+    }
+
+    /**
+     * @testdox Method getEngineFamily() returns null by default.
+     */
+    public function testGetEngineFamily(): void
+    {
+        self::assertNull((new AircraftType())->getEngineFamily());
+    }
+
+    /**
+     * @testdox Method setEngineFamily() sets the engine family.
+     */
+    public function testSetEngineFamily(): void
+    {
+        $aircraftType = (new AircraftType())
+            ->setEngineFamily(EngineFamily::Electric);
+
+        self::assertEquals(EngineFamily::Electric, $aircraftType->getEngineFamily());
     }
 
     /**
@@ -114,31 +148,7 @@ final class AircraftTypeTest extends TestCase
      */
     public function testGetEngineModels(): void
     {
-        $aircraftType = new AircraftType();
-
-        self::assertEmpty($aircraftType->getEngineModels());
-    }
-
-    /**
-     * @testdox Method getEngineModelsPaginated() returns the engine models as a paginated collection.
-     */
-    public function testGetEngineModelsPaginated(): void
-    {
-        $engineModels = [
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-        ];
-
-        $aircraftType = new AircraftType();
-        $aircraftType->setEngineModels($engineModels);
-
-        $paginated = $aircraftType
-            ->getEngineModelsPaginated()
-            ->setMaxPerPage(2);
-
-        self::assertEquals(3, $paginated->getNbResults());
-        self::assertEquals(2, $paginated->getNbPages());
+        self::assertEmpty((new AircraftType())->getEngineModels());
     }
 
     /**
@@ -148,10 +158,11 @@ final class AircraftTypeTest extends TestCase
     {
         $engineModel = \Mockery::mock(EngineModel::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->addEngineModel($engineModel);
+        $aircraftType = (new AircraftType())
+            ->addEngineModel($engineModel);
 
-        self::assertEquals($engineModel, $aircraftType->getEngineModels()->first());
+        self::assertCount(1, $aircraftType->getEngineModels());
+        self::assertContains($engineModel, $aircraftType->getEngineModels());
     }
 
     /**
@@ -174,15 +185,13 @@ final class AircraftTypeTest extends TestCase
      */
     public function testSetEngineModels(): void
     {
-        $engineModels = [
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-        ];
+        $engineModel = \Mockery::mock(EngineModel::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->setEngineModels($engineModels);
+        $aircraftType = (new AircraftType())
+            ->setEngineModels([$engineModel]);
 
-        self::assertEquals($engineModels, $aircraftType->getEngineModels()->toArray());
+        self::assertCount(1, $aircraftType->getEngineModels());
+        self::assertContains($engineModel, $aircraftType->getEngineModels());
     }
 
     /**
@@ -190,9 +199,7 @@ final class AircraftTypeTest extends TestCase
      */
     public function testGetIataCode(): void
     {
-        $aircraftType = new AircraftType();
-
-        self::assertNull($aircraftType->getIataCode());
+        self::assertNull((new AircraftType())->getIataCode());
     }
 
     /**
@@ -200,10 +207,10 @@ final class AircraftTypeTest extends TestCase
      */
     public function testSetIataCode(): void
     {
-        $aircraftType = new AircraftType();
-        $aircraftType->setIataCode('AT4');
+        $aircraftType = (new AircraftType())
+            ->setIataCode('342');
 
-        self::assertEquals('AT4', $aircraftType->getIataCode());
+        self::assertEquals('342', $aircraftType->getIataCode());
     }
 
     /**
@@ -211,9 +218,7 @@ final class AircraftTypeTest extends TestCase
      */
     public function testGetIcaoCode(): void
     {
-        $aircraftType = new AircraftType();
-
-        self::assertNull($aircraftType->getIcaoCode());
+        self::assertNull((new AircraftType())->getIcaoCode());
     }
 
     /**
@@ -221,10 +226,10 @@ final class AircraftTypeTest extends TestCase
      */
     public function testSetIcaoCode(): void
     {
-        $aircraftType = new AircraftType();
-        $aircraftType->setIcaoCode('A20N');
+        $aircraftType = (new AircraftType())
+            ->setIcaoCode('BE17');
 
-        self::assertEquals('A20N', $aircraftType->getIcaoCode());
+        self::assertEquals('BE17', $aircraftType->getIcaoCode());
     }
 
     /**
@@ -232,9 +237,7 @@ final class AircraftTypeTest extends TestCase
      */
     public function testGetManufacturer(): void
     {
-        $aircraftType = new AircraftType();
-
-        self::assertNull($aircraftType->getManufacturer());
+        self::assertNull((new AircraftType())->getManufacturer());
     }
 
     /**
@@ -244,8 +247,8 @@ final class AircraftTypeTest extends TestCase
     {
         $manufacturer = \Mockery::mock(Manufacturer::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->setManufacturer($manufacturer);
+        $aircraftType = (new AircraftType())
+            ->setManufacturer($manufacturer);
 
         self::assertEquals($manufacturer, $aircraftType->getManufacturer());
     }
@@ -257,8 +260,8 @@ final class AircraftTypeTest extends TestCase
     {
         $picture = \Mockery::mock(Picture::class);
 
-        $aircraftType = new AircraftType();
-        $aircraftType->addPicture($picture);
+        $aircraftType = (new AircraftType())
+            ->addPicture($picture);
 
         self::assertEmpty((clone $aircraftType)->getPictures());
     }
@@ -268,8 +271,8 @@ final class AircraftTypeTest extends TestCase
      */
     public function testCloneResetsSlug(): void
     {
-        $aircraftType = new AircraftType();
-        $aircraftType->setSlug('lorem-ipsum-dolor-sit-amet');
+        $aircraftType = (new AircraftType())
+            ->setSlug('v-173-flying-pancake');
 
         self::assertNull((clone $aircraftType)->getSlug());
     }

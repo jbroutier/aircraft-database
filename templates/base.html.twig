@@ -1,25 +1,35 @@
-{% set route = app.request.get('_route')|default('index') %}
+{% set route = app.request.get('_route')|default('home') %}
 {% set routeParams = app.request.get('_route_params')|default({}) %}
+{% set sentry = {
+  debug: app.debug,
+  dsn: sentry.dsn,
+  environment: app.environment,
+  release: sentry.release,
+  sampleRate: sentry.sampleRate,
+  tags: {
+    locale: app.request.locale,
+    route: route,
+    routeParams: routeParams
+  },
+  traceSampleRate: sentry.traceSampleRate,
+  transactionName: route,
+  user: {
+    id: app.user.id|default,
+    ipAddress: app.request.clientIp,
+    email: app.user.email|default,
+    username: app.user.fullName|default
+  }
+} %}
 
 <!DOCTYPE html>
-<html
-  data-client-ip="{{ app.request.clientIp }}"
-  data-debug="{{ app.debug }}"
-  data-environment="{{ app.environment }}"
-  data-locale="{{ app.request.locale }}"
-  data-release="{{ site.release }}"
-  data-route="{{ route }}"
-  data-user="{{ app.user is not null ? app.user.id }}"
-  data-username="{{ app.user is not null ? app.user.username }}"
-  lang="{{ app.request.locale }}"
-  prefix="og: https://ogp.me/ns#"
->
+<html dir="ltr" lang="{{ app.request.locale }}" data-sentry="{{ sentry|json_encode }}" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="UTF-8">
     <meta name="author" content="Jérémie BROUTIER">
-    <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+    <meta name="description" content="{% block description site.description %}">
     <meta name="google" content="notranslate">
-    <meta name="robots" content="{% block robots %}noarchive{% endblock %}">
+    <meta name="robots" content="{% block robots 'noarchive' %}">
+    <meta name="theme-color" content="#ffffff">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
 
     {{ sentry_trace_meta() }}
@@ -38,28 +48,38 @@
       <meta property="og:image:height" content="630">
     {% endblock %}
 
-    <title>{% block title %}{{ site.title }}{% endblock %}</title>
+    <title>{% block title site.title %}</title>
 
-    <link rel="base" href="{{ absolute_url(path('index')) }}">
+    <link rel="base" href="{{ absolute_url(path('home')) }}">
     <link rel="canonical" href="{{ absolute_url(path(route, routeParams)) }}">
 
-    {{ encore_entry_link_tags('styles/app') }}
-    {{ encore_entry_link_tags('styles/fonts') }}
-    {{ encore_entry_script_tags('scripts/app') }}
+    {{ encore_entry_link_tags('styles/main') }}
+    {{ encore_entry_script_tags('scripts/main') }}
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/favicons/apple-touch-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/favicons/favicon-16x16.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="48x48" href="{{ asset('assets/favicons/favicon-48x48.png') }}">
-    <link rel="manifest" href="{{ asset('assets/favicons/manifest.json') }}">
-    <link rel="mask-icon" href="{{ asset('assets/images/logo.svg') }}" color="#1e88e5">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    <meta name="theme-color" content="#ffffff">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/images/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('assets/site.webmanifest') }}">
+    <link rel="mask-icon" href="{{ asset('assets/images/safari-pinned-tab.svg') }}" color="#1565c0">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
   </head>
-  <body data-controller="modal">
+  <body data-controller="modal scroll slug">
 
     {% block body %}{% endblock %}
 
+    <script>
+      (() => {
+        window['dataLayer'] = window['dataLayer'] || []
+        window['dataLayer'].push({
+          event: 'stg.start',
+          start: (new Date()).getTime()
+        })
+        const tag = document.createElement('script')
+        tag.async = true
+        tag.src = 'https://aircraft-database.containers.piwik.pro/f5330d6b-9cb4-4b9d-a300-c739767b19bb.js'
+        const scripts = document.getElementsByTagName('script')[0]
+        scripts.parentNode.insertBefore(tag, scripts)
+      })()
+    </script>
   </body>
 </html>

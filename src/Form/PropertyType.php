@@ -19,8 +19,8 @@ class PropertyType extends AbstractType
             ->add('description', TextareaType::class, ['required' => false])
             ->add('name', TextType::class)
             ->add('propertyGroup', PropertyGroupChoiceType::class)
-            ->add('type', PropertyTypeChoiceType::class)
             ->add('slug', TextType::class)
+            ->add('type', PropertyTypeChoiceType::class)
             ->add('unit', PropertyUnitChoiceType::class, ['required' => false]);
     }
 

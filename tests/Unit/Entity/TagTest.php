@@ -17,9 +17,7 @@ final class TagTest extends TestCase
      */
     public function testGetColor(): void
     {
-        $tag = new Tag();
-
-        self::assertNull($tag->getColor());
+        self::assertNull((new Tag())->getColor());
     }
 
     /**
@@ -27,30 +25,9 @@ final class TagTest extends TestCase
      */
     public function testSetColor(): void
     {
-        $tag = new Tag();
-        $tag->setColor('#c0ffee');
+        $tag = (new Tag())
+            ->setColor('#f7db14');
 
-        self::assertEquals('#c0ffee', $tag->getColor());
-    }
-
-    /**
-     * @testdox Method getIcon() returns null by default.
-     */
-    public function testGetIcon(): void
-    {
-        $tag = new Tag();
-
-        self::assertNull($tag->getIcon());
-    }
-
-    /**
-     * @testdox Method setIcon() sets the icon.
-     */
-    public function testSetIcon(): void
-    {
-        $tag = new Tag();
-        $tag->setIcon('waffle');
-
-        self::assertEquals('waffle', $tag->getIcon());
+        self::assertEquals('#f7db14', $tag->getColor());
     }
 }

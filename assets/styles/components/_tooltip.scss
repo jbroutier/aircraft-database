@@ -2,6 +2,6 @@
 
 .tooltip-inner {
   border: $border-width $border-style $border-color;
-  box-shadow: $box-shadow; // stylelint-disable-line plugin/no-unsupported-browser-features
+  box-shadow: $box-shadow;
   text-align: left;
 }

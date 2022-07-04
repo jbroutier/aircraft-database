@@ -1,0 +1,24 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% block title %}{{ 'Update profile'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-500px">
+    <h1 class="card-title text-center">{{ 'Update profile'|trans }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.firstName, { label: 'First name:'|trans }) }}
+    {{ form_row(form.lastName, { label: 'Last name:'|trans }) }}
+
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">
+        {{ 'Update profile'|trans }}
+      </button>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+  </div>
+{% endblock %}

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Tests\Unit\Entity\Traits;
 
 use App\Entity\Interface\PropertiesAwareInterface;
+use App\Entity\Property;
+use App\Entity\PropertyGroup;
 use App\Entity\PropertyValue;
 use App\Entity\Traits\PropertiesAwareTrait;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,23 +28,43 @@ final class PropertiesAwareTraitTest extends TestCase
     use MockeryPHPUnitIntegration;
 
     /**
-     * @testdox Method getProperties() returns an empty collection by default.
+     * @testdox Method getProperties() returns the properties.
      */
     public function testGetProperties(): void
     {
-        $entity = new PropertiesAwareEntity();
+        $property = \Mockery::mock(Property::class);
 
-        self::assertEmpty($entity->getProperties());
+        $propertyValue = \Mockery::mock(PropertyValue::class);
+        $propertyValue
+            ->expects('getProperty')
+            ->twice()
+            ->andReturn($property);
+
+        $entity = (new PropertiesAwareEntity())
+            ->addPropertyValue($propertyValue);
+
+        self::assertCount(1, $entity->getProperties());
+        self::assertContains($property, $entity->getProperties());
     }
 
     /**
-     * @testdox Method getPropertyGroups() returns an empty collection by default.
+     * @testdox Method getPropertyGroups() returns the property groups.
      */
     public function testGetPropertyGroups(): void
     {
-        $entity = new PropertiesAwareEntity();
+        $propertyGroup = \Mockery::mock(PropertyGroup::class);
 
-        self::assertEmpty($entity->getPropertyGroups());
+        $propertyValue = \Mockery::mock(PropertyValue::class);
+        $propertyValue
+            ->expects('getPropertyGroup')
+            ->twice()
+            ->andReturn($propertyGroup);
+
+        $entity = (new PropertiesAwareEntity())
+            ->addPropertyValue($propertyValue);
+
+        self::assertCount(1, $entity->getPropertyGroups());
+        self::assertContains($propertyGroup, $entity->getPropertyGroups());
     }
 
     /**
@@ -52,10 +74,11 @@ final class PropertiesAwareTraitTest extends TestCase
     {
         $propertyValue = \Mockery::mock(PropertyValue::class);
 
-        $entity = new PropertiesAwareEntity();
-        $entity->addPropertyValue($propertyValue);
+        $entity = (new PropertiesAwareEntity())
+            ->addPropertyValue($propertyValue);
 
-        self::assertEquals($propertyValue, $entity->getPropertyValues()->first());
+        self::assertCount(1, $entity->getPropertyValues());
+        self::assertContains($propertyValue, $entity->getPropertyValues());
     }
 
     /**
@@ -78,14 +101,12 @@ final class PropertiesAwareTraitTest extends TestCase
      */
     public function testSetPropertyValues(): void
     {
-        $propertyValues = [
-            \Mockery::mock(PropertyValue::class),
-            \Mockery::mock(PropertyValue::class),
-        ];
+        $propertyValue = \Mockery::mock(PropertyValue::class);
 
-        $entity = new PropertiesAwareEntity();
-        $entity->setPropertyValues($propertyValues);
+        $entity = (new PropertiesAwareEntity())
+            ->setPropertyValues([$propertyValue]);
 
-        self::assertEquals($propertyValues, $entity->getPropertyValues()->toArray());
+        self::assertCount(1, $entity->getPropertyValues());
+        self::assertContains($propertyValue, $entity->getPropertyValues());
     }
 }

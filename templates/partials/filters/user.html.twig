@@ -1,0 +1,7 @@
+{% extends 'layouts/filters.html.twig' %}
+
+{% block filters %}
+  {{ form_row(form.firstName, { label: 'First name:'|trans }) }}
+  {{ form_row(form.lastName, { label: 'Last name:'|trans }) }}
+  {{ form_row(form.email, { label: 'Email:'|trans }) }}
+{% endblock %}

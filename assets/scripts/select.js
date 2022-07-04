@@ -1,6 +1,6 @@
 import TomSelect from 'tom-select'
 
-export function initSelect (parent = document) {
+export default function initSelect (parent = document) {
   parent.querySelectorAll('select').forEach(element => {
     const choices = new TomSelect(element, {
       render: {

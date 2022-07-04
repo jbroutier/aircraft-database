@@ -4,31 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Controller\Database;
 
+use App\Factory\AircraftModelFactory;
+use App\Factory\AircraftTypeFactory;
+use App\Factory\ManufacturerFactory;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
 final class AircraftModelControllerTest extends WebTestCase
 {
-    /**
-     * @testdox Accessing "/database/aircraft-models" returns an HTTP 200 response.
-     */
-    public function testList(): void
+    use Factories;
+    use ResetDatabase;
+
+    private KernelBrowser $client;
+
+    public function setUp(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models');
-
-        self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'Aircraft models');
-    }
-
-    /**
-     * @testdox Accessing "/database/aircraft-models" with an invalid slug returns an HTTP 404 response.
-     */
-    public function testListWithInvalidSlug(): void
-    {
-        $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models', ['page' => 100]);
-
-        self::assertResponseStatusCodeSame(404);
+        $this->client = self::createClient();
     }
 
     /**
@@ -36,11 +29,20 @@ final class AircraftModelControllerTest extends WebTestCase
      */
     public function testRead(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models/aliquam-ducimus-omnis-ex-nisi-aut-officiis');
+        AircraftModelFactory::createOne([
+            'name' => 'A321-251NX',
+            'aircraftType' => AircraftTypeFactory::createOne([
+                'name' => 'A321neo',
+                'manufacturer' => ManufacturerFactory::createOne([
+                    'name' => 'Airbus',
+                ]),
+            ]),
+        ]);
+
+        $this->client->request('GET', '/database/aircraft-models/a321-251nx');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h1', 'A668-5');
+        self::assertSelectorTextContains('h1', 'A321-251NX');
     }
 
     /**
@@ -48,8 +50,7 @@ final class AircraftModelControllerTest extends WebTestCase
      */
     public function testReadWithInvalidSlug(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/database/aircraft-models/augue-quis-convallis');
+        $this->client->request('GET', '/database/aircraft-models/invalid-slug');
 
         self::assertResponseStatusCodeSame(404);
     }

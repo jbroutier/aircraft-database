@@ -1,9 +1,13 @@
 {
     "name": "@jbroutier/aircraft-database",
-    "version": "1.10.2",
+    "version": "2.0.0",
     "private": true,
-    "description": "Global database of aircraft manufacturers, types, models & engines.",
+    "description": "Global database of aircraft and engine models.",
     "homepage": "https://aircraft-database.com",
+    "bugs": {
+        "url": "https://github.com/jbroutier/aircraft-database/issues",
+        "email": "contact@aircraft-database.com"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/jbroutier/aircraft-database.git"
@@ -21,18 +25,29 @@
         "lint:styles": "stylelint --color \"assets/styles/**/*.scss\"",
         "watch": "encore dev --watch"
     },
+    "browserslist": [
+        "last 1 and_chr major version",
+        "last 1 and_ff major version",
+        "last 1 ios_saf major version",
+        "last 1 op_mob major version",
+        "last 5 chrome major versions",
+        "last 5 edge major versions",
+        "last 5 firefox major versions",
+        "last 5 opera major versions",
+        "last 5 safari major versions"
+    ],
     "dependencies": {
         "@babel/runtime": "^7.18.6",
         "@fontsource/inter": "^4.5.11",
-        "@fortawesome/fontawesome-pro": "^6.1.1",
         "@hotwired/stimulus": "^3.0.1",
         "@popperjs/core": "^2.11.5",
-        "@sentry/browser": "^7.3.1",
-        "@sentry/tracing": "^7.3.1",
+        "@sentry/browser": "^7.5.1",
+        "@sentry/tracing": "^7.5.1",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0-beta1",
-        "flag-icons": "^6.6.2",
-        "masonry-layout": "^4.2.2",
+        "bootstrap-icons": "^1.8.3",
+        "flag-icons": "^6.6.3",
+        "mjml": "^4.12.0",
         "slugify": "^1.6.5",
         "tom-select": "^2.0.3"
     },
@@ -47,21 +62,20 @@
         "@symfony/stimulus-bridge": "^3.2.1",
         "@symfony/webpack-encore": "^2.1.0",
         "dotenv": "^16.0.1",
-        "eslint": "^8.18.0",
+        "eslint": "^8.19.0",
         "eslint-config-standard": "^17.0.0",
         "eslint-import-resolver-webpack": "^0.13.2",
         "eslint-plugin-compat": "^4.0.2",
         "eslint-webpack-plugin": "^3.2.0",
-        "favicons-webpack-plugin": "^5.0.2",
         "file-loader": "^6.2.0",
         "image-minimizer-webpack-plugin": "^3.2.3",
         "postcss": "^8.4.14",
         "postcss-flexbugs-fixes": "^5.0.2",
-        "postcss-loader": "^7.0.0",
+        "postcss-loader": "^6.2.1",
         "postcss-preset-env": "^7.7.2",
         "postcss-scss": "^4.0.4",
         "sass": "^1.53.0",
-        "sass-loader": "^13.0.2",
+        "sass-loader": "^12.6.0",
         "stylelint": "^14.9.1",
         "stylelint-config-standard": "^26.0.0",
         "stylelint-no-unsupported-browser-features": "^5.0.3",
@@ -72,5 +86,8 @@
     },
     "peerDependencies": {
         "tapable": "^2.2.1"
+    },
+    "engines": {
+        "node": "^16.15.0"
     }
 }

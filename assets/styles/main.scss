@@ -1,0 +1,23 @@
+@import "variables";
+
+// Fonts
+@import "~@fontsource/inter/variable-full";
+
+// Libraries
+@import "~bootstrap";
+@import "~bootstrap-icons";
+@import "~flag-icons";
+@import "~tom-select/src/scss/tom-select.bootstrap5";
+
+// Components
+@import "components/alert";
+@import "components/base";
+@import "components/button";
+@import "components/carousel";
+@import "components/flag";
+@import "components/logo";
+@import "components/pagination";
+@import "components/sidebar";
+@import "components/table";
+@import "components/tooltip";
+@import "components/utils";

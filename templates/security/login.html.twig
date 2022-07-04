@@ -1,35 +1,33 @@
-{% extends '_layouts/default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
 
-{% block title %}{{ 'Login'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'Sign in'|trans }} - {{ parent() }}{% endblock %}
 
 {% block content %}
   <div class="card card-body mx-auto max-w-500px">
-    <h1 class="display-6 mb-3 text-center">{{ 'Login'|trans }}</h1>
-
-    {% if error is not null %}
-      <div class="alert alert-danger" role="alert">
-        {{ error.messageKey|trans(error.messageData) }}
-      </div>
-    {% endif %}
+    <h1 class="card-title text-center">{{ 'Sign in'|trans }}</h1>
 
     {{ form_start(form) }}
 
-    <div class="row g-3">
+    {{ form_row(form.email, { label: 'Email:'|trans }) }}
+    {{ form_row(form.password, { label: 'Password:'|trans }) }}
 
-      {{ form_row(form.username, { label: 'Username:'|trans, row_attr: { class: 'col-12' } }) }}
-      {{ form_row(form.password, { label: 'Password:'|trans, row_attr: { class: 'col-12' } }) }}
-
-      <div class="col-12">
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">
-            {{ 'Login'|trans }}
-          </button>
-        </div>
-      </div>
+    <div class="text-end my-3">
+      <a href="{{ path('password_reset_request') }}">
+        {{ 'I forgot my password'|trans }}
+      </a>
+    </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">
+        {{ 'Sign in'|trans }}
+      </button>
     </div>
 
     {{ form_rest(form) }}
     {{ form_end(form) }}
+
+    <hr>
+
+    {% include 'partials/oauth.html.twig' %}
 
   </div>
 {% endblock %}

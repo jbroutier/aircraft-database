@@ -15,25 +15,6 @@
   </div>
 {% endblock %}
 
-{% block filter_collection_item_widget %}
-  <div id="{{ id }}" class="card card-body" data-collection-item>
-    <div class="d-flex flex-column gap-3">
-      <div class="row g-3">
-
-        {{ form_row(form.property, { label: 'Property:'|trans, row_attr: { class: 'col-12' } }) }}
-        {{ form_row(form.operator, { label: 'Operator:'|trans, row_attr: { class: 'col-12' } }) }}
-        {{ form_row(form.value, { label: 'Value:'|trans, row_attr: { class: 'col-12' } }) }}
-
-      </div>
-      <button type="button" class="btn btn-danger"
-              data-action="click->collection#remove"
-              data-collection-target-param="#{{ id }}">
-        {{ 'Remove'|trans }}
-      </button>
-    </div>
-  </div>
-{% endblock %}
-
 {% block logo_widget %}
   <div class="d-flex">
     <div class="card card-body">

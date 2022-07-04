@@ -1,32 +1,31 @@
-{% extends '_layouts/database.html.twig' %}
+{% extends 'layouts/database.html.twig' %}
+
+{% from 'macro.html.twig' import country_flag, tags %}
 
 {% block title %}{{ 'Aircraft types'|trans }} - {{ parent() }}{% endblock %}
 {% block description %}{{ 'Aircraft types technical data: Dimensions, weight, speed, engines,…'|trans }}{% endblock %}
+{% block filters %}{% include 'partials/filters/aircraft_type.html.twig' %}{% endblock %}
 
-{% block side_content %}
-  {% include '_partials/filters/aircraft_types.html.twig' %}
-{% endblock %}
-
-{% block main_content %}
+{% block content %}
   <div class="card card-body">
-    <h1>{{ 'Aircraft types'|trans }}</h1>
-    <p class="card-text text-muted" data-nosnippet>
+    <h1 class="card-title">{{ 'Aircraft types'|trans }}</h1>
+    <div class="card-subtitle text-muted" data-nosnippet>
       {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
         '%count%': aircraftTypes.nbResults,
         '%nbResults%': aircraftTypes.nbResults|format_number
-      })|raw }}
+      }) }}
       -
       {{ 'Page %currentPage% out of %nbPages%'|trans({
         '%currentPage%': aircraftTypes.currentPage|format_number,
         '%nbPages%': aircraftTypes.nbPages|format_number
-      })|raw }}
-    </p>
+      }) }}
+    </div>
   </div>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4 g-3">
 
     {% for aircraftType in aircraftTypes %}
       <div class="col">
-        <div class="card">
+        <div class="card h-100">
           <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
             <div class="card-img-top position-relative overflow-hidden">
 
@@ -36,47 +35,29 @@
                      width="560" height="320" alt="{{ aircraftType.pictures|first.description|escape('html_attr') }}">
               {% else %}
                 <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
-                     width="560" height="320" alt="">
+                     width="560" height="320" alt="{{ 'No picture available'|trans }}">
               {% endif %}
-
-              {% include '_partials/tags.html.twig' with { tags: aircraftType.tags } %}
 
             </div>
           </a>
           <div class="card-body">
+
+            {% if aircraftType.tags|length %}
+              <div class="mb-3">
+                {{ tags(aircraftType.tags) }}
+              </div>
+            {% endif %}
+
             <div class="d-flex justify-content-between gap-3">
               <div>
-                <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
-                  <h4>{{ aircraftType.name }}</h4>
-                </a>
-
-                {% if aircraftType.manufacturer is not null %}
-                  <p class="card-text">
-
-                    {% if aircraftType.manufacturer.country is not null %}
-                      <span data-bs-toggle="tooltip"
-                          title="{{ aircraftType.manufacturer.country|country_name|escape('html_attr') }}">
-                        <span class="fi fi-{{ aircraftType.manufacturer.country|lower }} me-2"></span>
-                      </span>
-                    {% else %}
-                      <span data-bs-toggle="tooltip" title="{{ 'International'|trans }}">
-                        <span class="fi fi-xx me-2"></span>
-                      </span>
-                    {% endif %}
-
-                    {{ aircraftType.manufacturer.name }}
-                  </p>
-                {% endif %}
-
-                {% if aircraftType.iataCode is not null or aircraftType.icaoCode is not null %}
-                  <p class="card-text text-muted small">
-                    {{ 'IATA: %iataCode% | ICAO: %icaoCode%'|trans({
-                      '%iataCode%': aircraftType.iataCode|default('-'),
-                      '%icaoCode%': aircraftType.icaoCode|default('-')
-                    })|raw }}
-                  </p>
-                {% endif %}
-
+                <h4 class="card-title">
+                  <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+                    {{ aircraftType.name }}
+                  </a>
+                </h4>
+                <div class="card-subtitle text-muted">
+                  {{ aircraftType.aircraftFamily.label|trans }} - {{ aircraftType.engineFamily.label|trans }}
+                </div>
               </div>
 
               {% if aircraftType.manufacturer is not null and aircraftType.manufacturer.logo is not null %}
@@ -86,6 +67,14 @@
               {% endif %}
 
             </div>
+
+            {% if aircraftType.manufacturer is not null %}
+              <div class="mt-2">
+                {{ country_flag(aircraftType.manufacturer.country) }}
+                {{ aircraftType.manufacturer.name }}
+              </div>
+            {% endif %}
+
           </div>
         </div>
       </div>

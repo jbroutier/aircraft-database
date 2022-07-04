@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="d-flex flex-column gap-3">
+    <div class="d-flex flex-column gap-3 min-vh-100">
+
+      {% include 'partials/navbar.html.twig' %}
+      {% include 'partials/flashes.html.twig' %}
+
+      {{ wo_render_breadcrumbs() }}
+
+      {% block container %}
+        <div class="container">
+          <main class="d-flex flex-column gap-3">
+
+            {% block content %}{% endblock %}
+
+          </main>
+        </div>
+      {% endblock %}
+
+    </div>
+
+    {% include 'partials/footer.html.twig' %}
+
+  </div>
+{% endblock %}

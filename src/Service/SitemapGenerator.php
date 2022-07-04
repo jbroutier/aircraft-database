@@ -34,7 +34,8 @@ class SitemapGenerator
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
-            $urlContainer->addUrl(new UrlConcrete($url), 'aircraft_models');
+            $lastmod = $aircraftModel->getUpdatedAt() ?? $aircraftModel->getCreatedAt();
+            $urlContainer->addUrl(new UrlConcrete($url, $lastmod), 'aircraft_models');
         }
     }
 
@@ -51,7 +52,8 @@ class SitemapGenerator
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
-            $urlContainer->addUrl(new UrlConcrete($url), 'aircraft_types');
+            $lastmod = $aircraftType->getUpdatedAt() ?? $aircraftType->getCreatedAt();
+            $urlContainer->addUrl(new UrlConcrete($url, $lastmod), 'aircraft_types');
         }
     }
 
@@ -68,7 +70,8 @@ class SitemapGenerator
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
-            $urlContainer->addUrl(new UrlConcrete($url), 'engine_models');
+            $lastmod = $engineModel->getUpdatedAt() ?? $engineModel->getCreatedAt();
+            $urlContainer->addUrl(new UrlConcrete($url, $lastmod), 'engine_models');
         }
     }
 
@@ -85,7 +88,8 @@ class SitemapGenerator
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
 
-            $urlContainer->addUrl(new UrlConcrete($url), 'manufacturers');
+            $lastmod = $manufacturer->getUpdatedAt() ?? $manufacturer->getCreatedAt();
+            $urlContainer->addUrl(new UrlConcrete($url, $lastmod), 'manufacturers');
         }
     }
 }

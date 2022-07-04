@@ -24,9 +24,7 @@ final class BlameableTraitTest extends TestCase
      */
     public function testGetCreatedBy(): void
     {
-        $entity = new BlameableEntity();
-
-        self::assertNull($entity->getCreatedBy());
+        self::assertNull((new BlameableEntity())->getCreatedBy());
     }
 
     /**
@@ -36,8 +34,8 @@ final class BlameableTraitTest extends TestCase
     {
         $user = \Mockery::mock(UserInterface::class);
 
-        $entity = new BlameableEntity();
-        $entity->setCreatedBy($user);
+        $entity = (new BlameableEntity())
+            ->setCreatedBy($user);
 
         self::assertEquals($user, $entity->getCreatedBy());
     }
@@ -47,9 +45,7 @@ final class BlameableTraitTest extends TestCase
      */
     public function testGetUpdatedBy(): void
     {
-        $entity = new BlameableEntity();
-
-        self::assertNull($entity->getUpdatedBy());
+        self::assertNull((new BlameableEntity())->getUpdatedBy());
     }
 
     /**
@@ -59,8 +55,8 @@ final class BlameableTraitTest extends TestCase
     {
         $user = \Mockery::mock(UserInterface::class);
 
-        $entity = new BlameableEntity();
-        $entity->setUpdatedBy($user);
+        $entity = (new BlameableEntity())
+            ->setUpdatedBy($user);
 
         self::assertEquals($user, $entity->getUpdatedBy());
     }

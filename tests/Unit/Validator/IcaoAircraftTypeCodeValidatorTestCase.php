@@ -11,9 +11,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Tests\Unit\ConstraintValidatorTestCase;
 
-/**
- * @covers \App\Validator\IcaoAircraftTypeCodeValidator
- */
 final class IcaoAircraftTypeCodeValidatorTestCase extends ConstraintValidatorTestCase
 {
     /**

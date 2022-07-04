@@ -1,0 +1,66 @@
+<footer class="border-top" data-nosnippet>
+  <div class="p-3 text-end">
+    <button class="btn btn-light" data-action="click->scroll#top">
+      {{ 'Scroll to top'|trans }}
+    </button>
+  </div>
+  <div class="container pb-3">
+    <div class="row g-3">
+      <div class="col-12 col-lg-8">
+        <div class="d-flex flex-wrap flex-lg-nowrap justify-content-center align-items-center gap-4">
+          <a href="{{ path('home') }}">
+            <img src="{{ asset('assets/images/logo.svg') }}" width="140" height="140" alt="">
+          </a>
+          <p>
+            <strong>{{ 'Copyright © 2021 aircraft-database.com.'|trans }}</strong><br><br>
+            {{ 'Data is published under the terms of the %link% license.'|trans({
+              '%link%': '<a rel="noopener noreferrer" href="https://opendatacommons.org/licenses/by/1-0/">ODC-By 1.0</a>'
+            })|raw }}<br>
+            {{ 'Website %link1% is published under the terms of the %link2% license.'|trans({
+              '%link1%': '<a href="https://github.com/jbroutier/aircraft-database">' ~ 'source code'|trans ~ '</a>',
+              '%link2%': '<a rel="noopener noreferrer" href="https://spdx.org/licenses/MIT.html">MIT</a>'
+            })|raw }}
+          </p>
+        </div>
+        <hr class="d-lg-none">
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <h4>{{ 'Contact'|trans }}</h4>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link ps-0 " href="{{ path('contact') }}">
+              <span class="bi-envelope me-1" aria-hidden="true"></span>
+              {{ 'Contact form'|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-0" href="https://github.com/jbroutier/aircraft-database">
+              <span class="bi-github me-1" aria-hidden="true"></span>
+              {{ 'GitHub'|trans }}
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-6 col-lg-2">
+        <h4>{{ 'About'|trans }}</h4>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link ps-0" href="{{ path('static_legal_notice') }}">
+              {{ 'Legal notice'|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-0" href="{{ path('static_cookie_policy') }}">
+              {{ 'Cookie policy'|trans }}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ps-0" href="{{ path('static_privacy_policy') }}">
+              {{ 'Privacy policy'|trans }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

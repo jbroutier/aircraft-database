@@ -5,20 +5,46 @@ declare(strict_types=1);
 namespace Tests\Functional\Controller\Admin;
 
 use App\Entity\Manufacturer;
+use App\Entity\Tag;
 use App\Entity\User;
-use Tests\Functional\FixturesAwareTestCase;
+use App\Factory\ManufacturerFactory;
+use App\Factory\TagFactory;
+use App\Factory\UserFactory;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Uid\Uuid;
+use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
-final class ManufacturerControllerTest extends FixturesAwareTestCase
+final class ManufacturerControllerTest extends WebTestCase
 {
+    use Factories;
+    use ResetDatabase;
+
+    private KernelBrowser $client;
+
+    public function setUp(): void
+    {
+        $this->client = self::createClient();
+
+        /** @var Proxy<User> $user */
+        $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']]);
+        $this->client->loginUser($user->object());
+    }
+
     /**
      * @testdox Accessing "/admin/manufacturers/{id}/clone" returns an HTTP 200 response.
      */
     public function testClone(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Bernier Inc']);
-        $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/clone');
+        /** @var Proxy<Manufacturer> $manufacturer */
+        $manufacturer = ManufacturerFactory::createOne();
+        $manufacturer
+            ->forceSet('id', Uuid::fromRfc4122('7cdc7f34-7a3d-4a81-adc3-157f6d15807b'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers/7cdc7f34-7a3d-4a81-adc3-157f6d15807b/clone');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New manufacturer');
@@ -29,9 +55,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testCloneWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers/2cb320e8-2946-4533-92c3-ce4c5d25b4ac/clone');
+        $this->client->request('GET', '/admin/manufacturers/8014db5a-0725-40b7-965e-5db129fb5175/clone');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -41,9 +65,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testCreate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers/create');
+        $this->client->request('GET', '/admin/manufacturers/create');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New manufacturer');
@@ -54,19 +76,15 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testCreateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers/create');
-        $client->submitForm('Save', [
-            'manufacturer[name]' => 'Waters Bergman Ltd',
-            'manufacturer[slug]' => 'waters-bergman-ltd',
-        ], serverParameters: [
-            'HTTP_REFERER' => '/admin/manufacturers',
-        ]);
-        $client->followRedirect();
+        $this->client->request('GET', '/admin/manufacturers/create');
+        $this->client->submitForm('Save', [
+            'manufacturer[name]' => 'Boeing',
+            'manufacturer[slug]' => 'boeing',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/manufacturers']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The manufacturer has been created');
+        self::assertSelectorTextContains('div', 'The manufacturer has been created.');
     }
 
     /**
@@ -74,10 +92,13 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testDelete(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Carter-Haag']);
-        $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
+        /** @var Proxy<Manufacturer> $manufacturer */
+        $manufacturer = ManufacturerFactory::createOne();
+        $manufacturer
+            ->forceSet('id', Uuid::fromRfc4122('4d557478-04e4-4aeb-b8a2-73f896f247ab'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers/4d557478-04e4-4aeb-b8a2-73f896f247ab/delete');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'Delete the manufacturer');
@@ -88,9 +109,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers/4f790541-c064-4e4a-9829-112db1544537/delete');
+        $this->client->request('GET', '/admin/manufacturers/7d68494a-11a2-4222-a4eb-7d182b1facb1/delete');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -100,17 +119,18 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Gusikowski, Rolfson and Schoen']);
-        $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/delete');
-        $client->submitForm('Delete', serverParameters: [
-            'HTTP_REFERER' => '/admin/manufacturers',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<Manufacturer> $manufacturer */
+        $manufacturer = ManufacturerFactory::createOne();
+        $manufacturer
+            ->forceSet('id', Uuid::fromRfc4122('d8166446-924f-4df0-81d7-bef2082a67de'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers/d8166446-924f-4df0-81d7-bef2082a67de/delete');
+        $this->client->submitForm('Delete', serverParameters: ['HTTP_REFERER' => '/admin/manufacturers']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The manufacturer has been deleted');
+        self::assertSelectorTextContains('div', 'The manufacturer has been deleted.');
     }
 
     /**
@@ -118,9 +138,29 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testList(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers');
+        $this->client->request('GET', '/admin/manufacturers');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h1', 'Manufacturers');
+    }
+
+    /**
+     * @testdox Accessing "/admin/manufacturers" with filters returns an HTTP 200 response.
+     */
+    public function testListWithFilters(): void
+    {
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne();
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('ad2c27d9-0357-4995-87be-51c01ceee24d'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers');
+        $this->client->submitForm('Apply', [
+            'filters[country]' => 'US',
+            'filters[name]' => 'Boeing',
+            'filters[tags]' => ['ad2c27d9-0357-4995-87be-51c01ceee24d'],
+        ], 'GET');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Manufacturers');
@@ -131,9 +171,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testListWithInvalidPage(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers', ['page' => 100]);
+        $this->client->request('GET', '/admin/manufacturers', ['page' => 10]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -143,13 +181,16 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testUpdate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Kuphal-Kutch']);
-        $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
+        /** @var Proxy<Manufacturer> $manufacturer */
+        $manufacturer = ManufacturerFactory::createOne(['name' => 'Airbus']);
+        $manufacturer
+            ->forceSet('id', Uuid::fromRfc4122('cea2a042-293d-44c9-9035-4ef81d1073e8'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers/cea2a042-293d-44c9-9035-4ef81d1073e8/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'Kuphal-Kutch');
+        self::assertSelectorTextContains('h5', 'Airbus');
     }
 
     /**
@@ -157,9 +198,7 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/manufacturers/b2ef56af-4343-412c-8e39-0fe9baf0e977/update');
+        $this->client->request('GET', '/admin/manufacturers/bc98d1e8-865f-4aad-80cf-74ab61fb16e1/update');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -169,16 +208,19 @@ final class ManufacturerControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $manufacturer = $this->findEntityBy(Manufacturer::class, ['name' => 'Mitchell-Conn']);
-        $client->request('GET', '/admin/manufacturers/' . $manufacturer->getId() . '/update');
-        $client->submitForm('Save', serverParameters: [
-            'HTTP_REFERER' => '/admin/manufacturers',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<Manufacturer> $manufacturer */
+        $manufacturer = ManufacturerFactory::createOne(['name' => 'Airbus']);
+        $manufacturer
+            ->forceSet('id', Uuid::fromRfc4122('eef34643-aad0-4fb0-bf06-048b871cb3d3'))
+            ->save();
+
+        $this->client->request('GET', '/admin/manufacturers/eef34643-aad0-4fb0-bf06-048b871cb3d3/update');
+        $this->client->submitForm('Save', [
+            'manufacturer[name]' => 'Airbus Defence and Space',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/manufacturers']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The manufacturer has been updated');
+        self::assertSelectorTextContains('div', 'The manufacturer has been updated.');
     }
 }

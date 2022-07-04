@@ -1,0 +1,34 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% block title %}{{ 'Sign up'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-500px">
+    <h1 class="card-title text-center">{{ 'Sign up'|trans }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.firstName, { label: 'First name:'|trans }) }}
+    {{ form_row(form.lastName, { label: 'Last name:'|trans }) }}
+    {{ form_row(form.email, { label: 'Email:'|trans }) }}
+    {{ form_row(form.plainPassword.first, { label: 'Password:'|trans }) }}
+    {{ form_row(form.plainPassword.second, { label: 'Password confirmation:'|trans }) }}
+    {{ form_row(form.consenting, { label: 'I agree with the %link% regarding the processing of my personal data.'|trans({
+      '%link%': '<a href="' ~ path('static_privacy_policy') ~ '">' ~ 'privacy policy'|trans ~ '</a>'
+    }), label_html: true }) }}
+
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">
+        {{ 'Sign up'|trans }}
+      </button>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+    <hr>
+
+    {% include 'partials/oauth.html.twig' %}
+
+  </div>
+{% endblock %}

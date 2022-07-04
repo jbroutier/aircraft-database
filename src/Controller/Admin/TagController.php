@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tag;
 use App\Form\ConfirmType;
-use App\Form\TagQueryType;
+use App\Form\TagFiltersType;
 use App\Form\TagType;
 use App\Repository\TagRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TagController extends AbstractController
 {
     public function __construct(
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly TagRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -43,11 +48,14 @@ class TagController extends AbstractController
     #[Route(path: '/admin/tags/create', name: 'admin_tag_create')]
     public function create(Request $request): Response
     {
-        $form = $this->createForm(TagType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(TagType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->repository->add($form->getData(), true);
+            /** @var Tag $tag */
+            $tag = $form->getData();
+            $this->repository->add($tag, true);
             $this->addFlash('success', $this->translator->trans('The tag has been created.'));
             $default = $this->generateUrl('admin_tag_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -68,8 +76,9 @@ class TagController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ConfirmType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($tag, true);
@@ -88,11 +97,15 @@ class TagController extends AbstractController
     #[Route(path: '/admin/tags', name: 'admin_tag_list')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(TagQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(TagFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $tags = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
+        $builder = $this->repository->createQueryBuilder('t');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('t.name', 'ASC');
+
+        $tags = (new Pagerfanta(new QueryAdapter($builder)))
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
@@ -111,8 +124,9 @@ class TagController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(TagType::class, $tag);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(TagType::class, $tag)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($tag, true);

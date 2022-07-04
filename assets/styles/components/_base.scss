@@ -1,0 +1,6 @@
+@import "~bootstrap/scss/variables";
+
+abbr {
+  cursor: help;
+  text-decoration: underline $secondary dotted;
+}

@@ -1,13 +1,13 @@
 import { configureScope, init } from '@sentry/browser'
 import { BrowserTracing } from '@sentry/tracing'
 
-export function initSentry () {
-  const html = document.querySelector('html')
+export default function initSentry () {
+  const config = JSON.parse(document.querySelector('html').getAttribute('data-sentry'))
 
   init({
-    debug: Boolean(html.dataset.debug),
-    dsn: process.env.SENTRY_DSN,
-    environment: html.dataset.environment,
+    debug: config.debug,
+    dsn: config.dsn,
+    environment: config.environment,
     integrations: [
       new BrowserTracing({
         tracingOrigins: [
@@ -16,30 +16,14 @@ export function initSentry () {
         ]
       })
     ],
-    release: html.dataset.release,
-    sampleRate: 1.0,
-    tracesSampler: samplingContext => {
-      if (samplingContext.parentSampled) {
-        return 1
-      }
-
-      if (samplingContext.location.pathname.match(/^\/admin\//i)) {
-        return 0
-      }
-
-      return 0.05
-    }
+    release: config.release,
+    sampleRate: config.sampleRate,
+    tracesSampleRate: config.tracesSampleRate
   })
 
   configureScope(scope => {
-    scope.setTransactionName(html.dataset.route)
-    scope.setTags({
-      locale: html.dataset.locale
-    })
-    scope.setUser({
-      id: html.dataset.user,
-      ip_address: html.dataset.clientIp,
-      username: html.dataset.username
-    })
+    scope.setTransactionName(config.transactionName)
+    scope.setTags(config.tags)
+    scope.setUser(config.user)
   })
 }

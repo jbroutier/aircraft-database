@@ -59,4 +59,4 @@ when@prod:
 when@test:
     doctrine:
         dbal:
-            dbname_suffix: null
+            dbname_suffix: ~

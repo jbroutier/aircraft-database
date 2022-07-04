@@ -18,9 +18,7 @@ final class PropertyGroupTest extends TestCase
      */
     public function testGetProperties(): void
     {
-        $propertyGroup = new PropertyGroup();
-
-        self::assertEmpty($propertyGroup->getProperties());
+        self::assertEmpty((new PropertyGroup())->getProperties());
     }
 
     /**
@@ -39,6 +37,7 @@ final class PropertyGroupTest extends TestCase
 
         $propertyGroup->addProperty($property);
 
+        self::assertCount(1, $propertyGroup->getProperties());
         self::assertEquals($property, $propertyGroup->getProperties()->first());
     }
 
@@ -49,8 +48,8 @@ final class PropertyGroupTest extends TestCase
     {
         $property = \Mockery::mock(Property::class);
 
-        $propertyGroup = new PropertyGroup();
-        $propertyGroup->setProperties([$property]);
+        $propertyGroup = (new PropertyGroup())
+            ->setProperties([$property]);
 
         $property
             ->expects('getPropertyGroup')
@@ -78,8 +77,8 @@ final class PropertyGroupTest extends TestCase
             \Mockery::mock(Property::class),
         ];
 
-        $propertyGroup = new PropertyGroup();
-        $propertyGroup->setProperties($properties);
+        $propertyGroup = (new PropertyGroup())
+            ->setProperties($properties);
 
         self::assertEquals($properties, $propertyGroup->getProperties()->toArray());
     }

@@ -1,87 +1,70 @@
-{% extends '_layouts/database.html.twig' %}
+{% extends 'layouts/database.html.twig' %}
+
+{% from 'macro.html.twig' import country_flag, engine_rating, tags %}
 
 {% block title %}{{ 'Engine models'|trans }} - {{ parent() }}{% endblock %}
-{% block description %}{{ 'Engine models technical data: Dimensions, weight, rotation speed, power,…'|trans }}{% endblock %}
+{% block description %}{{ 'Engine models technical data: Dimensions, weight, power ratings,…'|trans }}{% endblock %}
+{% block filters %}{% include 'partials/filters/engine_model.html.twig' %}{% endblock %}
 
-{% block side_content %}
-  {% include '_partials/filters/engine_models.html.twig' %}
-{% endblock %}
-
-{% block main_content %}
+{% block content %}
   <div class="card card-body">
-    <h1>{{ 'Engine models'|trans }}</h1>
-    <p class="card-text text-muted" data-nosnippet>
+    <h1 class="card-title">{{ 'Engine models'|trans }}</h1>
+    <div class="card-subtitle text-muted" data-nosnippet>
       {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
         '%count%': engineModels.nbResults,
         '%nbResults%': engineModels.nbResults|format_number
-      })|raw }}
+      }) }}
       -
       {{ 'Page %currentPage% out of %nbPages%'|trans({
         '%currentPage%': engineModels.currentPage|format_number,
         '%nbPages%': engineModels.nbPages|format_number
-      })|raw }}
-    </p>
+      }) }}
+    </div>
   </div>
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-xl-3 row-cols-xxl-4 g-3">
+  <div class="card card-body">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th class="col-2" scope="col">{{ 'Manufacturer'|trans }}</th>
+            <th class="col-2" scope="col">{{ 'Name'|trans }}</th>
+            <th class="col-2" scope="col">{{ 'Engine type'|trans }}</th>
+            <th class="col-2" scope="col">{{ 'Max. continuous rating'|trans }}</th>
+            <th class="col-2" scope="col">{{ 'Max. takeoff rating'|trans }}</th>
+            <th class="col-auto"></th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
 
-    {% for engineModel in engineModels %}
-      <div class="col">
-        <div class="card">
-          <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
-            <div class="card-img-top position-relative overflow-hidden">
-
-              {% if engineModel.pictures|length %}
-                <img class="img-fluid"
-                     src="{{ asset('pictures/' ~ engineModel.pictures|first)|imagine_filter('thumbnail_560x320') }}"
-                     width="560" height="320" alt="{{ engineModel.pictures|first.description|escape('html_attr') }}">
-              {% else %}
-                <img class="img-fluid" src="{{ asset('assets/images/no-picture-560x320.webp') }}"
-                     width="560" height="320" alt="">
-              {% endif %}
-
-              {% include '_partials/tags.html.twig' with { tags: engineModel.tags } %}
-
-            </div>
-          </a>
-          <div class="card-body">
-            <div class="d-flex justify-content-between gap-3">
-              <div>
-                <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
-                  <h4>{{ engineModel.name }}</h4>
-                </a>
+          {% for engineModel in engineModels %}
+            <tr>
+              <td>
 
                 {% if engineModel.manufacturer is not null %}
-                  <p class="card-text">
-
-                    {% if engineModel.manufacturer.country is not null %}
-                      <span data-bs-toggle="tooltip"
-                            title="{{ engineModel.manufacturer.country|country_name|escape('html_attr') }}">
-                        <span class="fi fi-{{ engineModel.manufacturer.country|lower }} me-2"></span>
-                      </span>
-                    {% else %}
-                      <span data-bs-toggle="tooltip" title="{{ 'International'|trans }}">
-                        <span class="fi fi-xx me-2"></span>
-                      </span>
-                    {% endif %}
-
+                  {{ country_flag(engineModel.manufacturer.country) }}
+                  <a href="{{ path('database_manufacturer_read', { slug: engineModel.manufacturer.slug }) }}">
                     {{ engineModel.manufacturer.name }}
-                  </p>
+                  </a>
+                {% else %}
+                  -
                 {% endif %}
 
-              </div>
+              </td>
+              <td>
+                <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                  {{ engineModel.name }}
+                </a>
+              </td>
+              <td>{{ engineModel.engineFamily.label|trans }}</td>
+              <td>{{ engine_rating(engineModel, 'continuous') }}</td>
+              <td>{{ engine_rating(engineModel, 'takeoff') }}</td>
+              <td>{{ tags(engineModel.tags) }}</td>
+            </tr>
+          {% endfor %}
 
-              {% if engineModel.manufacturer is not null and engineModel.manufacturer.logo is not null %}
-                <div class="logo-container">
-                  <img src="{{ asset('logos/' ~ engineModel.manufacturer.logo) }}" alt="">
-                </div>
-              {% endif %}
-
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endfor %}
-
+        </tbody>
+      </table>
+    </div>
   </div>
 
   {% if engineModels.haveToPaginate %}

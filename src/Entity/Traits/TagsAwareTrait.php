@@ -47,7 +47,7 @@ trait TagsAwareTrait
     }
 
     /**
-     * @param array<Tag> $tags
+     * @param Tag[] $tags
      */
     public function setTags(array $tags): self
     {

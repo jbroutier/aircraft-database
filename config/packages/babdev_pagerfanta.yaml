@@ -1,0 +1,15 @@
+babdev_pagerfanta:
+    default_view: custom
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    pagerfanta.view.custom:
+        class: Pagerfanta\View\OptionableView
+        arguments:
+            - '@pagerfanta.view.twitter_bootstrap5'
+            - { proximity: 2 }
+        tags:
+            - { name: pagerfanta.view, alias: custom }

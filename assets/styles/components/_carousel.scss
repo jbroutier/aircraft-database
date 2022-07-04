@@ -2,7 +2,7 @@
 @import "~bootstrap/scss/variables";
 
 .carousel-caption {
-  background: rgba(46 50 55 / 75%);
+  background: rgba($dark, 75%);
   bottom: 0;
   font-size: 0.75rem;
   padding: 0.125rem 0.3125rem;

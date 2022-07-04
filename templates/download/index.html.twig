@@ -1,0 +1,73 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% block title %}{{ 'Downloads'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-700px">
+    <h1 class="card-title text-center">{{ 'Downloads'|trans }}</h1>
+    <h2 class="card-title h3">{{ 'Partial database'|trans }}</h2>
+    <p class="card-text">
+      {{ 'These files contain the list of database elements as well as some basic characteristics, and are automatically updated on a daily basis.'|trans }}
+    </p>
+    <p class="card-text">
+      {{ 'They are published under the terms of the %link% license. It means you are free:'|trans({
+        '%link%': '<a rel="noopener noreferrer" href="https://opendatacommons.org/licenses/by/1-0/">ODC-By 1.0</a>'
+      })|raw }}
+    </p>
+    <ul>
+      <li>{{ 'To share: To copy, distribute and use the database.'|trans }}</li>
+      <li>{{ 'To create: To produce works from the database.'|trans }}</li>
+      <li>{{ 'To adapt: To modify, transform and build upon the database.'|trans }}</li>
+    </ul>
+    <p class="card-text">
+      {{ 'As long as you:'|trans }}
+    </p>
+    <ul>
+      <li>{{ 'Attribute: You must attribute any public use of the database, or works produced from the database, in the manner specified in the license. For any use or redistribution of the database, or works produced from it, you must make clear to others the license of the database and keep intact any notices on the original database.'|trans }}</li>
+    </ul>
+    <h3 class="card-title h5">{{ 'Downloads'|trans }}</h3>
+
+    {% if is_granted('ROLE_USER') %}
+      <ul class="nav flex-column mb-3">
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="{{ path('download_manufacturers') }}">
+            {{ 'Manufacturers'|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="{{ path('download_aircraft_types') }}">
+            {{ 'Aircraft types'|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="{{ path('download_aircraft_models') }}">
+            {{ 'Aircraft models'|trans }}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link ps-0" href="{{ path('download_engine_models') }}">
+            {{ 'Engine models'|trans }}
+          </a>
+        </li>
+      </ul>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        <span class="bi-info-circle me-1" aria-hidden="true"></span>
+        {{ 'To access these files please %link1% or %link2%.'|trans({
+          '%link1%': '<a href="' ~ path('security_login') ~ '">' ~ 'sign in'|trans ~ '</a>',
+          '%link2%': '<a href="' ~ path('registration_register') ~ '">' ~ 'sign up'|trans ~ '</a>',
+        })|raw }}
+      </div>
+    {% endif %}
+
+    <h2 class="card-title h3">{{ 'Full database'|trans }}</h2>
+    <p class="card-text">
+      {{ 'We were not publicly providing a complete extract of the database at this time. However, all data remains freely searchable and reusable.'|trans }}
+    </p>
+    <p class="card-text">
+      {{ 'If you really need a complete extract of the database, please %link% with the details of your project, whether it is a commercial or non-commercial project, as well as the type of data you need.'|trans({
+        '%link%': '<a href="' ~ path('contact') ~ '">' ~ 'contact us'|trans ~ '</a>'
+      })|raw }}
+    </p>
+  </div>
+{% endblock %}

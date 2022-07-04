@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\ContactType;
+use App\Model\ContactModel;
 use Psr\Log\LoggerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
@@ -30,20 +31,25 @@ class ContactController extends AbstractController
     #[Route(path: '/contact', name: 'contact')]
     public function __invoke(Request $request): Response
     {
-        $this->breadcrumbs->addItem('Index', $this->generateUrl('index'));
+        $this->breadcrumbs->addItem('Home', $this->generateUrl('home'));
         $this->breadcrumbs->addItem('Contact', $this->generateUrl('contact'));
 
-        $form = $this->createForm(ContactType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ContactType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var ContactModel $data */
             $data = $form->getData();
 
-            $email = new Email();
-            $email
-                ->replyTo(new Address($data->address, $data->name))
-                ->subject($data->subject)
-                ->text($data->message);
+            $email = (new TemplatedEmail())
+                ->to(new Address('contact@aircraft-database.com', 'Aircraft database'))
+                ->replyTo(new Address((string)$data->address, (string)$data->name))
+                ->subject((string)$data->subject)
+                ->htmlTemplate('email/contact.mjml.twig')
+                ->context([
+                    'message' => $data->message,
+                ]);
 
             try {
                 $this->mailer->send($email);

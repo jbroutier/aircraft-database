@@ -23,9 +23,7 @@ final class NameableTraitTest extends TestCase
      */
     public function testGetName(): void
     {
-        $entity = new NameableEntity();
-
-        self::assertNull($entity->getName());
+        self::assertNull((new NameableEntity())->getName());
     }
 
     /**
@@ -33,9 +31,9 @@ final class NameableTraitTest extends TestCase
      */
     public function testSetName(): void
     {
-        $entity = new NameableEntity();
-        $entity->setName('The Unnameable');
+        $entity = (new NameableEntity())
+            ->setName('Avro Lancaster');
 
-        self::assertEquals('The Unnameable', $entity->getName());
+        self::assertEquals('Avro Lancaster', $entity->getName());
     }
 }

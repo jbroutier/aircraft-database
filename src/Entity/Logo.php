@@ -46,7 +46,7 @@ class Logo implements IdentifiableInterface, TimestampableInterface
     public function setFile(?File $file): Logo
     {
         $this->file = $file;
-        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $this->updatedAt = new \DateTimeImmutable('now', new \DateTimeZone('UTC')); // Force the entity update.
         return $this;
     }
 

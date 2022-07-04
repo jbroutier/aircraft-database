@@ -6,19 +6,43 @@ namespace Tests\Functional\Controller\Admin;
 
 use App\Entity\Tag;
 use App\Entity\User;
-use Tests\Functional\FixturesAwareTestCase;
+use App\Factory\TagFactory;
+use App\Factory\UserFactory;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Uid\Uuid;
+use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
-final class TagControllerTest extends FixturesAwareTestCase
+final class TagControllerTest extends WebTestCase
 {
+    use Factories;
+    use ResetDatabase;
+
+    private KernelBrowser $client;
+
+    public function setUp(): void
+    {
+        $this->client = self::createClient();
+
+        /** @var Proxy<User> $user */
+        $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']]);
+        $this->client->loginUser($user->object());
+    }
+
     /**
      * @testdox Accessing "/admin/tags/{id}/clone" returns an HTTP 200 response.
      */
     public function testClone(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, ['name' => 'amet']);
-        $client->request('GET', '/admin/tags/' . $tag->getId() . '/clone');
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne();
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('dadf12f8-3cd8-40cc-9fd4-4b9dcbcbe30a'))
+            ->save();
+
+        $this->client->request('GET', '/admin/tags/dadf12f8-3cd8-40cc-9fd4-4b9dcbcbe30a/clone');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New tag');
@@ -29,9 +53,7 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testCloneWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags/4e544503-eb37-4c9b-8ccc-4e56e1560cb2/clone');
+        $this->client->request('GET', '/admin/tags/4748fad4-f0cf-4f1d-b924-f1f66e9db84a/clone');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -41,9 +63,7 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testCreate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags/create');
+        $this->client->request('GET', '/admin/tags/create');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New tag');
@@ -54,20 +74,16 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testCreateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags/create');
-        $client->submitForm('Save', [
-            'tag[color]' => '#c0ffee',
-            'tag[name]' => 'Circa',
-            'tag[slug]' => 'circa',
-        ], serverParameters: [
-            'HTTP_REFERER' => '/admin/tags',
-        ]);
-        $client->followRedirect();
+        $this->client->request('GET', '/admin/tags/create');
+        $this->client->submitForm('Save', [
+            'tag[color]' => '#e1ac4d',
+            'tag[name]' => 'Prototype',
+            'tag[slug]' => 'prototype',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/tags']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The tag has been created');
+        self::assertSelectorTextContains('div', 'The tag has been created.');
     }
 
     /**
@@ -75,10 +91,13 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testDelete(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, ['name' => 'autem']);
-        $client->request('GET', '/admin/tags/' . $tag->getId() . '/delete');
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne();
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('acef6c71-1193-40d8-9aa9-dc2748a0f378'))
+            ->save();
+
+        $this->client->request('GET', '/admin/tags/acef6c71-1193-40d8-9aa9-dc2748a0f378/delete');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'Delete the tag');
@@ -89,9 +108,7 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags/0cb3745d-2bf4-4830-9616-717fbad31cf4/delete');
+        $this->client->request('GET', '/admin/tags/537ae19a-9365-49ec-81a2-d44ebf621a45/delete');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -101,17 +118,18 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, ['name' => 'et',]);
-        $client->request('GET', '/admin/tags/' . $tag->getId() . '/delete');
-        $client->submitForm('Delete', serverParameters: [
-            'HTTP_REFERER' => '/admin/tags',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne();
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('9ba53355-3684-4e1e-8bb3-12ee99f90389'))
+            ->save();
+
+        $this->client->request('GET', '/admin/tags/9ba53355-3684-4e1e-8bb3-12ee99f90389/delete');
+        $this->client->submitForm('Delete', serverParameters: ['HTTP_REFERER' => '/admin/tags']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The tag has been deleted');
+        self::assertSelectorTextContains('div', 'The tag has been deleted.');
     }
 
     /**
@@ -119,9 +137,21 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testList(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags');
+        $this->client->request('GET', '/admin/tags');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h1', 'Tags');
+    }
+
+    /**
+     * @testdox Accessing "/admin/tags" with filters returns an HTTP 200 response.
+     */
+    public function testListWithFilters(): void
+    {
+        $this->client->request('GET', '/admin/tags');
+        $this->client->submitForm('Apply', [
+            'filters[name]' => 'Canceled',
+        ], 'GET');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Tags');
@@ -132,9 +162,7 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testListWithInvalidPage(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags', ['page' => 100]);
+        $this->client->request('GET', '/admin/tags', ['page' => 10]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -144,13 +172,16 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testUpdate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, ['name' => 'labore']);
-        $client->request('GET', '/admin/tags/' . $tag->getId() . '/update');
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne(['name' => 'Experimental']);
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('9405044a-4af1-420a-97c4-cdac1bcbce71'))
+            ->save();
+
+        $this->client->request('GET', '/admin/tags/9405044a-4af1-420a-97c4-cdac1bcbce71/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'labore');
+        self::assertSelectorTextContains('h5', 'Experimental');
     }
 
     /**
@@ -158,9 +189,7 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/tags/395b9a97-8c6a-4256-98dc-ffbdeab3658e/update');
+        $this->client->request('GET', '/admin/tags/f25e84df-74eb-4e0f-aa65-cf58de7b852b/update');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -170,16 +199,21 @@ final class TagControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $tag = $this->findEntityBy(Tag::class, ['name' => 'neque']);
-        $client->request('GET', '/admin/tags/' . $tag->getId() . '/update');
-        $client->submitForm('Save', serverParameters: [
-            'HTTP_REFERER' => '/admin/tags',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<Tag> $tag */
+        $tag = TagFactory::createOne(['name' => 'Experimental']);
+        $tag
+            ->forceSet('id', Uuid::fromRfc4122('8d8efe09-b168-405b-b8e4-dd94e4fae39c'))
+            ->save();
+
+        $this->client->request('GET', '/admin/tags/8d8efe09-b168-405b-b8e4-dd94e4fae39c/update');
+        $this->client->submitForm('Save', [
+            'tag[color]' => '#2d7c13',
+            'tag[name]' => 'Canceled',
+            'tag[slug]' => 'canceled',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/tags']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The tag has been updated');
+        self::assertSelectorTextContains('div', 'The tag has been updated.');
     }
 }

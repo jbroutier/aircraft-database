@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="logo.png" alt="">
+    <img src="logo.svg" width="250" height="250" alt="">
 </p>
 
 [![Node](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml/badge.svg)](https://github.com/jbroutier/aircraft-database/actions/workflows/node.yml)
@@ -11,4 +11,4 @@
 
 # Aircraft database
 
-✈️ Global database of aircraft manufacturers, types, models & engines.
+Global database of aircraft and engine models.

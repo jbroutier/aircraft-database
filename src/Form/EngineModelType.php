@@ -17,9 +17,9 @@ class EngineModelType extends AbstractType
     {
         $builder
             ->add('content', TextareaType::class)
+            ->add('engineFamily', EngineFamilyChoiceType::class)
             ->add('manufacturer', ManufacturerChoiceType::class)
             ->add('name', TextType::class)
-            ->add('pictures', PictureCollectionType::class)
             ->add('propertyValues', PropertyValueCollectionType::class)
             ->add('slug', TextType::class)
             ->add('tags', TagChoiceType::class, ['multiple' => true]);

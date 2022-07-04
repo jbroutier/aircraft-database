@@ -9,7 +9,6 @@ use App\Entity\AircraftType;
 use App\Entity\EngineModel;
 use App\Entity\Logo;
 use App\Entity\Manufacturer;
-use App\Entity\Picture;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 
@@ -22,31 +21,7 @@ final class ManufacturerTest extends TestCase
      */
     public function testGetAircraftModels(): void
     {
-        $manufacturer = new Manufacturer();
-
-        self::assertEmpty($manufacturer->getAircraftModels());
-    }
-
-    /**
-     * @testdox Method getAircraftModelsPaginated() returns the aircraft models as a paginated collection.
-     */
-    public function testGetAircraftModelsPaginated(): void
-    {
-        $aircraftModels = [
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-        ];
-
-        $manufacturer = new Manufacturer();
-        $manufacturer->setAircraftModels($aircraftModels);
-
-        $paginated = $manufacturer
-            ->getAircraftModelsPaginated()
-            ->setMaxPerPage(2);
-
-        self::assertEquals(3, $paginated->getNbResults());
-        self::assertEquals(2, $paginated->getNbPages());
+        self::assertEmpty((new Manufacturer())->getAircraftModels());
     }
 
     /**
@@ -65,7 +40,8 @@ final class ManufacturerTest extends TestCase
 
         $manufacturer->addAircraftModel($aircraftModel);
 
-        self::assertEquals($aircraftModel, $manufacturer->getAircraftModels()->first());
+        self::assertCount(1, $manufacturer->getAircraftModels());
+        self::assertContains($aircraftModel, $manufacturer->getAircraftModels());
     }
 
     /**
@@ -75,8 +51,8 @@ final class ManufacturerTest extends TestCase
     {
         $aircraftModel = \Mockery::mock(AircraftModel::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setAircraftModels([$aircraftModel]);
+        $manufacturer = (new Manufacturer())
+            ->setAircraftModels([$aircraftModel]);
 
         $aircraftModel
             ->expects('getManufacturer')
@@ -99,15 +75,13 @@ final class ManufacturerTest extends TestCase
      */
     public function testSetAircraftModels(): void
     {
-        $aircraftModels = [
-            \Mockery::mock(AircraftModel::class),
-            \Mockery::mock(AircraftModel::class),
-        ];
+        $aircraftModel = \Mockery::mock(AircraftModel::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setAircraftModels($aircraftModels);
+        $manufacturer = (new Manufacturer())
+            ->setAircraftModels([$aircraftModel]);
 
-        self::assertEquals($aircraftModels, $manufacturer->getAircraftModels()->toArray());
+        self::assertCount(1, $manufacturer->getAircraftModels());
+        self::assertContains($aircraftModel, $manufacturer->getAircraftModels());
     }
 
     /**
@@ -115,31 +89,7 @@ final class ManufacturerTest extends TestCase
      */
     public function testGetAircraftTypes(): void
     {
-        $manufacturer = new Manufacturer();
-
-        self::assertEmpty($manufacturer->getAircraftTypes());
-    }
-
-    /**
-     * @testdox Method getAircraftTypesPaginated() returns the aircraft types as a paginated collection.
-     */
-    public function testGetAircraftTypesPaginated(): void
-    {
-        $aircraftTypes = [
-            \Mockery::mock(AircraftType::class),
-            \Mockery::mock(AircraftType::class),
-            \Mockery::mock(AircraftType::class),
-        ];
-
-        $manufacturer = new Manufacturer();
-        $manufacturer->setAircraftTypes($aircraftTypes);
-
-        $paginated = $manufacturer
-            ->getAircraftTypesPaginated()
-            ->setMaxPerPage(2);
-
-        self::assertEquals(3, $paginated->getNbResults());
-        self::assertEquals(2, $paginated->getNbPages());
+        self::assertEmpty((new Manufacturer())->getAircraftTypes());
     }
 
     /**
@@ -158,7 +108,8 @@ final class ManufacturerTest extends TestCase
 
         $manufacturer->addAircraftType($aircraftType);
 
-        self::assertEquals($aircraftType, $manufacturer->getAircraftTypes()->first());
+        self::assertCount(1, $manufacturer->getAircraftTypes());
+        self::assertContains($aircraftType, $manufacturer->getAircraftTypes());
     }
 
     /**
@@ -192,15 +143,13 @@ final class ManufacturerTest extends TestCase
      */
     public function testSetAircraftTypes(): void
     {
-        $aircraftTypes = [
-            \Mockery::mock(AircraftType::class),
-            \Mockery::mock(AircraftType::class),
-        ];
+        $aircraftType = \Mockery::mock(AircraftType::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setAircraftTypes($aircraftTypes);
+        $manufacturer = (new Manufacturer())
+            ->setAircraftTypes([$aircraftType]);
 
-        self::assertEquals($aircraftTypes, $manufacturer->getAircraftTypes()->toArray());
+        self::assertCount(1, $manufacturer->getAircraftTypes());
+        self::assertContains($aircraftType, $manufacturer->getAircraftTypes());
     }
 
     /**
@@ -208,9 +157,7 @@ final class ManufacturerTest extends TestCase
      */
     public function testGetCountry(): void
     {
-        $manufacturer = new Manufacturer();
-
-        self::assertNull($manufacturer->getCountry());
+        self::assertNull((new Manufacturer())->getCountry());
     }
 
     /**
@@ -218,10 +165,10 @@ final class ManufacturerTest extends TestCase
      */
     public function testSetCountry(): void
     {
-        $manufacturer = new Manufacturer();
-        $manufacturer->setCountry('fr');
+        $manufacturer = (new Manufacturer())
+            ->setCountry('FR');
 
-        self::assertEquals('fr', $manufacturer->getCountry());
+        self::assertEquals('FR', $manufacturer->getCountry());
     }
 
     /**
@@ -229,31 +176,7 @@ final class ManufacturerTest extends TestCase
      */
     public function testGetEngineModels(): void
     {
-        $manufacturer = new Manufacturer();
-
-        self::assertEmpty($manufacturer->getEngineModels());
-    }
-
-    /**
-     * @testdox Method getEngineModelsPaginated() returns the engine models as a paginated collection.
-     */
-    public function testGetEngineModelsPaginated(): void
-    {
-        $engineModels = [
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-        ];
-
-        $manufacturer = new Manufacturer();
-        $manufacturer->setEngineModels($engineModels);
-
-        $paginated = $manufacturer
-            ->getEngineModelsPaginated()
-            ->setMaxPerPage(2);
-
-        self::assertEquals(3, $paginated->getNbResults());
-        self::assertEquals(2, $paginated->getNbPages());
+        self::assertEmpty((new Manufacturer())->getEngineModels());
     }
 
     /**
@@ -272,7 +195,8 @@ final class ManufacturerTest extends TestCase
 
         $manufacturer->addEngineModel($engineModel);
 
-        self::assertEquals($engineModel, $manufacturer->getEngineModels()->first());
+        self::assertCount(1, $manufacturer->getEngineModels());
+        self::assertContains($engineModel, $manufacturer->getEngineModels());
     }
 
     /**
@@ -282,8 +206,8 @@ final class ManufacturerTest extends TestCase
     {
         $engineModel = \Mockery::mock(EngineModel::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setEngineModels([$engineModel]);
+        $manufacturer = (new Manufacturer())
+            ->setEngineModels([$engineModel]);
 
         $engineModel
             ->expects('getManufacturer')
@@ -306,15 +230,13 @@ final class ManufacturerTest extends TestCase
      */
     public function testSetEngineModels(): void
     {
-        $engineModels = [
-            \Mockery::mock(EngineModel::class),
-            \Mockery::mock(EngineModel::class),
-        ];
+        $engineModel = \Mockery::mock(EngineModel::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setEngineModels($engineModels);
+        $manufacturer = (new Manufacturer())
+            ->setEngineModels([$engineModel]);
 
-        self::assertEquals($engineModels, $manufacturer->getEngineModels()->toArray());
+        self::assertCount(1, $manufacturer->getEngineModels());
+        self::assertContains($engineModel, $manufacturer->getEngineModels());
     }
 
     /**
@@ -324,23 +246,10 @@ final class ManufacturerTest extends TestCase
     {
         $logo = \Mockery::mock(Logo::class);
 
-        $manufacturer = new Manufacturer();
-        $manufacturer->setLogo($logo);
+        $manufacturer = (new Manufacturer())
+            ->setLogo($logo);
 
         self::assertNull((clone $manufacturer)->getLogo());
-    }
-
-    /**
-     * @testdox Method __clone() resets the pictures collection.
-     */
-    public function testCloneResetsPictures(): void
-    {
-        $picture = \Mockery::mock(Picture::class);
-
-        $manufacturer = new Manufacturer();
-        $manufacturer->addPicture($picture);
-
-        self::assertEmpty((clone $manufacturer)->getPictures());
     }
 
     /**
@@ -348,8 +257,8 @@ final class ManufacturerTest extends TestCase
      */
     public function testCloneResetsSlug(): void
     {
-        $manufacturer = new Manufacturer();
-        $manufacturer->setSlug('lorem-ipsum-dolor-sit-amet');
+        $manufacturer = (new Manufacturer())
+            ->setSlug('messerschmitt');
 
         self::assertNull((clone $manufacturer)->getSlug());
     }

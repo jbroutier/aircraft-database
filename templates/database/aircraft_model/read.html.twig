@@ -1,106 +1,116 @@
-{% extends '_layouts/default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
 
-{% block title %}{{ aircraftModel.manufacturer is not null ? aircraftModel.manufacturer.name }} {{ aircraftModel.name }} - {{ parent() }}{% endblock %}
+{% from 'macro.html.twig' import country_flag, opengraph_images, tags %}
+
+{% block title %}{{ aircraftModel.manufacturer.name|default }} {{ aircraftModel.name }} - {{ parent() }}{% endblock %}
 {% block description %}{{ '%manufacturer% %name% technical data: Dimensions, weight, speed, engines,…'|trans({
-  '%manufacturer%': aircraftModel.manufacturer is not null ? aircraftModel.manufacturer.name,
+  '%manufacturer%': aircraftModel.manufacturer.name|default,
   '%name%': aircraftModel.name
 }) }}{% endblock %}
-
-{% block images %}
-  {% for picture in aircraftModel.pictures %}
-    <meta property="og:image"
-          content="{{ absolute_url(asset('pictures/' ~ picture)|imagine_filter('thumbnail_1200x630')) }}">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    {% if picture.description is not null %}
-      <meta property="og:image:alt" content="{{ picture.description|escape('html_attr') }}">
-    {% endif %}
-
-  {% endfor %}
-{% endblock %}
+{% block images %}{{ opengraph_images(aircraftModel.pictures) }}{% endblock %}
 
 {% block content %}
   <div class="card position-relative overflow-hidden">
 
     {% if aircraftModel.pictures|length %}
-      {% include '_partials/carousel.html.twig' with { pictures: aircraftModel.pictures } %}
+      {% include 'database/partials/carousel.html.twig' with { pictures: aircraftModel.pictures } %}
+    {% elseif aircraftModel.aircraftType is not null and aircraftModel.aircraftType.pictures|length %}
+      {% include 'database/partials/carousel.html.twig' with { pictures: aircraftModel.aircraftType.pictures } %}
     {% else %}
       <img class="img-fluid" src="{{ asset('assets/images/no-picture-1400x800.webp') }}"
            width="1400" height="800" alt="">
     {% endif %}
 
-    {% include '_partials/tags.html.twig' with { tags: aircraftModel.tags } %}
-
   </div>
-  <div class="card card-body">
-    <div class="d-flex justify-content-between gap-3">
-      <div>
-        <h1>{{ aircraftModel.name }}</h1>
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+    <div class="col">
+      <div class="card card-body h-100">
+        <h1 class="card-title">{{ aircraftModel.name }}</h1>
+        <div class="card-subtitle text-muted">
+          {{ 'Aircraft model'|trans }}
+        </div>
+
+        {% if aircraftModel.tags|length %}
+          <div class="mt-3">
+            {{ tags(aircraftModel.tags) }}
+          </div>
+        {% endif %}
+
+        {% if aircraftModel.content is not null %}
+          <div class="mt-3">
+            {{ aircraftModel.content|markdown_to_html }}
+          </div>
+        {% endif %}
+
+      </div>
+    </div>
+    <div class="col">
+      <div class="card card-body h-100">
         <div class="table-responsive">
           <table class="table mb-0">
+            <tbody class="align-middle">
 
-            {% if aircraftModel.manufacturer is not null %}
+              {% if aircraftModel.manufacturer is not null %}
+                <tr>
+                  <th class="col-6" scope="row">{{ 'Manufacturer'|trans }}</th>
+                  <td class="col-6">
+                    {{ country_flag(aircraftModel.manufacturer.country) }}
+                    <a href="{{ path('database_manufacturer_read', { slug: aircraftModel.manufacturer.slug }) }}">
+                      {{ aircraftModel.manufacturer.name }}
+                    </a>
+                  </td>
+                </tr>
+              {% endif %}
+
               <tr>
-                <th scope="row" class="col-auto">{{ 'Manufacturer:'|trans }}</th>
-                <td class="col-auto">
-
-                  {% if aircraftModel.manufacturer.country is not null %}
-                    <span data-bs-toggle="tooltip"
-                          title="{{ aircraftModel.manufacturer.country|country_name|escape('html_attr') }}">
-                      <span class="fi fi-{{ aircraftModel.manufacturer.country|lower }} me-2"></span>
-                    </span>
-                  {% else %}
-                    <span data-bs-toggle="tooltip" title="{{ 'International'|trans }}">
-                      <span class="fi fi-xx me-2"></span>
-                    </span>
-                  {% endif %}
-
-                  <a href="{{ path('database_manufacturer_read', { slug: aircraftModel.manufacturer.slug }) }}">
-                    {{ aircraftModel.manufacturer.name }}
-                  </a>
-                </td>
+                <th class="col-6" scope="row">{{ 'Aircraft family'|trans }}</th>
+                <td class="col-6">{{ aircraftModel.aircraftFamily.label|trans }}</td>
               </tr>
-            {% endif %}
 
-            {% if aircraftModel.aircraftType is not null %}
+              {% if aircraftModel.aircraftType is not null %}
+                <tr>
+                  <th class="col-6" scope="row">{{ 'Aircraft type'|trans }}</th>
+                  <td class="col-6">
+                    <a href="{{ path('database_aircraft_type_read', { slug: aircraftModel.aircraftType.slug }) }}">
+                      {{ aircraftModel.aircraftType.manufacturer.name|default }} {{ aircraftModel.aircraftType.name }}
+                    </a>
+                  </td>
+                </tr>
+              {% endif %}
+
               <tr>
-                <th scope="row" class="col-auto">{{ 'Aircraft type:'|trans }}</th>
-                <td class="col-auto">
-                  <a href="{{ path('database_aircraft_type_read', { slug: aircraftModel.aircraftType.slug }) }}">
-                    {{ aircraftModel.aircraftType.name }}
-                  </a>
-                </td>
+                <th class="col-6" scope="row">{{ 'Engine type'|trans }}</th>
+                <td class="col-6">{{ aircraftModel.engineFamily.label|trans }}</td>
               </tr>
-            {% endif %}
 
+              {% if aircraftModel.engineFamily is not constant('App\\Enum\\EngineFamily::None') %}
+                <tr>
+                  <th class="col-6" scope="row">{{ 'Engine count'|trans }}</th>
+                  <td class="col-6">{{ aircraftModel.engineCount }}</td>
+                </tr>
+              {% endif %}
+
+            </tbody>
           </table>
         </div>
       </div>
-
-      {% if aircraftModel.manufacturer is not null and aircraftModel.manufacturer.logo is not null %}
-        <div class="logo-container-lg">
-          <img src="{{ asset('logos/' ~ aircraftModel.manufacturer.logo) }}" alt="">
-        </div>
-      {% endif %}
-
     </div>
-
-    {% if aircraftModel.content is not null %}
-      <div class="card-content">
-        {{ aircraftModel.content|markdown_to_html }}
-      </div>
-    {% endif %}
-
   </div>
-  <div class="d-flex flex-column gap-3">
 
-    {% include '_partials/properties.html.twig' with {
+  {% if aircraftModel.propertyValues|length %}
+    {% include 'database/partials/properties.html.twig' with {
       propertyGroups: aircraftModel.propertyGroups,
       propertyValues: aircraftModel.propertyValues
     } %}
-    {% include '_partials/database/engine_models.html.twig' %}
+  {% endif %}
+
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+
+    {% if aircraftModel.engineModels|length %}
+      <div class="col">
+        {% include 'database/partials/engine_models.html.twig' with { engineModels: aircraftModel.engineModels } %}
+      </div>
+    {% endif %}
 
   </div>
 {% endblock %}

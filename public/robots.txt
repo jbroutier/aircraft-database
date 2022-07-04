@@ -1,3 +1,2 @@
 User-agent: *
-Disallow: /login
 Sitemap: https://aircraft-database.com/sitemap/sitemap.xml

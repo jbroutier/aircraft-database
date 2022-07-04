@@ -1,0 +1,10 @@
+{% extends 'layouts/filters.html.twig' %}
+
+{% block filters %}
+  {{ form_row(form.name, { label: 'Name:'|trans }) }}
+  {{ form_row(form.manufacturer, { label: 'Manufacturer:'|trans }) }}
+  {{ form_row(form.aircraftFamily, { label: 'Aircraft family:'|trans }) }}
+  {{ form_row(form.aircraftType, { label: 'Aircraft type:'|trans }) }}
+  {{ form_row(form.engineFamily, { label: 'Engine type:'|trans }) }}
+  {{ form_row(form.tags, { label: 'Tags:'|trans }) }}
+{% endblock %}

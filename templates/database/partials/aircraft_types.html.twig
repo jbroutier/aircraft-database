@@ -1,0 +1,32 @@
+{% from 'macro.html.twig' import tags %}
+
+<div class="card card-body">
+  <h2 class="card-title">{{ 'Aircraft types'|trans }}</h2>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th class="col-4" scope="col">{{ 'Name'|trans }}</th>
+          <th class="col-4" scope="col">{{ 'Aircraft family'|trans }}</th>
+          <th class="col-auto"></th>
+        </tr>
+      </thead>
+      <tbody class="align-middle">
+
+        {% for aircraftType in aircraftTypes %}
+          <tr>
+            <td>
+              <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+                {{ aircraftType.name }}
+              </a>
+            </td>
+            <td>{{ aircraftType.aircraftFamily.label|trans }}</td>
+            <td>{{ aircraftType.engineFamily.label|trans }}</td>
+            <td>{{ tags(aircraftType.tags) }}</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>

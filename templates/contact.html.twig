@@ -1,30 +1,31 @@
-{% extends '_layouts/default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
 
 {% block title %}{{ 'Contact'|trans }} - {{ parent() }}{% endblock %}
 
 {% block content %}
   <div class="card card-body mx-auto max-w-500px">
-    <h1 class="display-6 mb-3 text-center">{{ 'Contact'|trans }}</h1>
+    <h1 class="card-title text-center">{{ 'Contact'|trans }}</h1>
 
     {{ form_start(form) }}
 
-    <div class="row g-3">
+    {% if app.user is not null %}
+      {{ form_row(form.name, { label: 'Name:'|trans, value: app.user.fullName }) }}
+      {{ form_row(form.address, { label: 'Email address:'|trans, value: app.user.email }) }}
+    {% else %}
+      {{ form_row(form.name, { label: 'Name:'|trans }) }}
+      {{ form_row(form.address, { label: 'Email address:'|trans }) }}
+    {% endif %}
 
-      {{ form_row(form.name, { label: 'Name:'|trans, row_attr: { class: 'col-12' } }) }}
-      {{ form_row(form.address, { label: 'Email address:'|trans, row_attr: { class: 'col-12' } }) }}
-      {{ form_row(form.subject, { label: 'Subject:'|trans, row_attr: { class: 'col-12' } }) }}
-      {{ form_row(form.message, { label: 'Message:'|trans, attr: { rows: 10 }, row_attr: { class: 'col-12' } }) }}
-      {{ form_row(form.consent, { label: 'I agree with the %link% regarding the processing of my data.'|trans({
-        '%link%': '<a href="' ~ path('static_privacy_policy') ~ '">' ~ 'Privacy policy'|trans ~ '</a>'
-      }), label_html: true, row_attr: { class: 'col-12' } }) }}
+    {{ form_row(form.subject, { label: 'Subject:'|trans }) }}
+    {{ form_row(form.message, { label: 'Message:'|trans, attr: { rows: 10 } }) }}
+    {{ form_row(form.consenting, { label: 'I agree with the %link% regarding the processing of my personal data.'|trans({
+      '%link%': '<a href="' ~ path('static_privacy_policy') ~ '">' ~ 'privacy policy'|trans ~ '</a>'
+    }), label_html: true }) }}
 
-      <div class="col-12">
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">
-            {{ 'Send my message'|trans }}
-          </button>
-        </div>
-      </div>
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">
+        {{ 'Send message'|trans }}
+      </button>
     </div>
 
     {{ form_rest(form) }}

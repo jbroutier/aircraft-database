@@ -4,17 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Functional\Controller;
 
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class StaticControllerTest extends WebTestCase
 {
+    private KernelBrowser $client;
+
+    public function setUp(): void
+    {
+        $this->client = self::createClient();
+    }
+
     /**
      * @testdox Accessing "/cookie-policy" returns an HTTP 200 response.
      */
     public function testCookiePolicy(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/cookie-policy');
+        $this->client->request('GET', '/cookie-policy');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Cookie policy');
@@ -25,8 +32,7 @@ final class StaticControllerTest extends WebTestCase
      */
     public function testLegalNotice(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/legal-notice');
+        $this->client->request('GET', '/legal-notice');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Legal notice');
@@ -37,8 +43,7 @@ final class StaticControllerTest extends WebTestCase
      */
     public function testPrivacyPolicy(): void
     {
-        $client = self::createClient();
-        $client->request('GET', '/privacy-policy');
+        $this->client->request('GET', '/privacy-policy');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Privacy policy');

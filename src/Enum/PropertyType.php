@@ -7,6 +7,7 @@ namespace App\Enum;
 enum PropertyType: string
 {
     case Boolean = 'boolean';
+    case Date = 'date';
     case Float = 'float';
     case Integer = 'integer';
     case String = 'string';
@@ -15,11 +16,12 @@ enum PropertyType: string
     public function label(): string
     {
         return match ($this) {
-            PropertyType::Boolean => 'Boolean',
-            PropertyType::Float => 'Float',
-            PropertyType::Integer => 'Integer',
-            PropertyType::String => 'String',
-            PropertyType::Url => 'Url',
+            self::Boolean => 'Boolean',
+            self::Date => 'Date',
+            self::Float => 'Float',
+            self::Integer => 'Integer',
+            self::String => 'String',
+            self::Url => 'Url',
         };
     }
 }

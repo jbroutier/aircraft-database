@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\Uid\Uuid;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\NamerInterface;
 
+#[Autoconfigure(public: true)]
 class UuidNamer implements NamerInterface
 {
     public function name($object, PropertyMapping $mapping): string

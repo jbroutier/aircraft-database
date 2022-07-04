@@ -1,0 +1,57 @@
+<div class="row row-cols-1 row-cols-md-2 g-3">
+  <div class="col">
+
+    {{ form_row(form.name, { label: 'Name:'|trans, attr: {
+      'data-action': 'input->slug#generate',
+      'data-slug-target-param': '#aircraft_model_slug'
+    } }) }}
+    {{ form_row(form.slug, { label: 'Slug:'|trans }) }}
+    {{ form_row(form.manufacturer, { label: 'Manufacturer:'|trans }) }}
+    {{ form_row(form.aircraftFamily, { label: 'Aircraft family:'|trans }) }}
+    {{ form_row(form.aircraftType, { label: 'Aircraft type:'|trans }) }}
+    {{ form_row(form.engineFamily, { label: 'Engine family:'|trans }) }}
+    {{ form_row(form.engineCount, { label: 'Engine count:'|trans }) }}
+    {{ form_row(form.engineModels, { label: 'Engine models:'|trans }) }}
+    {{ form_row(form.tags, { label: 'Tags:'|trans }) }}
+
+  </div>
+  <div class="col">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="propertiesTab" data-bs-toggle="tab" data-bs-target="#properties"
+                type="button" role="tab" aria-controls="properties" aria-selected="true">
+          {{ 'Properties'|trans }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="contentTab" data-bs-toggle="tab" data-bs-target="#content"
+                type="button" role="tab" aria-controls="content" aria-selected="false">
+          {{ 'Content'|trans }}
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="picturesTab" data-bs-toggle="tab" data-bs-target="#pictures"
+                type="button" role="tab" aria-controls="pictures" aria-selected="false">
+          {{ 'Pictures'|trans }}
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content mt-3">
+      <div class="tab-pane fade show active" id="properties" role="tabpanel" aria-labelledby="propertiesTab">
+
+        {{ form_widget(form.propertyValues) }}
+
+      </div>
+      <div class="tab-pane fade" id="content" role="tabpanel" aria-labelledby="contentTab">
+
+        {{ form_widget(form.content, { attr: { rows: 10 } }) }}
+
+      </div>
+      <div class="tab-pane fade" id="pictures" role="tabpanel" aria-labelledby="picturesTab">
+
+        {{ form_widget(form.pictures) }}
+
+      </div>
+    </div>
+  </div>
+</div>

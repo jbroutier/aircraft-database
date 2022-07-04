@@ -1,0 +1,12 @@
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/variables";
+
+$brands: (
+  "google": #ea4335,
+);
+
+@each $brand, $value in $brands {
+  .btn-#{$brand} {
+    @include button-variant($value, $value, $white);
+  }
+}

@@ -8,26 +8,22 @@ monolog:
         sentry:
             type: fingers_crossed
             action_level: error
-            handler: sentry_main
+            handler: sentry_filtered
             excluded_http_codes: [ 404 ]
             buffer_size: 50
 
-        sentry_main:
+        sentry_filtered:
             type: sentry
             level: error
             hub_id: Sentry\State\HubInterface
 
-when@test:
-    monolog:
-        handlers:
-            main:
-                type: stream
-                path: '%kernel.logs_dir%/%kernel.environment%/main.log'
-                level: debug
-
 when@dev:
     monolog:
         handlers:
+            firephp:
+                type: firephp
+                level: info
+
             main:
                 type: stream
                 path: '%kernel.logs_dir%/%kernel.environment%/main.log'
@@ -88,3 +84,11 @@ when@prod:
                 level: error
                 channels: [ 'security' ]
                 max_files: 31
+
+when@test:
+    monolog:
+        handlers:
+            main:
+                type: stream
+                path: '%kernel.logs_dir%/%kernel.environment%/main.log'
+                level: error

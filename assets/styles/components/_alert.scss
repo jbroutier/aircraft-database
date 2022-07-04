@@ -1,0 +1,19 @@
+@import "~bootstrap/scss/mixins";
+
+.alert-container {
+  bottom: 0;
+  left: 16px;
+  position: fixed;
+  right: 16px;
+  z-index: 990;
+
+  @include media-breakpoint-up("sm") {
+    left: unset;
+    width: 400px;
+  }
+
+  @include media-breakpoint-up("xxl") {
+    bottom: unset;
+    top: 72px;
+  }
+}

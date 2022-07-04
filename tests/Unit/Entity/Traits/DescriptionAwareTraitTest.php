@@ -23,9 +23,7 @@ final class DescriptionAwareTraitTest extends TestCase
      */
     public function testGetDescription(): void
     {
-        $entity = new DescriptionAwareEntity();
-
-        self::assertNull($entity->getDescription());
+        self::assertNull((new DescriptionAwareEntity())->getDescription());
     }
 
     /**
@@ -33,9 +31,9 @@ final class DescriptionAwareTraitTest extends TestCase
      */
     public function testSetDescription(): void
     {
-        $entity = new DescriptionAwareEntity();
-        $entity->setDescription('sapien pellentesque habitant morbi');
+        $entity = (new DescriptionAwareEntity())
+            ->setDescription('Lockheed L-1049 Super Constellation');
 
-        self::assertEquals('sapien pellentesque habitant morbi', $entity->getDescription());
+        self::assertEquals('Lockheed L-1049 Super Constellation', $entity->getDescription());
     }
 }

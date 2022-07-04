@@ -27,13 +27,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['slug'])]
 #[ORM\Entity(repositoryClass: PropertyRepository::class)]
-class Property implements
-    BlameableInterface,
-    DescriptionAwareInterface,
-    IdentifiableInterface,
-    NameableInterface,
-    SluggableInterface,
-    TimestampableInterface
+class Property implements BlameableInterface, DescriptionAwareInterface, IdentifiableInterface, NameableInterface,
+                          SluggableInterface, TimestampableInterface
 {
     use BlameableTrait;
     use DescriptionAwareTrait;
@@ -42,30 +37,21 @@ class Property implements
     use SluggableTrait;
     use TimestampableTrait;
 
-    /**
-     * @var PropertyGroup|null The group to which the property belongs.
-     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: PropertyGroup::class, inversedBy: 'properties')]
     #[ORM\JoinColumn(name: 'property_group', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected ?PropertyGroup $propertyGroup = null;
 
     /**
-     * @var Collection<int, PropertyValue> The values which belong to the property.
+     * @var Collection<int, PropertyValue>
      */
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: PropertyValue::class)]
     protected Collection $propertyValues;
 
-    /**
-     * @var PropertyType|null The type of the property.
-     */
     #[Assert\NotNull]
     #[ORM\Column(name: 'type', enumType: PropertyType::class)]
     protected ?PropertyType $type = null;
 
-    /**
-     * @var PropertyUnit|null The unit of the property.
-     */
     #[ORM\Column(name: 'unit', nullable: true, enumType: PropertyUnit::class)]
     protected ?PropertyUnit $unit = null;
 
@@ -115,7 +101,7 @@ class Property implements
     }
 
     /**
-     * @param array<PropertyValue> $propertyValues
+     * @param PropertyValue[] $propertyValues
      */
     public function setPropertyValues(array $propertyValues): Property
     {

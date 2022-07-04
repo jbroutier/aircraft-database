@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller\Database;
 
-use App\Form\AircraftModelQueryType;
 use App\Repository\AircraftModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,26 +20,6 @@ class AircraftModelController extends AbstractController
     ) {
     }
 
-    #[Route(path: '/database/aircraft-models', name: 'database_aircraft_model_list')]
-    public function list(Request $request): Response
-    {
-        $this->breadcrumbs->addItem('Index', $this->generateUrl('index'));
-        $this->breadcrumbs->addItem('Aircraft models', $this->generateUrl('database_aircraft_model_list'));
-
-        $form = $this->createForm(AircraftModelQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
-
-        $aircraftModels = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
-            ->setMaxPerPage(12)
-            ->setCurrentPage(max($request->query->getInt('page', 1), 1));
-
-        return $this->render('database/aircraft_model/list.html.twig', [
-            'aircraftModels' => $aircraftModels,
-            'form' => $form->createView(),
-        ]);
-    }
-
     #[Route(path: '/database/aircraft-models/{slug}', name: 'database_aircraft_model_read')]
     public function read(Request $request): Response
     {
@@ -50,21 +29,23 @@ class AircraftModelController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $this->breadcrumbs->addItem('Index', $this->generateUrl('index'));
-        $this->breadcrumbs->addItem('Aircraft models', $this->generateUrl('database_aircraft_model_list'));
+        $this->breadcrumbs->addItem('Home', $this->generateUrl('home'));
+        $this->breadcrumbs->addItem('Aircraft types', $this->generateUrl('database_aircraft_type_list'));
+
+        if (!is_null($aircraftType = $aircraftModel->getAircraftType())) {
+            $this->breadcrumbs->addItem(
+                $aircraftType->getManufacturer()?->getName() . ' ' . $aircraftType->getName(),
+                $this->generateUrl('database_aircraft_type_read', ['slug' => $aircraftType->getSlug()])
+            );
+        }
+
         $this->breadcrumbs->addItem(
-            (string)$aircraftModel->getName(),
+            $aircraftModel->getManufacturer()?->getName() . ' ' . $aircraftModel->getName(),
             $this->generateUrl('database_aircraft_model_read', ['slug' => $aircraftModel->getSlug()])
         );
 
-        $engineModels = $aircraftModel
-            ->getEngineModelsPaginated()
-            ->setMaxPerPage(4)
-            ->setCurrentPage(max($request->query->getInt('engineModelsPage', 1), 1));
-
         return $this->render('database/aircraft_model/read.html.twig', [
             'aircraftModel' => $aircraftModel,
-            'engineModels' => $engineModels,
         ]);
     }
 }

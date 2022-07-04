@@ -82,7 +82,7 @@ trait PropertiesAwareTrait
     }
 
     /**
-     * @param array<PropertyValue> $propertyValues
+     * @param PropertyValue[] $propertyValues
      */
     public function setPropertyValues(array $propertyValues): self
     {

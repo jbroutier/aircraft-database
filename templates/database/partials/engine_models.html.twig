@@ -1,0 +1,52 @@
+{% from 'macro.html.twig' import country_flag, engine_rating, tags %}
+
+<div class="card card-body">
+  <h2 class="card-title">{{ 'Engine models'|trans }}</h2>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th class="col-4" scope="col">{{ 'Manufacturer'|trans }}</th>
+          <th class="col-4" scope="col">{{ 'Name'|trans }}</th>
+          <th class="col-2" scope="col">
+            <abbr data-bs-toggle="tooltip" title="{{ 'Maximum continuous rating'|trans }}">
+              {{ 'Cont.'|trans }}
+            </abbr>
+          </th>
+          <th class="col-2" scope="col">
+            <abbr data-bs-toggle="tooltip" title="{{ 'Maximum takeoff rating'|trans }}">
+              {{ 'T/O'|trans }}
+            </abbr>
+          </th>
+          <th class="col-auto"></th>
+        </tr>
+      </thead>
+      <tbody class="align-middle">
+
+        {% for engineModel in engineModels %}
+          <tr>
+            <td>
+
+              {% if engineModel.manufacturer is not null %}
+                {{ country_flag(engineModel.manufacturer.country) }}
+                <a href="{{ path('database_manufacturer_read', { slug: engineModel.manufacturer.slug }) }}">
+                  {{ engineModel.manufacturer.name }}
+                </a>
+              {% endif %}
+
+            </td>
+            <td>
+              <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                {{ engineModel.name }}
+              </a>
+            </td>
+            <td>{{ engine_rating(engineModel, 'continuous') }}</td>
+            <td>{{ engine_rating(engineModel, 'takeoff') }}</td>
+            <td>{{ tags(engineModel.tags) }}</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>

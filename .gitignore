@@ -1,9 +1,14 @@
 .phpunit.result.cache
-/coverage-*.xml
 /.env.local
 /.env.local.php
 /.env.*.local
+/coverage-*.xml
+/npm-debug.log
 /phpunit.xml
+/config/secrets/prod/prod.decrypt.private.php
+/coverage/
+/dump/
+!/dump/.gitignore
 /node_modules/
 /public/assets/
 /public/bundles/

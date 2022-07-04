@@ -1,0 +1,7 @@
+{% extends 'layouts/filters.html.twig' %}
+
+{% block filters %}
+  {{ form_row(form.name, { label: 'Name:'|trans }) }}
+  {{ form_row(form.country, { label: 'Country:'|trans }) }}
+  {{ form_row(form.tags, { label: 'Tags:'|trans }) }}
+{% endblock %}

@@ -19,11 +19,3 @@ updates:
             - 'js'
         schedule:
             interval: daily
-        registries:
-            - fontawesome
-
-registries:
-    fontawesome:
-        type: npm-registry
-        url: https://npm.fontawesome.com/
-        token: ${{secrets.FONTAWESOME_NPM_AUTH_TOKEN}}

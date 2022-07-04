@@ -32,10 +32,11 @@ final class PicturesAwareTraitTest extends TestCase
     {
         $picture = \Mockery::mock(Picture::class);
 
-        $entity = new PicturesAwareEntity();
-        $entity->addPicture($picture);
+        $entity = (new PicturesAwareEntity())
+            ->addPicture($picture);
 
-        self::assertEquals($picture, $entity->getPictures()->first());
+        self::assertCount(1, $entity->getPictures());
+        self::assertContains($picture, $entity->getPictures());
     }
 
     /**
@@ -45,8 +46,7 @@ final class PicturesAwareTraitTest extends TestCase
     {
         $picture = \Mockery::mock(Picture::class);
 
-        $entity = new PicturesAwareEntity();
-        $entity
+        $entity = (new PicturesAwareEntity())
             ->setPictures([$picture])
             ->removePicture($picture);
 
@@ -58,14 +58,12 @@ final class PicturesAwareTraitTest extends TestCase
      */
     public function testSetPictures(): void
     {
-        $pictures = [
-            \Mockery::mock(Picture::class),
-            \Mockery::mock(Picture::class),
-        ];
+        $picture = \Mockery::mock(Picture::class);
 
-        $entity = new PicturesAwareEntity();
-        $entity->setPictures($pictures);
+        $entity = (new PicturesAwareEntity())
+            ->setPictures([$picture]);
 
-        self::assertEquals($pictures, $entity->getPictures()->toArray());
+        self::assertCount(1, $entity->getPictures());
+        self::assertContains($picture, $entity->getPictures());
     }
 }

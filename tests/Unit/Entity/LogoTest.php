@@ -18,9 +18,7 @@ final class LogoTest extends TestCase
      */
     public function testGetFile(): void
     {
-        $logo = new Logo();
-
-        self::assertNull($logo->getFile());
+        self::assertNull((new Logo())->getFile());
     }
 
     /**
@@ -30,8 +28,8 @@ final class LogoTest extends TestCase
     {
         $file = \Mockery::mock(File::class);
 
-        $logo = new Logo();
-        $logo->setFile($file);
+        $logo = (new Logo())
+            ->setFile($file);
 
         self::assertEquals($file, $logo->getFile());
     }
@@ -41,9 +39,7 @@ final class LogoTest extends TestCase
      */
     public function testGetFileName(): void
     {
-        $logo = new Logo();
-
-        self::assertNull($logo->getFileName());
+        self::assertNull((new Logo())->getFileName());
     }
 
     /**
@@ -51,8 +47,8 @@ final class LogoTest extends TestCase
      */
     public function testSetFileName(): void
     {
-        $logo = new Logo();
-        $logo->setFileName('9f58de6c-3e03-447b-9456-9e4afb974c46.svg');
+        $logo = (new Logo())
+            ->setFileName('9f58de6c-3e03-447b-9456-9e4afb974c46.svg');
 
         self::assertEquals('9f58de6c-3e03-447b-9456-9e4afb974c46.svg', $logo->getFileName());
     }
@@ -62,9 +58,7 @@ final class LogoTest extends TestCase
      */
     public function testGetMimeType(): void
     {
-        $logo = new Logo();
-
-        self::assertNull($logo->getMimeType());
+        self::assertNull((new Logo())->getMimeType());
     }
 
     /**
@@ -72,8 +66,8 @@ final class LogoTest extends TestCase
      */
     public function testSetMimeType(): void
     {
-        $logo = new Logo();
-        $logo->setMimeType('image/svg+xml');
+        $logo = (new Logo())
+            ->setMimeType('image/svg+xml');
 
         self::assertEquals('image/svg+xml', $logo->getMimeType());
     }
@@ -83,9 +77,7 @@ final class LogoTest extends TestCase
      */
     public function testGetOriginalName(): void
     {
-        $logo = new Logo();
-
-        self::assertNull($logo->getOriginalName());
+        self::assertNull((new Logo())->getOriginalName());
     }
 
     /**
@@ -93,8 +85,8 @@ final class LogoTest extends TestCase
      */
     public function testSetOriginalName(): void
     {
-        $logo = new Logo();
-        $logo->setOriginalName('mcdonnell-douglas.svg');
+        $logo = (new Logo())
+            ->setOriginalName('mcdonnell-douglas.svg');
 
         self::assertEquals('mcdonnell-douglas.svg', $logo->getOriginalName());
     }
@@ -104,9 +96,7 @@ final class LogoTest extends TestCase
      */
     public function testGetSize(): void
     {
-        $logo = new Logo();
-
-        self::assertNull($logo->getSize());
+        self::assertNull((new Logo())->getSize());
     }
 
     /**
@@ -114,10 +104,10 @@ final class LogoTest extends TestCase
      */
     public function testSetSize(): void
     {
-        $logo = new Logo();
-        $logo->setSize(48051736);
+        $logo = (new Logo())
+            ->setSize(149473);
 
-        self::assertEquals(48051736, $logo->getSize());
+        self::assertEquals(149473, $logo->getSize());
     }
 
     /**
@@ -125,9 +115,9 @@ final class LogoTest extends TestCase
      */
     public function testToString(): void
     {
-        $logo = new Logo();
-        $logo->setFileName('5d7cadd1-7f35-4d8b-85a6-1d889f8d37ad.svg');
+        $logo = (new Logo())
+            ->setFileName('5d7cadd1-7f35-4d8b-85a6-1d889f8d37ad.svg');
 
-        self::assertEquals('5d7cadd1-7f35-4d8b-85a6-1d889f8d37ad.svg', (string)$logo);
+        self::assertEquals('5d7cadd1-7f35-4d8b-85a6-1d889f8d37ad.svg', $logo->__toString());
     }
 }

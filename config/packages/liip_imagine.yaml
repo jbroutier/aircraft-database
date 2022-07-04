@@ -9,8 +9,15 @@ liip_imagine:
                 cache_prefix: cache
 
     filter_sets:
-        thumbnail_1200x630: # OpenGraph images
+        thumbnail_560x320: # Card thumbnails
             format: webp
+            quality: 100
+            filters:
+                thumbnail: { size: [ 560, 320 ], mode: outbound }
+                background: { size: [ 560, 320 ], position: center, color: '#212529' }
+
+        thumbnail_1200x630: # OpenGraph images
+            format: jpeg
             quality: 100
             filters:
                 thumbnail: { size: [ 1200, 630 ], mode: outbound }
@@ -22,17 +29,3 @@ liip_imagine:
             filters:
                 thumbnail: { size: [ 1400, 800 ], mode: outbound }
                 background: { size: [ 1400, 800 ], position: center, color: '#212529' }
-
-        thumbnail_560x320: # Card thumbnails
-            format: webp
-            quality: 100
-            filters:
-                thumbnail: { size: [ 560, 320 ], mode: outbound }
-                background: { size: [ 560, 320 ], position: center, color: '#212529' }
-
-        thumbnail_280x160: # Search result thumbnails
-            format: webp
-            quality: 100
-            filters:
-                thumbnail: { size: [ 280, 160 ], mode: outbound }
-                background: { size: [ 280, 160 ], position: center, color: '#212529' }

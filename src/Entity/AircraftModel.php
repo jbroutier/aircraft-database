@@ -22,28 +22,20 @@ use App\Entity\Traits\PropertiesAwareTrait;
 use App\Entity\Traits\SluggableTrait;
 use App\Entity\Traits\TagsAwareTrait;
 use App\Entity\Traits\TimestampableTrait;
+use App\Enum\AircraftFamily;
+use App\Enum\EngineFamily;
 use App\Repository\AircraftModelRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Pagerfanta\Doctrine\Collections\CollectionAdapter;
-use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[UniqueEntity(['slug'])]
 #[ORM\Entity(repositoryClass: AircraftModelRepository::class)]
-#[ORM\Index(columns: ['content', 'name'], flags: ['fulltext'])]
-class AircraftModel implements
-    BlameableInterface,
-    ContentAwareInterface,
-    IdentifiableInterface,
-    NameableInterface,
-    PicturesAwareInterface,
-    PropertiesAwareInterface,
-    SluggableInterface,
-    TagsAwareInterface,
-    TimestampableInterface
+class AircraftModel implements BlameableInterface, ContentAwareInterface, IdentifiableInterface, NameableInterface,
+                               PicturesAwareInterface, PropertiesAwareInterface, SluggableInterface, TagsAwareInterface,
+                               TimestampableInterface
 {
     use BlameableTrait;
     use ContentAwareTrait;
@@ -55,16 +47,26 @@ class AircraftModel implements
     use TagsAwareTrait;
     use TimestampableTrait;
 
-    /**
-     * @var AircraftType|null The aircraft type to which the aircraft model belongs.
-     */
+    #[Assert\NotNull]
+    #[ORM\Column(name: 'aircraft_family', enumType: AircraftFamily::class)]
+    protected ?AircraftFamily $aircraftFamily = null;
+
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: AircraftType::class, inversedBy: 'aircraftModels')]
     #[ORM\JoinColumn(name: 'aircraft_type', referencedColumnName: 'id', onDelete: 'SET NULL')]
     protected ?AircraftType $aircraftType = null;
 
+    #[Assert\NotNull]
+    #[Assert\PositiveOrZero]
+    #[ORM\Column(name: 'engine_count', type: 'integer')]
+    protected ?int $engineCount = null;
+
+    #[Assert\NotNull]
+    #[ORM\Column(name: 'engine_family', enumType: EngineFamily::class)]
+    protected ?EngineFamily $engineFamily = null;
+
     /**
-     * @var Collection<int, EngineModel> The engine models which can be used on the aircraft model.
+     * @var Collection<int, EngineModel>
      */
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[ORM\ManyToMany(targetEntity: EngineModel::class, inversedBy: 'aircraftModels')]
@@ -73,9 +75,6 @@ class AircraftModel implements
     #[ORM\InverseJoinColumn(name: 'engine_model', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     protected Collection $engineModels;
 
-    /**
-     * @var Manufacturer|null The manufacturer which builds the aircraft model.
-     */
     #[Assert\NotNull]
     #[ORM\ManyToOne(targetEntity: Manufacturer::class, inversedBy: 'aircraftModels')]
     #[ORM\JoinColumn(name: 'manufacturer', referencedColumnName: 'id', onDelete: 'SET NULL')]
@@ -84,8 +83,8 @@ class AircraftModel implements
     public function __construct()
     {
         $this->engineModels = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
         $this->propertyValues = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -93,6 +92,17 @@ class AircraftModel implements
     {
         $this->pictures = new ArrayCollection();
         $this->slug = null;
+    }
+
+    public function getAircraftFamily(): ?AircraftFamily
+    {
+        return $this->aircraftFamily;
+    }
+
+    public function setAircraftFamily(?AircraftFamily $aircraftFamily): AircraftModel
+    {
+        $this->aircraftFamily = $aircraftFamily;
+        return $this;
     }
 
     public function getAircraftType(): ?AircraftType
@@ -106,20 +116,34 @@ class AircraftModel implements
         return $this;
     }
 
+    public function getEngineCount(): ?int
+    {
+        return $this->engineCount;
+    }
+
+    public function setEngineCount(?int $engineCount): AircraftModel
+    {
+        $this->engineCount = $engineCount;
+        return $this;
+    }
+
+    public function getEngineFamily(): ?EngineFamily
+    {
+        return $this->engineFamily;
+    }
+
+    public function setEngineFamily(?EngineFamily $engineFamily): AircraftModel
+    {
+        $this->engineFamily = $engineFamily;
+        return $this;
+    }
+
     /**
      * @return Collection<int, EngineModel>
      */
     public function getEngineModels(): Collection
     {
         return $this->engineModels;
-    }
-
-    /**
-     * @return Pagerfanta<EngineModel>
-     */
-    public function getEngineModelsPaginated(): Pagerfanta
-    {
-        return new Pagerfanta(new CollectionAdapter($this->engineModels));
     }
 
     public function addEngineModel(EngineModel $engineModel): AircraftModel
@@ -138,7 +162,7 @@ class AircraftModel implements
     }
 
     /**
-     * @param array<EngineModel> $engineModels
+     * @param EngineModel[] $engineModels
      */
     public function setEngineModels(array $engineModels): AircraftModel
     {

@@ -1,0 +1,40 @@
+{% from 'macro.html.twig' import country_flag, tags %}
+
+<div class="card card-body">
+  <h2 class="card-title">{{ 'Aircraft models'|trans }}</h2>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <thead>
+        <tr>
+          <th class="col-4" scope="col">{{ 'Manufacturer'|trans }}</th>
+          <th class="col-4" scope="col">{{ 'Name'|trans }}</th>
+          <th class="col-auto"></th>
+        </tr>
+      </thead>
+      <tbody class="align-middle">
+
+        {% for aircraftModel in aircraftModels %}
+          <tr>
+            <td>
+
+              {% if aircraftModel.manufacturer is not null %}
+                {{ country_flag(aircraftModel.manufacturer.country) }}
+                <a href="{{ path('database_manufacturer_read', { slug: aircraftModel.manufacturer.slug }) }}">
+                  {{ aircraftModel.manufacturer.name }}
+                </a>
+              {% endif %}
+
+            </td>
+            <td>
+              <a href="{{ path('database_aircraft_model_read', { slug: aircraftModel.slug }) }}">
+                {{ aircraftModel.name }}
+              </a>
+            </td>
+            <td>{{ tags(aircraftModel.tags) }}</td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>

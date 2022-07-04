@@ -18,9 +18,7 @@ final class PictureTest extends TestCase
      */
     public function testGetAuthorName(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getAuthorName());
+        self::assertNull((new Picture())->getAuthorName());
     }
 
     /**
@@ -28,10 +26,10 @@ final class PictureTest extends TestCase
      */
     public function testSetAuthorName(): void
     {
-        $picture = new Picture();
-        $picture->setAuthorName('John Doe');
+        $picture = (new Picture())
+            ->setAuthorName('Gene Erickson');
 
-        self::assertEquals('John Doe', $picture->getAuthorName());
+        self::assertEquals('Gene Erickson', $picture->getAuthorName());
     }
 
     /**
@@ -39,9 +37,7 @@ final class PictureTest extends TestCase
      */
     public function testGetAuthorProfile(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getAuthorProfile());
+        self::assertNull((new Picture())->getAuthorProfile());
     }
 
     /**
@@ -49,8 +45,8 @@ final class PictureTest extends TestCase
      */
     public function testSetAuthorProfile(): void
     {
-        $picture = new Picture();
-        $picture->setAuthorProfile('https://orn.com/excepturi-sit-vero-commodi');
+        $picture = (new Picture())
+            ->setAuthorProfile('https://orn.com/excepturi-sit-vero-commodi');
 
         self::assertEquals('https://orn.com/excepturi-sit-vero-commodi', $picture->getAuthorProfile());
     }
@@ -60,9 +56,7 @@ final class PictureTest extends TestCase
      */
     public function testGetDimensions(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getDimensions());
+        self::assertNull((new Picture())->getDimensions());
     }
 
     /**
@@ -70,8 +64,8 @@ final class PictureTest extends TestCase
      */
     public function testSetDimensions(): void
     {
-        $picture = new Picture();
-        $picture->setDimensions([1920, 1080]);
+        $picture = (new Picture())
+            ->setDimensions([1920, 1080]);
 
         self::assertEquals([1920, 1080], $picture->getDimensions());
     }
@@ -81,9 +75,7 @@ final class PictureTest extends TestCase
      */
     public function testGetFile(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getFile());
+        self::assertNull((new Picture())->getFile());
     }
 
     /**
@@ -93,8 +85,8 @@ final class PictureTest extends TestCase
     {
         $file = \Mockery::mock(File::class);
 
-        $picture = new Picture();
-        $picture->setFile($file);
+        $picture = (new Picture())
+            ->setFile($file);
 
         self::assertEquals($file, $picture->getFile());
     }
@@ -104,9 +96,7 @@ final class PictureTest extends TestCase
      */
     public function testGetFileName(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getFileName());
+        self::assertNull((new Picture())->getFileName());
     }
 
     /**
@@ -114,8 +104,8 @@ final class PictureTest extends TestCase
      */
     public function testSetFileName(): void
     {
-        $picture = new Picture();
-        $picture->setFileName('254d5085-83ef-4197-aa56-ab038bc2f43c.jpg');
+        $picture = (new Picture())
+            ->setFileName('254d5085-83ef-4197-aa56-ab038bc2f43c.jpg');
 
         self::assertEquals('254d5085-83ef-4197-aa56-ab038bc2f43c.jpg', $picture->getFileName());
     }
@@ -125,9 +115,7 @@ final class PictureTest extends TestCase
      */
     public function testGetLicense(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getLicense());
+        self::assertNull((new Picture())->getLicense());
     }
 
     /**
@@ -135,8 +123,8 @@ final class PictureTest extends TestCase
      */
     public function testSetLicense(): void
     {
-        $picture = new Picture();
-        $picture->setLicense('CC-BY-SA-2.0');
+        $picture = (new Picture())
+            ->setLicense('CC-BY-SA-2.0');
 
         self::assertEquals('CC-BY-SA-2.0', $picture->getLicense());
     }
@@ -146,9 +134,7 @@ final class PictureTest extends TestCase
      */
     public function testGetMimeType(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getMimeType());
+        self::assertNull((new Picture())->getMimeType());
     }
 
     /**
@@ -156,8 +142,8 @@ final class PictureTest extends TestCase
      */
     public function testSetMimeType(): void
     {
-        $picture = new Picture();
-        $picture->setMimeType('image/jpeg');
+        $picture = (new Picture())
+            ->setMimeType('image/jpeg');
 
         self::assertEquals('image/jpeg', $picture->getMimeType());
     }
@@ -167,9 +153,7 @@ final class PictureTest extends TestCase
      */
     public function testGetOriginalName(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getOriginalName());
+        self::assertNull((new Picture())->getOriginalName());
     }
 
     /**
@@ -177,10 +161,10 @@ final class PictureTest extends TestCase
      */
     public function testSetOriginalName(): void
     {
-        $picture = new Picture();
-        $picture->setOriginalName('a-10-goes-brrrt.jpg');
+        $picture = (new Picture())
+            ->setOriginalName('c130j-super-hercules.jpg');
 
-        self::assertEquals('a-10-goes-brrrt.jpg', $picture->getOriginalName());
+        self::assertEquals('c130j-super-hercules.jpg', $picture->getOriginalName());
     }
 
     /**
@@ -188,9 +172,7 @@ final class PictureTest extends TestCase
      */
     public function testGetSize(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getSize());
+        self::assertNull((new Picture())->getSize());
     }
 
     /**
@@ -198,10 +180,10 @@ final class PictureTest extends TestCase
      */
     public function testSetSize(): void
     {
-        $picture = new Picture();
-        $picture->setSize(20000725);
+        $picture = (new Picture())
+            ->setSize(784514);
 
-        self::assertEquals(20000725, $picture->getSize());
+        self::assertEquals(784514, $picture->getSize());
     }
 
     /**
@@ -209,9 +191,7 @@ final class PictureTest extends TestCase
      */
     public function testGetSource(): void
     {
-        $picture = new Picture();
-
-        self::assertNull($picture->getSource());
+        self::assertNull((new Picture())->getSource());
     }
 
     /**
@@ -219,8 +199,8 @@ final class PictureTest extends TestCase
      */
     public function testSetSource(): void
     {
-        $picture = new Picture();
-        $picture->setSource('https://www.aufderhar.org/doloribus-ipsam-omnis');
+        $picture = (new Picture())
+            ->setSource('https://www.aufderhar.org/doloribus-ipsam-omnis');
 
         self::assertEquals('https://www.aufderhar.org/doloribus-ipsam-omnis', $picture->getSource());
     }
@@ -230,9 +210,9 @@ final class PictureTest extends TestCase
      */
     public function testToString(): void
     {
-        $picture = new Picture();
-        $picture->setFileName('31dce0d1-023b-4e19-9cd4-2ef2cab9a344.jpg');
+        $picture = (new Picture())
+            ->setFileName('31dce0d1-023b-4e19-9cd4-2ef2cab9a344.jpg');
 
-        self::assertEquals('31dce0d1-023b-4e19-9cd4-2ef2cab9a344.jpg', (string)$picture);
+        self::assertEquals('31dce0d1-023b-4e19-9cd4-2ef2cab9a344.jpg', $picture->__toString());
     }
 }

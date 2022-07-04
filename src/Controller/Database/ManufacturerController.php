@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller\Database;
 
-use App\Form\ManufacturerQueryType;
+use App\Form\ManufacturerFiltersType;
 use App\Repository\ManufacturerRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +20,7 @@ class ManufacturerController extends AbstractController
 {
     public function __construct(
         protected readonly Breadcrumbs $breadcrumbs,
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly ManufacturerRepository $repository
     ) {
     }
@@ -24,15 +28,19 @@ class ManufacturerController extends AbstractController
     #[Route(path: '/database/manufacturers', name: 'database_manufacturer_list')]
     public function list(Request $request): Response
     {
-        $this->breadcrumbs->addItem('Index', $this->generateUrl('index'));
+        $this->breadcrumbs->addItem('Home', $this->generateUrl('home'));
         $this->breadcrumbs->addItem('Manufacturers', $this->generateUrl('database_manufacturer_list'));
 
-        $form = $this->createForm(ManufacturerQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ManufacturerFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $manufacturers = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
-            ->setMaxPerPage(12)
+        $builder = $this->repository->createQueryBuilder('m');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('m.name', 'ASC');
+
+        $manufacturers = (new Pagerfanta(new QueryAdapter($builder)))
+            ->setMaxPerPage(24)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
         return $this->render('database/manufacturer/list.html.twig', [
@@ -50,32 +58,14 @@ class ManufacturerController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $this->breadcrumbs->addItem('Index', $this->generateUrl('index'));
+        $this->breadcrumbs->addItem('Home', $this->generateUrl('home'));
         $this->breadcrumbs->addItem('Manufacturers', $this->generateUrl('database_manufacturer_list'));
         $this->breadcrumbs->addItem(
             (string)$manufacturer->getName(),
             $this->generateUrl('database_manufacturer_read', ['slug' => $manufacturer->getSlug()])
         );
 
-        $aircraftModels = $manufacturer
-            ->getAircraftModelsPaginated()
-            ->setMaxPerPage(4)
-            ->setCurrentPage(max($request->query->getInt('aircraftModelsPage', 1), 1));
-
-        $aircraftTypes = $manufacturer
-            ->getAircraftTypesPaginated()
-            ->setMaxPerPage(4)
-            ->setCurrentPage(max($request->query->getInt('aircraftTypesPage', 1), 1));
-
-        $engineModels = $manufacturer
-            ->getEngineModelsPaginated()
-            ->setMaxPerPage(4)
-            ->setCurrentPage(max($request->query->getInt('engineModelsPage', 1), 1));
-
         return $this->render('database/manufacturer/read.html.twig', [
-            'aircraftModels' => $aircraftModels,
-            'aircraftTypes' => $aircraftTypes,
-            'engineModels' => $engineModels,
             'manufacturer' => $manufacturer,
         ]);
     }

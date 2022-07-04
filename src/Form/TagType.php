@@ -19,7 +19,6 @@ class TagType extends AbstractType
         $builder
             ->add('color', ColorType::class)
             ->add('description', TextareaType::class)
-            ->add('icon', IconChoiceType::class)
             ->add('name', TextType::class)
             ->add('slug', TextType::class);
     }

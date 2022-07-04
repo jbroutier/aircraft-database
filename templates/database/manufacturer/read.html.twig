@@ -1,86 +1,130 @@
-{% extends '_layouts/default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
+
+{% from 'macro.html.twig' import country_name, engine_rating, tags %}
 
 {% block title %}{{ manufacturer.name }} - {{ parent() }}{% endblock %}
-{% block description %}{{ '%manufacturer% data: Engines, aircraft types, aircraft models,…'|trans({
+{% block description %}{{ '%manufacturer% data: History, engines, aircraft types,…'|trans({
   '%manufacturer%': manufacturer.name
 }) }}{% endblock %}
 
-{% block images %}
-  {% for picture in manufacturer.pictures %}
-    <meta property="og:image"
-          content="{{ absolute_url(asset('pictures/' ~ picture)|imagine_filter('thumbnail_1200x630')) }}">
-    <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-
-    {% if picture.description is not null %}
-      <meta property="og:image:alt" content="{{ picture.description|escape('html_attr') }}">
-    {% endif %}
-
-  {% endfor %}
-{% endblock %}
-
 {% block content %}
-  <div class="card position-relative overflow-hidden">
+  <div class="row row-cols-1 row-cols-lg-2 g-3">
+    <div class="col">
+      <div class="card card-body h-100">
+        <h1 class="card-title">{{ manufacturer.name }}</h1>
+        <div class="card-subtitle text-muted">
+          {{ 'Manufacturer'|trans }}
+        </div>
 
-    {% if manufacturer.pictures|length %}
-      {% include '_partials/carousel.html.twig' with { pictures: manufacturer.pictures } %}
-    {% else %}
-      <img class="img-fluid" src="{{ asset('assets/images/no-picture-1400x800.webp') }}"
-           width="1400" height="800" alt="">
-    {% endif %}
+        {% if manufacturer.tags|length %}
+          <div class="mt-3">
+            {{ tags(manufacturer.tags) }}
+          </div>
+        {% endif %}
 
-    {% include '_partials/tags.html.twig' with { tags: manufacturer.tags } %}
+        {% if manufacturer.content is not null %}
+          <div class="mt-3">
+            {{ manufacturer.content|markdown_to_html }}
+          </div>
+        {% endif %}
 
-  </div>
-  <div class="card card-body">
-    <div class="d-flex justify-content-between gap-3">
-      <div>
-        <h1>{{ manufacturer.name }}</h1>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card card-body h-100">
         <div class="table-responsive">
           <table class="table mb-0">
-            <tr>
-              <th scope="row" class="col-auto">{{ 'Country:'|trans }}</th>
-              <td class="col-auto">
-
-                {% if manufacturer.country is not null %}
-                  <span class="fi fi-{{ manufacturer.country|lower }} me-2"></span>
-                  {{ manufacturer.country|country_name }}
-                {% else %}
-                  <span class="fi fi-xx me-2"></span>
-                  {{ 'International'|trans }}
-                {% endif %}
-
-              </td>
-            </tr>
+            <tbody class="align-middle">
+              <tr>
+                <th class="col-6" scope="row">{{ 'Country'|trans }}</th>
+                <td class="col-6">{{ country_name(manufacturer.country) }}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
-
-      {% if manufacturer.logo is not null %}
-        <div class="logo-container-lg">
-          <img src="{{ asset('logos/' ~ manufacturer.logo) }}" alt="">
-        </div>
-      {% endif %}
-
     </div>
-
-    {% if manufacturer.content is not null %}
-      <div class="card-content">
-        {{ manufacturer.content|markdown_to_html }}
-      </div>
-    {% endif %}
-
   </div>
-  <div class="d-flex flex-column gap-3">
 
-    {% include '_partials/properties.html.twig' with {
+  {% if manufacturer.propertyValues|length %}
+    {% include 'database/partials/properties.html.twig' with {
       propertyGroups: manufacturer.propertyGroups,
       propertyValues: manufacturer.propertyValues
     } %}
-    {% include '_partials/database/aircraft_types.html.twig' %}
-    {% include '_partials/database/aircraft_models.html.twig' %}
-    {% include '_partials/database/engine_models.html.twig' %}
+  {% endif %}
 
-  </div>
+  {% if manufacturer.aircraftTypes|length %}
+    <div class="card card-body">
+      <h2 class="card-title">{{ 'Aircraft types'|trans }}</h2>
+      <div class="table-responsive">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th class="col-2" scope="col">{{ 'Name'|trans }}</th>
+              <th class="col-2" scope="col">{{ 'Aircraft family'|trans }}</th>
+              <th class="col-2" scope="col">{{ 'Engine type'|trans }}</th>
+              <th class="col-1" scope="col">{{ 'ICAO code'|trans }}</th>
+              <th class="col-1" scope="col">{{ 'IATA code'|trans }}</th>
+              <th class="col-auto"></th>
+            </tr>
+          </thead>
+          <tbody class="align-middle">
+
+            {% for aircraftType in manufacturer.aircraftTypes %}
+              <tr>
+                <td>
+                  <a href="{{ path('database_aircraft_type_read', { slug: aircraftType.slug }) }}">
+                    {{ aircraftType.name }}
+                  </a>
+                </td>
+                <td>{{ aircraftType.aircraftFamily.label|trans }}</td>
+                <td>{{ aircraftType.engineFamily.label|trans }}</td>
+                <td>{{ aircraftType.icaoCode|default('-') }}</td>
+                <td>{{ aircraftType.iataCode|default('-') }}</td>
+                <td>{{ tags(aircraftType.tags) }}</td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if manufacturer.engineModels|length %}
+    <div class="card card-body">
+      <h2 class="card-title">{{ 'Engine models'|trans }}</h2>
+      <div class="table-responsive">
+        <table class="table mb-0">
+          <thead>
+            <tr>
+              <th class="col-2" scope="col">{{ 'Name'|trans }}</th>
+              <th class="col-2" scope="col">{{ 'Engine type'|trans }}</th>
+              <th class="col-2" scope="col">{{ 'Max. continuous rating'|trans }}</th>
+              <th class="col-2" scope="col">{{ 'Max. takeoff rating'|trans }}</th>
+              <th class="col-auto"></th>
+            </tr>
+          </thead>
+          <tbody class="align-middle">
+
+            {% for engineModel in manufacturer.engineModels %}
+              <tr>
+                <td>
+                  <a href="{{ path('database_engine_model_read', { slug: engineModel.slug }) }}">
+                    {{ engineModel.name }}
+                  </a>
+                </td>
+                <td>{{ engineModel.engineFamily.label|trans }}</td>
+                <td>{{ engine_rating(engineModel, 'continuous') }}</td>
+                <td>{{ engine_rating(engineModel, 'takeoff') }}</td>
+                <td>{{ tags(engineModel.tags) }}</td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {% endif %}
+
 {% endblock %}

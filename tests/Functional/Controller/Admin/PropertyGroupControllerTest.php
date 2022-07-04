@@ -6,19 +6,43 @@ namespace Tests\Functional\Controller\Admin;
 
 use App\Entity\PropertyGroup;
 use App\Entity\User;
-use Tests\Functional\FixturesAwareTestCase;
+use App\Factory\PropertyGroupFactory;
+use App\Factory\UserFactory;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Uid\Uuid;
+use Zenstruck\Foundry\Proxy;
+use Zenstruck\Foundry\Test\Factories;
+use Zenstruck\Foundry\Test\ResetDatabase;
 
-final class PropertyGroupControllerTest extends FixturesAwareTestCase
+final class PropertyGroupControllerTest extends WebTestCase
 {
+    use Factories;
+    use ResetDatabase;
+
+    private KernelBrowser $client;
+
+    public function setUp(): void
+    {
+        $this->client = self::createClient();
+
+        /** @var Proxy<User> $user */
+        $user = UserFactory::createOne(['roles' => ['ROLE_ADMIN']]);
+        $this->client->loginUser($user->object());
+    }
+
     /**
      * @testdox Accessing "/admin/property-groups/{id}/clone" returns an HTTP 200 response.
      */
     public function testClone(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'aperiam']);
-        $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/clone');
+        /** @var Proxy<PropertyGroup> $propertyGroup */
+        $propertyGroup = PropertyGroupFactory::createOne();
+        $propertyGroup
+            ->forceSet('id', Uuid::fromRfc4122('76a99c38-590b-4dfe-a432-c95d3e7fb35e'))
+            ->save();
+
+        $this->client->request('GET', '/admin/property-groups/76a99c38-590b-4dfe-a432-c95d3e7fb35e/clone');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New property group');
@@ -29,9 +53,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testCloneWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups/8e54d785-ae79-4afc-95e4-f5bd3c15ceb0/clone');
+        $this->client->request('GET', '/admin/property-groups/c2daa85a-1d94-4e73-99cb-3b097fdf6472/clone');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -41,9 +63,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testCreate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups/create');
+        $this->client->request('GET', '/admin/property-groups/create');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'New property group');
@@ -54,18 +74,14 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testCreateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups/create');
-        $client->submitForm('Save', [
-            'property_group[name]' => 'Caeleritatis',
-        ], serverParameters: [
-            'HTTP_REFERER' => '/admin/property-groups',
-        ]);
-        $client->followRedirect();
+        $this->client->request('GET', '/admin/property-groups/create');
+        $this->client->submitForm('Save', [
+            'property_group[name]' => 'Dimensions',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/property-groups']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The property group has been created');
+        self::assertSelectorTextContains('div', 'The property group has been created.');
     }
 
     /**
@@ -73,10 +89,13 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testDelete(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'aut']);
-        $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/delete');
+        /** @var Proxy<PropertyGroup> $propertyGroup */
+        $propertyGroup = PropertyGroupFactory::createOne();
+        $propertyGroup
+            ->forceSet('id', Uuid::fromRfc4122('0c7a35e8-4760-402b-baf2-fed0123a324e'))
+            ->save();
+
+        $this->client->request('GET', '/admin/property-groups/0c7a35e8-4760-402b-baf2-fed0123a324e/delete');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h5', 'Delete the property group');
@@ -87,9 +106,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups/fd722272-e3d0-427f-8466-9da6aa926ab6/delete');
+        $this->client->request('GET', '/admin/property-groups/e2f3cc0b-8603-42ce-b8d9-53baea870d4f/delete');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -99,17 +116,18 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testDeleteSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'culpa']);
-        $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/delete');
-        $client->submitForm('Delete', serverParameters: [
-            'HTTP_REFERER' => '/admin/property-groups',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<PropertyGroup> $propertyGroup */
+        $propertyGroup = PropertyGroupFactory::createOne();
+        $propertyGroup
+            ->forceSet('id', Uuid::fromRfc4122('831d98cc-72ae-4284-a2aa-d0e9688bb1e0'))
+            ->save();
+
+        $this->client->request('GET', '/admin/property-groups/831d98cc-72ae-4284-a2aa-d0e9688bb1e0/delete');
+        $this->client->submitForm('Delete', serverParameters: ['HTTP_REFERER' => '/admin/property-groups']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The property group has been deleted');
+        self::assertSelectorTextContains('div', 'The property group has been deleted.');
     }
 
     /**
@@ -117,9 +135,21 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testList(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups');
+        $this->client->request('GET', '/admin/property-groups');
+
+        self::assertResponseStatusCodeSame(200);
+        self::assertSelectorTextContains('h1', 'Property groups');
+    }
+
+    /**
+     * @testdox Accessing "/admin/property-groups" with filters returns an HTTP 200 response.
+     */
+    public function testListWithFilters(): void
+    {
+        $this->client->request('GET', '/admin/property-groups');
+        $this->client->submitForm('Apply', [
+            'filters[name]' => 'Dimensions',
+        ], 'GET');
 
         self::assertResponseStatusCodeSame(200);
         self::assertSelectorTextContains('h1', 'Property groups');
@@ -130,9 +160,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testListWithInvalidPage(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups', ['page' => 100]);
+        $this->client->request('GET', '/admin/property-groups', ['page' => 10]);
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -142,13 +170,16 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testUpdate(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'ducimus',]);
-        $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/update');
+        /** @var Proxy<PropertyGroup> $propertyGroup */
+        $propertyGroup = PropertyGroupFactory::createOne(['name' => 'Weights']);
+        $propertyGroup
+            ->forceSet('id', Uuid::fromRfc4122('ddce5410-a9e4-4037-9eed-9eee3419020c'))
+            ->save();
+
+        $this->client->request('GET', '/admin/property-groups/ddce5410-a9e4-4037-9eed-9eee3419020c/update');
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('h5', 'ducimus');
+        self::assertSelectorTextContains('h5', 'Weights');
     }
 
     /**
@@ -156,9 +187,7 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateWithInvalidId(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $client->request('GET', '/admin/property-groups/211531c3-9c1f-442c-824d-9b6a92e191d6/update');
+        $this->client->request('GET', '/admin/property-groups/c1f5ad3e-4267-45ea-9993-e4ac8f1b94dc/update');
 
         self::assertResponseStatusCodeSame(404);
     }
@@ -168,16 +197,19 @@ final class PropertyGroupControllerTest extends FixturesAwareTestCase
      */
     public function testUpdateSubmit(): void
     {
-        $client = self::createClient();
-        $client->loginUser($this->findEntityBy(User::class, ['username' => 'admin']));
-        $propertyGroup = $this->findEntityBy(PropertyGroup::class, ['name' => 'est']);
-        $client->request('GET', '/admin/property-groups/' . $propertyGroup->getId() . '/update');
-        $client->submitForm('Save', serverParameters: [
-            'HTTP_REFERER' => '/admin/property-groups',
-        ]);
-        $client->followRedirect();
+        /** @var Proxy<PropertyGroup> $propertyGroup */
+        $propertyGroup = PropertyGroupFactory::createOne();
+        $propertyGroup
+            ->forceSet('id', Uuid::fromRfc4122('36910b5c-a5fe-42ea-84a5-bd6f3613f5cf'))
+            ->save();
+
+        $this->client->request('GET', '/admin/property-groups/36910b5c-a5fe-42ea-84a5-bd6f3613f5cf/update');
+        $this->client->submitForm('Save', [
+            'property_group[name]' => 'Speed limits',
+        ], serverParameters: ['HTTP_REFERER' => '/admin/property-groups']);
+        $this->client->followRedirect();
 
         self::assertResponseStatusCodeSame(200);
-        self::assertSelectorTextContains('div', 'The property group has been updated');
+        self::assertSelectorTextContains('div', 'The property group has been updated.');
     }
 }

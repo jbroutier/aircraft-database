@@ -1,0 +1,103 @@
+{% extends 'layouts/database.html.twig' %}
+
+{% block title %}{{ 'Users'|trans }} - {{ parent() }}{% endblock %}
+{% block filters %}{% include 'partials/filters/user.html.twig' %}{% endblock %}
+
+{% block content %}
+  <div class="card card-body">
+    <h1>{{ 'Users'|trans }}</h1>
+    <p class="card-text text-muted">
+      {{ '{0}No items|{1}1 item|]1,Inf[%nbResults% items'|trans({
+        '%count%': users.nbResults,
+        '%nbResults%': users.nbResults|format_number
+      }) }}
+      -
+      {{ 'Page %currentPage% out of %nbPages%'|trans({
+        '%currentPage%': users.currentPage|format_number,
+        '%nbPages%': users.nbPages|format_number
+      }) }}
+    </p>
+  </div>
+  <div class="card card-body">
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th scope="col" class="col-1">{{ 'Name'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Email'|trans }}</th>
+            <th scope="col" class="col-1">{{ 'Roles'|trans }}</th>
+            <th scope="col" class="col-1">{{ 'Enabled'|trans }}</th>
+            <th scope="col" class="col-1">{{ 'Registration method'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Created'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Updated'|trans }}</th>
+            <th scope="col" class="col-2">{{ 'Actions'|trans }}</th>
+          </tr>
+        </thead>
+        <tbody class="align-middle">
+
+          {% for user in users %}
+            <tr>
+              <td>{{ user.fullName }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+
+                {% if 'ROLE_ADMIN' in user.roles %}
+                  {{ 'Administrator'|trans }}
+                {% else %}
+                  {{ 'User'|trans }}
+                {% endif %}
+
+              </td>
+              <td>{{ user.enabled ? 'Yes'|trans : 'No'|trans }}</td>
+              <td>{{ user.registrationMethod.label|trans }}</td>
+              <td>{{ user.createdAt|format_datetime }}</td>
+              <td>
+
+                {% if user.updatedAt is not null %}
+                  {{ user.updatedAt|format_datetime }}
+                {% else %}
+                  -
+                {% endif %}
+
+              </td>
+              <td>
+                <div class="d-flex gap-1">
+
+                  {% if is_granted('DELETE_USER', user) %}
+                    <button type="button" class="btn btn-danger" data-action="click->modal#show"
+                            data-modal-url-param="{{ path('admin_user_delete', { id: user.id }) }}">
+                      {{ 'Delete'|trans }}
+                    </button>
+                  {% endif %}
+
+                  {% if is_granted('LOCK_USER', user) %}
+                    <button type="button" class="btn btn-danger" data-action="click->modal#show"
+                            data-modal-url-param="{{ path('admin_user_lock', { id: user.id }) }}">
+                      {{ 'Lock'|trans }}
+                    </button>
+                  {% endif %}
+
+                  {% if is_granted('UNLOCK_USER', user) %}
+                    <button type="button" class="btn btn-success" data-action="click->modal#show"
+                            data-modal-url-param="{{ path('admin_user_unlock', { id: user.id }) }}">
+                      {{ 'Unlock'|trans }}
+                    </button>
+                  {% endif %}
+
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% if users.haveToPaginate %}
+    <div class="d-flex justify-content-center">
+      {{ pagerfanta(users) }}
+    </div>
+  {% endif %}
+
+{% endblock %}

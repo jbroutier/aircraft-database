@@ -1,0 +1,24 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% block title %}{{ 'Password reset'|trans }} - {{ parent() }}{% endblock %}
+
+{% block content %}
+  <div class="card card-body mx-auto max-w-500px">
+    <h1 class="card-title text-center">{{ 'Password reset'|trans }}</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.plainPassword.first, { label: 'New password:'|trans }) }}
+    {{ form_row(form.plainPassword.second, { label: 'New password confirmation:'|trans }) }}
+
+    <div class="d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">
+        {{ 'Reset password'|trans }}
+      </button>
+    </div>
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+  </div>
+{% endblock %}

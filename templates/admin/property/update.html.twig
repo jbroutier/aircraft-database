@@ -1,7 +1,7 @@
 <div class="modal" tabindex="-1">
   <div class="modal-dialog">
 
-    {{ form_start(form, { attr: { class: 'modal-content', 'data-controller': 'slug' } }) }}
+    {{ form_start(form, { attr: { class: 'modal-content' } }) }}
 
     <div class="modal-header">
       <h5 class="modal-title">{{ property.name }}</h5>
@@ -9,7 +9,7 @@
     </div>
     <div class="modal-body">
 
-      {% include '_partials/admin/property.html.twig' %}
+      {% include 'admin/property/partials/form.html.twig' %}
 
     </div>
     <div class="modal-footer">

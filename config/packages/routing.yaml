@@ -1,5 +1,9 @@
 framework:
     router:
-        default_uri: '%env(DEFAULT_URI)%'
-        strict_requirements: '%kernel.debug%'
         utf8: true
+        default_uri: '%env(DEFAULT_URI)%'
+
+when@prod:
+    framework:
+        router:
+            strict_requirements: null

@@ -1,0 +1,334 @@
+{% macro property_unit(propertyValue) %}
+  <div class="d-flex justify-content-between align-items-center gap-3">
+
+    {% set format_args = { max_fraction_digit: 0 } %}
+
+    {% if propertyValue.property.unit is null %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::CelsiusDegree') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 1 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;°C
+      <div class="small text-muted">
+        {{ (propertyValue.value * 1.8 + 32)|format_number(format_args) }}&nbsp;°F
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Centimetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;cm
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.3937)|format_number(format_args) }}&nbsp;in
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::CubicCentimetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;cm³
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.06102)|format_number(format_args) }}&nbsp;cu&nbsp;in
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::CubicMetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;m³
+      <div class="small text-muted">
+        {{ (propertyValue.value * 35.315)|format_number(format_args) }}&nbsp;cu&nbsp;ft
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::DecanewtonMetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 1 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;daN/m
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 7.37562)|format_number(format_args) }}&nbsp;lbf⋅ft
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::FahrenheitDegree') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 1 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;°F
+      <div class="small text-muted">
+        {{ ((propertyValue.value - 32) / 1.8)|format_number(format_args) }}&nbsp;°C
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Foot') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;ft
+
+      {# Round values >= 1,000 m to the nearest ten #}
+      {% if (propertyValue.value * 0.3048)|round >= 1000 %}
+        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
+      {% endif %}
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.3048)|format_number(format_args) }}&nbsp;m
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Horsepower') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;hp
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.7457)|format_number(format_args) }}&nbsp;kW
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Kilogram') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;kg
+
+      {# Round values >= 10,000 lb to the nearest ten #}
+      {% if (propertyValue.value * 2.204623)|round >= 10000 %}
+        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
+      {% endif %}
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 2.204623)|format_number(format_args) }}&nbsp;lb
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Kilonewton') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 1 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;kN
+
+      {# Round values >= 1,000 lbf to the nearest ten #}
+      {% if (propertyValue.value * 224.8089)|round >= 1000 %}
+        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
+      {% endif %}
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 224.8089)|format_number(format_args) }}&nbsp;lbf
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Kilowatt') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;kW
+      <div class="small text-muted">
+        {{ (propertyValue.value * 1.341022)|format_number(format_args) }}&nbsp;hp
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Knot') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;kt
+      <div class="small text-muted">
+        {{ (propertyValue.value * 1.852)|format_number(format_args) }}&nbsp;km/h /
+        {{ (propertyValue.value * 1.150779)|format_number(format_args) }}&nbsp;mph
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Litre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;l
+
+      {# Round values >= 1,000 us gal to the nearest ten #}
+      {% if (propertyValue.value * 0.26417)|round >= 1000 %}
+        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
+      {% endif %}
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.26417)|format_number(format_args) }}&nbsp;us&nbsp;gal
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Metre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;m
+
+      {# Round values >= 1,000 ft to the nearest ten #}
+      {% if (propertyValue.value * 3.28084)|round >= 1000 %}
+        {% set format_args = format_args|merge({ rounding_increment: 10 }) %}
+      {% endif %}
+
+      <div class="small text-muted">
+        {{ (propertyValue.value * 3.28084)|format_number(format_args) }}&nbsp;ft
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::Millimetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;mm
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.03937)|format_number(format_args) }}&nbsp;in
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::NauticalMile') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;nm
+      <div class="small text-muted">
+        {{ (propertyValue.value * 1.852)|format_number(format_args) }}&nbsp;m /
+        {{ (propertyValue.value * 1.15078)|format_number(format_args) }}&nbsp;km
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::SquareCentimetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;cm²
+      <div class="small text-muted">
+        {{ (propertyValue.value * 0.155)|format_number(format_args) }}&nbsp;sq&nbsp;in
+      </div>
+
+    {% elseif propertyValue.property.unit is constant('App\\Enum\\PropertyUnit::SquareMetre') %}
+
+      {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+        {% set format_args = format_args|merge({ max_fraction_digit: 2 }) %}
+      {% endif %}
+
+      {{ propertyValue.value|format_number(format_args) }}&nbsp;m²
+      <div class="small text-muted">
+        {{ (propertyValue.value * 10.764)|format_number(format_args) }}&nbsp;sq&nbsp;ft
+      </div>
+
+    {% endif %}
+
+  </div>
+{% endmacro %}
+
+{% macro property_value(propertyValue) %}
+
+  {% if propertyValue.property.type is constant('App\\Enum\\PropertyType::Boolean') %}
+
+    {% if propertyValue.value|boolean is not null %}
+      {{ propertyValue.value|boolean ? 'Yes'|trans : 'No'|trans }}
+    {% endif %}
+
+  {% elseif propertyValue.property.type is constant('App\\Enum\\PropertyType::Date') %}
+
+    {% if propertyValue.value|date is not null %}
+      {{ propertyValue.value|date|format_date }}
+    {% endif %}
+
+  {% elseif propertyValue.property.type is constant('App\\Enum\\PropertyType::Float') %}
+
+    {% if propertyValue.value|float is not null %}
+      {{ _self.property_unit(propertyValue) }}
+    {% endif %}
+
+  {% elseif propertyValue.property.type is constant('App\\Enum\\PropertyType::Integer') %}
+
+    {% if propertyValue.value|integer is not null %}
+      {{ _self.property_unit(propertyValue) }}
+    {% endif %}
+
+  {% elseif propertyValue.property.type is constant('App\\Enum\\PropertyType::String') %}
+
+    {% if propertyValue.value|string is not null %}
+      {{ propertyValue.value|string }}
+    {% endif %}
+
+  {% elseif propertyValue.property.type is constant('App\\Enum\\PropertyType::Url') %}
+
+    {% if propertyValue.value|url is not null %}
+      <a target="_blank" rel="noopener noreferrer" href="{{ propertyValue.value|url }}">
+        {{ propertyValue.value|url }}
+      </a>
+    {% endif %}
+
+  {% endif %}
+
+{% endmacro %}
+
+<div class="card card-body">
+  <h2 class="card-title">{{ 'Characteristics'|trans }}</h2>
+  <div class="table-responsive">
+    <table class="table mb-0">
+      <tbody class="align-middle">
+
+        {% for propertyGroup in propertyGroups|sort((a, b) => a.name <=> b.name) %}
+          <tr>
+            <th class="col-4" scope="row">{{ propertyGroup.name }}</th>
+            <td class="col-8">
+              <table class="table mb-0">
+
+                {% for propertyValue in propertyValues|sort((a, b) => a.property.name <=> b.property.name) %}
+                  {% if propertyValue.propertyGroup.id == propertyGroup.id %}
+                    <tr>
+                      <th class="col-6" scope="row">
+
+                        {% if propertyValue.property.description is not null %}
+                          <abbr data-bs-toggle="tooltip" data-bs-html="true"
+                                title="{{ propertyValue.property.description|raw|nl2br|escape('html_attr') }}">
+                            {{ propertyValue.property.name }}
+                          </abbr>
+                        {% else %}
+                          {{ propertyValue.property.name }}
+                        {% endif %}
+
+                      </th>
+                      <td class="col-6">{{ _self.property_value(propertyValue) }}</td>
+                    </tr>
+                  {% endif %}
+                {% endfor %}
+
+              </table>
+            </td>
+          </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+</div>

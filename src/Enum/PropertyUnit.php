@@ -6,26 +6,46 @@ namespace App\Enum;
 
 enum PropertyUnit: string
 {
-    case CelsiusDegrees = '°C';
-    case Centimetres = 'cm';
-    case CubicCentimetres = 'cm³';
-    case CubicMetres = 'm³';
-    case DecaNewtonsMetres = 'daNm';
-    case FahrenheitDegrees = '°F';
-    case Feet = 'ft';
-    case Horsepower = 'hp';
-    case Kilograms = 'kg';
-    case Kilonewtons = 'kN';
-    case Kilowatts = 'kW';
-    case Knots = 'Kt';
-    case Litres = 'l';
-    case Metres = 'm';
-    case Millimetres = 'mm';
-    case NauticalMiles = 'nm';
-    case SquareMetres = 'm²';
+    case CelsiusDegree = 'celsius-degree';
+    case Centimetre = 'centimetre';
+    case CubicCentimetre = 'cubic-centimetre';
+    case CubicMetre = 'cubic-metre';
+    case DecanewtonMetre = 'decanewton-metre';
+    case FahrenheitDegree = 'fahrenheit-degree';
+    case Foot = 'foot';
+    case Horsepower = 'horsepower';
+    case Kilogram = 'kilogram';
+    case Kilonewton = 'kilonewton';
+    case Kilowatt = 'kilowatt';
+    case Knot = 'knot';
+    case Litre = 'litre';
+    case Metre = 'metre';
+    case Millimetre = 'millimetre';
+    case NauticalMile = 'nautical-mile';
+    case SquareCentimetre = 'square-centimetre';
+    case SquareMetre = 'square-metre';
 
     public function label(): string
     {
-        return $this->value;
+        return match ($this) {
+            self::CelsiusDegree => '°C',
+            self::Centimetre => 'cm',
+            self::CubicCentimetre => 'cm³',
+            self::CubicMetre => 'm³',
+            self::DecanewtonMetre => 'daN/m',
+            self::FahrenheitDegree => '°F',
+            self::Foot => 'ft',
+            self::Horsepower => 'hp',
+            self::Kilogram => 'kg',
+            self::Kilonewton => 'kN',
+            self::Kilowatt => 'kW',
+            self::Knot => 'kt',
+            self::Litre => 'l',
+            self::Metre => 'm',
+            self::Millimetre => 'mm',
+            self::NauticalMile => 'nmi',
+            self::SquareCentimetre => 'cm²',
+            self::SquareMetre => 'm²',
+        };
     }
 }

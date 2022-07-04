@@ -1,16 +1,10 @@
 framework:
     mailer:
-        dsn: '%env(MAILER_DSN)%'
+        dsn: '%env(resolve:MAILER_DSN)%'
 
         envelope:
             sender: 'noreply@aircraft-database.com'
-            recipients: [ 'contact@aircraft-database.com' ]
 
         headers:
-            from: 'Aircraft database <noreply@aircraft-database.com>'
-            to: 'Aircraft database <contact@aircraft-database.com>'
-
-when@test:
-    framework:
-        mailer:
-            dsn: 'null://null'
+            From: 'Aircraft database <noreply@aircraft-database.com>'
+            Reply-To: 'Aircraft database <contact@aircraft-database.com>'

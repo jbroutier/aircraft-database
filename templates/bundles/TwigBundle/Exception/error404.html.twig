@@ -1,15 +1,13 @@
-{% extends '_layouts/default.html.twig' %}
+{% extends 'layouts/default.html.twig' %}
 
 {% block title %}{{ 'Page not found'|trans }} - {{ parent() }}{% endblock %}
 
 {% block content %}
   <div class="mx-auto max-w-500px pt-5">
     <div class="d-flex flex-column align-items-center gap-3">
-      <a href="{{ path('index') }}">
-        <img src="{{ asset('assets/images/logo.svg') }}" width="500" height="242" alt="">
-      </a>
-      <h1 class="display-5 text-center">{{ 'Page not found'|trans }}</h1>
-      <a href="{{ path('index') }}">
+      <img src="{{ asset('assets/images/logo.svg') }}" width="250" height="250" alt="">
+      <h1 class="text-center">{{ 'Page not found'|trans }}</h1>
+      <a href="{{ path('home') }}">
         {{ 'Go back to homepage'|trans }}
       </a>
     </div>

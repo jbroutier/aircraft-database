@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Form\AircraftTypeQueryType;
+use App\Entity\AircraftType;
+use App\Form\AircraftTypeFiltersType;
 use App\Form\AircraftTypeType;
 use App\Form\ConfirmType;
 use App\Repository\AircraftTypeRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +24,7 @@ class AircraftTypeController extends AbstractController
 {
     public function __construct(
         protected readonly AircraftTypeRepository $repository,
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly TranslatorInterface $translator
     ) {
     }
@@ -43,11 +48,14 @@ class AircraftTypeController extends AbstractController
     #[Route(path: '/admin/aircraft-types/create', name: 'admin_aircraft_type_create')]
     public function create(Request $request): Response
     {
-        $form = $this->createForm(AircraftTypeType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftTypeType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->repository->add($form->getData(), true);
+            /** @var AircraftType $aircraftType */
+            $aircraftType = $form->getData();
+            $this->repository->add($aircraftType, true);
             $this->addFlash('success', $this->translator->trans('The aircraft type has been created.'));
             $default = $this->generateUrl('admin_aircraft_type_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -68,8 +76,9 @@ class AircraftTypeController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ConfirmType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($aircraftType, true);
@@ -88,11 +97,15 @@ class AircraftTypeController extends AbstractController
     #[Route(path: '/admin/aircraft-types', name: 'admin_aircraft_type_list')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(AircraftTypeQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftTypeFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $aircraftTypes = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
+        $builder = $this->repository->createQueryBuilder('at');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('at.name', 'ASC');
+
+        $aircraftTypes = (new Pagerfanta(new QueryAdapter($builder)))
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
@@ -111,8 +124,9 @@ class AircraftTypeController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(AircraftTypeType::class, $aircraftType);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftTypeType::class, $aircraftType)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($aircraftType, true);

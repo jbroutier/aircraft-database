@@ -13,8 +13,8 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Logo|null find($id, $lockMode = null, $lockVersion = null)
  * @method Logo|null findOneBy(array $criteria, array $orderBy = null)
- * @method array<Logo> findAll()
- * @method array<Logo> findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Logo[] findAll()
+ * @method Logo[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class LogoRepository extends ServiceEntityRepository
 {

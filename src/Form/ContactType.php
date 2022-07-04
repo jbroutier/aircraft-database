@@ -19,7 +19,7 @@ class ContactType extends AbstractType
     {
         $builder
             ->add('address', EmailType::class)
-            ->add('consent', CheckboxType::class)
+            ->add('consenting', CheckboxType::class)
             ->add('message', TextareaType::class)
             ->add('name', TextType::class)
             ->add('subject', TextType::class);

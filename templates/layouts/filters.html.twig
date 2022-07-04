@@ -1,0 +1,36 @@
+<div class="card">
+
+  {{ form_start(form) }}
+
+  <div class="accordion accordion-flush">
+    <div class="accordion-item rounded-top">
+      <h3 id="filters" class="accordion-header">
+        <button class="accordion-button rounded-top" type="button" data-bs-toggle="collapse"
+                data-bs-target="#filtersCollapse" aria-expanded="true" aria-controls="filtersCollapse">
+          {{ 'Filters'|trans }}
+        </button>
+      </h3>
+      <div id="filtersCollapse" class="accordion-collapse collapse show" aria-labelledby="filters">
+        <div class="accordion-body pb-0">
+
+          {% block filters %}{% endblock %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="d-flex flex-column gap-1">
+      <a class="btn btn-secondary" href="{{ path(app.request.attributes.get('_route')) }}">
+        {{ 'Reset'|trans }}
+      </a>
+      <button type="submit" class="btn btn-primary">
+        {{ 'Apply'|trans }}
+      </button>
+    </div>
+  </div>
+
+  {{ form_rest(form) }}
+  {{ form_end(form) }}
+
+</div>

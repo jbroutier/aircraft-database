@@ -23,9 +23,7 @@ final class TimestampableTraitTest extends TestCase
      */
     public function testGetCreatedAt(): void
     {
-        $entity = new TimestampableEntity();
-
-        self::assertNull($entity->getCreatedAt());
+        self::assertNull((new TimestampableEntity())->getCreatedAt());
     }
 
     /**
@@ -35,8 +33,8 @@ final class TimestampableTraitTest extends TestCase
     {
         $createdAt = new \DateTime();
 
-        $entity = new TimestampableEntity();
-        $entity->setCreatedAt($createdAt);
+        $entity = (new TimestampableEntity())
+            ->setCreatedAt($createdAt);
 
         self::assertEquals($createdAt, $entity->getCreatedAt());
     }
@@ -46,9 +44,7 @@ final class TimestampableTraitTest extends TestCase
      */
     public function testGetUpdatedAt(): void
     {
-        $entity = new TimestampableEntity();
-
-        self::assertNull($entity->getUpdatedAt());
+        self::assertNull((new TimestampableEntity())->getUpdatedAt());
     }
 
     /**
@@ -58,8 +54,8 @@ final class TimestampableTraitTest extends TestCase
     {
         $updatedAt = new \DateTime();
 
-        $entity = new TimestampableEntity();
-        $entity->setUpdatedAt($updatedAt);
+        $entity = (new TimestampableEntity())
+            ->setUpdatedAt($updatedAt);
 
         self::assertEquals($updatedAt, $entity->getUpdatedAt());
     }

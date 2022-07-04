@@ -23,9 +23,7 @@ final class ContentAwareTraitTest extends TestCase
      */
     public function testGetContent(): void
     {
-        $entity = new ContentAwareEntity();
-
-        self::assertNull($entity->getContent());
+        self::assertNull((new ContentAwareEntity())->getContent());
     }
 
     /**
@@ -33,9 +31,9 @@ final class ContentAwareTraitTest extends TestCase
      */
     public function testSetContent(): void
     {
-        $entity = new ContentAwareEntity();
-        $entity->setContent('Sint ea dolorem quia consequuntur accusamus.');
+        $entity = (new ContentAwareEntity())
+            ->setContent('Supermarine Spitfire');
 
-        self::assertEquals('Sint ea dolorem quia consequuntur accusamus.', $entity->getContent());
+        self::assertEquals('Supermarine Spitfire', $entity->getContent());
     }
 }

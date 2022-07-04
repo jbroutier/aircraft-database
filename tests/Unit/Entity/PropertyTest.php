@@ -21,9 +21,7 @@ final class PropertyTest extends TestCase
      */
     public function testGetPropertyGroup(): void
     {
-        $property = new Property();
-
-        self::assertNull($property->getPropertyGroup());
+        self::assertNull((new Property())->getPropertyGroup());
     }
 
     /**
@@ -33,8 +31,8 @@ final class PropertyTest extends TestCase
     {
         $propertyGroup = \Mockery::mock(PropertyGroup::class);
 
-        $property = new Property();
-        $property->setPropertyGroup($propertyGroup);
+        $property = (new Property())
+            ->setPropertyGroup($propertyGroup);
 
         self::assertEquals($propertyGroup, $property->getPropertyGroup());
     }
@@ -44,9 +42,7 @@ final class PropertyTest extends TestCase
      */
     public function testGetPropertyValues(): void
     {
-        $property = new Property();
-
-        self::assertEmpty($property->getPropertyValues());
+        self::assertEmpty((new Property())->getPropertyValues());
     }
 
     /**
@@ -75,8 +71,8 @@ final class PropertyTest extends TestCase
     {
         $propertyValue = \Mockery::mock(PropertyValue::class);
 
-        $property = new Property();
-        $property->setPropertyValues([$propertyValue]);
+        $property = (new Property())
+            ->setPropertyValues([$propertyValue]);
 
         $propertyValue
             ->expects('getProperty')
@@ -104,8 +100,8 @@ final class PropertyTest extends TestCase
             \Mockery::mock(PropertyValue::class),
         ];
 
-        $property = new Property();
-        $property->setPropertyValues($propertyValues);
+        $property = (new Property())
+            ->setPropertyValues($propertyValues);
 
         self::assertEquals($propertyValues, $property->getPropertyValues()->toArray());
     }
@@ -115,9 +111,7 @@ final class PropertyTest extends TestCase
      */
     public function testGetType(): void
     {
-        $property = new Property();
-
-        self::assertNull($property->getType());
+        self::assertNull((new Property())->getType());
     }
 
     /**
@@ -125,8 +119,8 @@ final class PropertyTest extends TestCase
      */
     public function testSetType(): void
     {
-        $property = new Property();
-        $property->setType(PropertyType::Boolean);
+        $property = (new Property())
+            ->setType(PropertyType::Boolean);
 
         self::assertEquals(PropertyType::Boolean, $property->getType());
     }
@@ -136,9 +130,7 @@ final class PropertyTest extends TestCase
      */
     public function testGetUnit(): void
     {
-        $property = new Property();
-
-        self::assertNull($property->getUnit());
+        self::assertNull((new Property())->getUnit());
     }
 
     /**
@@ -146,11 +138,9 @@ final class PropertyTest extends TestCase
      */
     public function testSetUnit(): void
     {
-        $unit = PropertyUnit::Metres;
+        $property = (new Property())
+            ->setUnit(PropertyUnit::CelsiusDegree);
 
-        $property = new Property();
-        $property->setUnit($unit);
-
-        self::assertEquals($unit, $property->getUnit());
+        self::assertEquals(PropertyUnit::CelsiusDegree, $property->getUnit());
     }
 }

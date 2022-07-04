@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
+use App\Entity\Property;
 use App\Form\ConfirmType;
-use App\Form\PropertyQueryType;
+use App\Form\PropertyFiltersType;
 use App\Form\PropertyType;
 use App\Repository\PropertyRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PropertyController extends AbstractController
 {
     public function __construct(
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly PropertyRepository $repository,
         protected readonly TranslatorInterface $translator
     ) {
@@ -43,11 +48,14 @@ class PropertyController extends AbstractController
     #[Route(path: '/admin/properties/create', name: 'admin_property_create')]
     public function create(Request $request): Response
     {
-        $form = $this->createForm(PropertyType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->repository->add($form->getData(), true);
+            /** @var Property $property */
+            $property = $form->getData();
+            $this->repository->add($property, true);
             $this->addFlash('success', $this->translator->trans('The property has been created.'));
             $default = $this->generateUrl('admin_property_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -68,8 +76,9 @@ class PropertyController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ConfirmType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($property, true);
@@ -88,11 +97,15 @@ class PropertyController extends AbstractController
     #[Route(path: '/admin/properties', name: 'admin_property_list')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(PropertyQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $properties = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
+        $builder = $this->repository->createQueryBuilder('p');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('p.name', 'ASC');
+
+        $properties = (new Pagerfanta(new QueryAdapter($builder)))
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
@@ -111,8 +124,9 @@ class PropertyController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(PropertyType::class, $property);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(PropertyType::class, $property)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($property, true);

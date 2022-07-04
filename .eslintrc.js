@@ -1,16 +1,16 @@
 module.exports = {
-  parser: '@babel/eslint-parser',
+  env: {
+    browser: true
+  },
   extends: [
     'eslint-config-standard',
     'plugin:eslint-plugin-compat/recommended'
   ],
-  settings: {
-    'import/resolver': 'webpack'
-  },
+  parser: '@babel/eslint-parser',
   rules: {
     'arrow-parens': ['error', 'as-needed']
   },
-  env: {
-    browser: true
+  settings: {
+    'import/resolver': 'webpack'
   }
 }

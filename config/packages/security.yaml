@@ -9,20 +9,24 @@ security:
         user_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             lazy: true
             provider: user_provider
+            user_checker: App\Security\UserChecker
+            custom_authenticators:
+                - App\Security\Authenticator\GoogleAuthenticator
 
             form_login:
                 login_path: security_login
                 check_path: security_login
-                username_parameter: login[username]
+                username_parameter: login[email]
                 password_parameter: login[password]
 
             logout:
@@ -33,6 +37,8 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/downloads/, roles: ROLE_USER }
+        - { path: ^/user, roles: ROLE_USER }
 
 when@prod:
     security:
@@ -40,7 +46,7 @@ when@prod:
             main:
                 login_throttling:
                     max_attempts: 3
-                    interval: '15 minutes'
+                    interval: 15 minutes
 
 when@test:
     security:

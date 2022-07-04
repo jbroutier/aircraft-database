@@ -1,12 +1,8 @@
-import SentryWebpackPlugin from '@sentry/webpack-plugin'
+import SentryPlugin from '@sentry/webpack-plugin'
 import Encore from '@symfony/webpack-encore'
-import { config } from 'dotenv'
-import ESLintWebpackPlugin from 'eslint-webpack-plugin'
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
-import { existsSync } from 'fs'
+import ESLintPlugin from 'eslint-webpack-plugin'
 import ImageMinimizerPlugin from 'image-minimizer-webpack-plugin'
-import { resolve } from 'path'
-import StylelintWebpackPlugin from 'stylelint-webpack-plugin'
+import StylelintPlugin from 'stylelint-webpack-plugin'
 
 if (!Encore.isRuntimeEnvironmentConfigured()) {
   Encore.configureRuntimeEnvironment(process.env.NODE_ENV || 'dev')
@@ -15,49 +11,44 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 Encore
   .setOutputPath('public/assets/')
   .setPublicPath('/assets')
-  .addEntry('scripts/app', './assets/scripts/app.js')
-  .addStyleEntry('styles/app', './assets/styles/app.scss')
-  .addStyleEntry('styles/fonts', './assets/styles/fonts.scss')
-  .enableStimulusBridge('./assets/controllers.json')
-  .splitEntryChunks()
-  .enableSingleRuntimeChunk()
-  .cleanupOutputBeforeBuild()
-  .enableBuildNotifications()
-  .enableSourceMaps()
+  .addEntry('scripts/main', './assets/scripts/main.js')
+  .addStyleEntry('styles/main', './assets/styles/main.scss')
   .enableVersioning(Encore.isProduction())
-  .enableSassLoader()
+  .enableSourceMaps()
+  .enableSingleRuntimeChunk()
+  .splitEntryChunks()
   .enablePostCssLoader()
+  .enableSassLoader()
+  .enableStimulusBridge('./assets/controllers.json')
+  .enableBuildNotifications()
+  .cleanupOutputBeforeBuild()
   .enableIntegrityHashes(Encore.isProduction(), ['sha256', 'sha384', 'sha512'])
-  .copyFiles({
-    from: './assets/images',
-    pattern: /\.(gif|jpe?g|png|svg|webp)$/,
-    to: 'images/[path][name]' + (Encore.isProduction() ? '.[hash:8].[ext]' : '.[ext]')
+  .addCacheGroup('vendor', {
+    test: /\/node_modules\//
   })
-  .configureDefinePlugin(options => {
-    const envFiles = ['.env', '.env.local']
-    envFiles.forEach(envFile => {
-      const envFilePath = resolve(__dirname, envFile)
-      if (existsSync(envFilePath)) {
-        const envVars = config({ path: envFilePath }).parsed
-        Object.keys(envVars).forEach(envVar => {
-          options['process.env.' + envVar] = JSON.stringify(envVars[envVar])
-        })
-      }
-    })
+  .copyFiles({
+    from: 'assets',
+    pattern: /site\.webmanifest$/i,
+    to: '[name]' + (Encore.isProduction() ? '.[contenthash:8].[ext]' : '.[ext]')
+  })
+  .copyFiles({
+    from: 'assets/images',
+    pattern: /\.(gif|ico|jpe?g|png|svg|webp)$/i,
+    to: 'images/[name]' + (Encore.isProduction() ? '.[contenthash:8].[ext]' : '.[ext]')
   })
   .configureFontRule({
-    type: 'asset',
-    maxSize: 16384
+    type: 'asset/resource',
+    filename: 'fonts/[name]' + (Encore.isProduction() ? '.[contenthash:8][ext]' : '[ext]')
   })
   .configureImageRule({
-    type: 'asset',
-    maxSize: 16384
+    type: 'asset/resource',
+    filename: 'images/[name]' + (Encore.isProduction() ? '.[contenthash:8][ext]' : '[ext]')
   })
-  .addPlugin(new ESLintWebpackPlugin({
+  .addPlugin(new ESLintPlugin({
     context: 'assets',
     files: '**/*.js'
   }))
-  .addPlugin(new StylelintWebpackPlugin({
+  .addPlugin(new StylelintPlugin({
     context: 'assets',
     files: '**/*.scss'
   }))
@@ -66,42 +57,9 @@ Encore
       implementation: ImageMinimizerPlugin.squooshMinify
     }
   }))
-  .addPlugin(new FaviconsWebpackPlugin({
-    devMode: 'webapp',
-    logo: './assets/images/logo.svg',
-    prefix: 'favicons',
-    favicons: {
-      appName: 'Aircraft database',
-      background: '#ffffff',
-      themeColor: '#ffffff',
-      icons: {
-        android: {
-          background: '#ffffff',
-          mask: true,
-          offset: 10
-        },
-        appleIcon: {
-          background: '#ffffff',
-          mask: true,
-          offset: 10
-        },
-        appleStartup: false,
-        coast: false,
-        favicons: true,
-        firefox: false,
-        windows: false,
-        yandex: false
-      }
-    }
-  }))
-
-if (Encore.isProduction()) {
-  Encore.addPlugin(new SentryWebpackPlugin({
-    include: '.',
-    org: 'aircraft-database',
-    project: 'aircraft-database',
+  .when(encore => encore.isProduction(), encore => encore.addPlugin(new SentryPlugin({
+    include: 'public/assets',
     release: 'aircraft-database@' + process.env.npm_package_version
-  }))
-}
+  })))
 
 module.exports = Encore.getWebpackConfig()

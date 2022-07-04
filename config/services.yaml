@@ -1,30 +1,10 @@
-parameters:
-    sitemap.directory: '/sitemap'
-
 services:
     _defaults:
         autowire: true
         autoconfigure: true
-        bind:
-            $projectDir: '%kernel.project_dir%'
 
     App\:
         resource: '%kernel.project_dir%/src/'
         exclude:
             - '%kernel.project_dir%/src/Entity/'
             - '%kernel.project_dir%/src/Kernel.php'
-
-    App\Doctrine\EventSubscriber\:
-        resource: '%kernel.project_dir%/src/Doctrine/EventSubscriber/'
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
-
-    App\Service\SitemapDumper:
-        class: App\Service\SitemapDumper
-        decorates: presta_sitemap.dumper_default
-        arguments:
-            $directory: '%sitemap.directory%'
-
-    App\Service\UuidNamer:
-        class: App\Service\UuidNamer
-        public: true

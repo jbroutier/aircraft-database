@@ -1,21 +1,14 @@
 @import "~bootstrap/scss/mixins";
 
-[class*="logo-container"] {
+.logo-container {
   flex-shrink: 0;
-  height: 50px;
-  width: 100px;
+  height: 40px;
+  width: 80px;
 
   img {
     height: 100%;
     object-fit: contain;
     object-position: top right;
     width: 100%;
-  }
-
-  @include media-breakpoint-up("sm") {
-    &.logo-container-lg {
-      height: 75px;
-      width: 150px;
-    }
   }
 }

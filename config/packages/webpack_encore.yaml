@@ -1,13 +1,14 @@
 webpack_encore:
-    crossorigin: anonymous
     output_path: '%kernel.project_dir%/public/assets'
+    crossorigin: anonymous
     preload: true
-
-    link_attributes:
-        async: true
 
     script_attributes:
         defer: true
+        referrerpolicy: origin
+
+    link_attributes:
+        referrerpolicy: origin
 
 when@prod:
     webpack_encore:

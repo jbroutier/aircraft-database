@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
-import { initSelect } from '../select'
+import initSelect from '../select'
 
 export default class extends Controller {
   add (event) {

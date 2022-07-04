@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Controller\Admin;
 
-use App\Form\AircraftModelQueryType;
+use App\Entity\AircraftModel;
+use App\Form\AircraftModelFiltersType;
 use App\Form\AircraftModelType;
 use App\Form\ConfirmType;
 use App\Repository\AircraftModelRepository;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +24,7 @@ class AircraftModelController extends AbstractController
 {
     public function __construct(
         protected readonly AircraftModelRepository $repository,
+        protected readonly FilterBuilderUpdaterInterface $builderUpdater,
         protected readonly TranslatorInterface $translator
     ) {
     }
@@ -46,8 +51,9 @@ class AircraftModelController extends AbstractController
             }
         }
 
-        $form = $this->createForm(AircraftModelType::class, $aircraftModel);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftModelType::class, $aircraftModel)
+            ->handleRequest($request);
 
         return $this->render('admin/aircraft_model/update.html.twig', [
             'aircraftModel' => $aircraftModel,
@@ -74,11 +80,14 @@ class AircraftModelController extends AbstractController
     #[Route(path: '/admin/aircraft-models/create', name: 'admin_aircraft_model_create')]
     public function create(Request $request): Response
     {
-        $form = $this->createForm(AircraftModelType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftModelType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->repository->add($form->getData(), true);
+            /** @var AircraftModel $aircraftModel */
+            $aircraftModel = $form->getData();
+            $this->repository->add($aircraftModel, true);
             $this->addFlash('success', $this->translator->trans('The aircraft model has been created.'));
             $default = $this->generateUrl('admin_aircraft_model_list', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -99,11 +108,9 @@ class AircraftModelController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
-
-        $form = $this->createForm(ConfirmType::class);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(ConfirmType::class)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->remove($aircraftModel, true);
@@ -122,11 +129,15 @@ class AircraftModelController extends AbstractController
     #[Route(path: '/admin/aircraft-models', name: 'admin_aircraft_model_list')]
     public function list(Request $request): Response
     {
-        $form = $this->createForm(AircraftModelQueryType::class, null, ['method' => 'GET']);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftModelFiltersType::class, null, ['method' => 'GET'])
+            ->handleRequest($request);
 
-        $aircraftModels = $this->repository
-            ->findPaginated($form->getData()['filters'] ?? [], $form->getData()['order'] ?? [])
+        $builder = $this->repository->createQueryBuilder('am');
+        $this->builderUpdater->addFilterConditions($form, $builder);
+        $builder->addOrderBy('am.name', 'ASC');
+
+        $aircraftModels = (new Pagerfanta(new QueryAdapter($builder)))
             ->setMaxPerPage(10)
             ->setCurrentPage(max($request->query->getInt('page', 1), 1));
 
@@ -145,8 +156,9 @@ class AircraftModelController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(AircraftModelType::class, $aircraftModel);
-        $form->handleRequest($request);
+        $form = $this
+            ->createForm(AircraftModelType::class, $aircraftModel)
+            ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->repository->add($aircraftModel, true);

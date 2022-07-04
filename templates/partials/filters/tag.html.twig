@@ -1,0 +1,5 @@
+{% extends 'layouts/filters.html.twig' %}
+
+{% block filters %}
+  {{ form_row(form.name, { label: 'Name:'|trans }) }}
+{% endblock %}
