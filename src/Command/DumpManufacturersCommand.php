@@ -13,6 +13,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(
     name: 'dump:manufacturers',
@@ -20,8 +21,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DumpManufacturersCommand extends Command
 {
-    public function __construct(protected readonly ManufacturerRepository $repository)
-    {
+    public function __construct(
+        protected readonly ManufacturerRepository $repository,
+        #[Autowire(value: '%kernel.project_dir%/dump')]
+        protected readonly string $directory
+    ) {
         parent::__construct();
     }
 
@@ -37,7 +41,7 @@ class DumpManufacturersCommand extends Command
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
 
-        $csv = Writer::createFromPath('dump/manufacturers.csv', 'w');
+        $csv = Writer::createFromPath($this->directory . '/manufacturers.csv', 'w');
         $csv->insertOne(['name', 'country']);
 
         foreach ($manufacturers as $manufacturer) {

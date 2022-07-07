@@ -13,6 +13,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(
     name: 'dump:engine-models',
@@ -20,8 +21,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DumpEngineModelsCommand extends Command
 {
-    public function __construct(protected readonly EngineModelRepository $repository)
-    {
+    public function __construct(
+        protected readonly EngineModelRepository $repository,
+        #[Autowire(value: '%kernel.project_dir%/dump')]
+        protected readonly string $directory
+    ) {
         parent::__construct();
     }
 
@@ -39,7 +43,7 @@ class DumpEngineModelsCommand extends Command
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
 
-        $csv = Writer::createFromPath('dump/engine-models.csv', 'w');
+        $csv = Writer::createFromPath($this->directory . '/engine-models.csv', 'w');
         $csv->insertOne(['name', 'manufacturer', 'engine-type']);
 
         foreach ($engineModels as $engineModel) {

@@ -13,6 +13,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 #[AsCommand(
     name: 'dump:aircraft-types',
@@ -20,8 +21,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class DumpAircraftTypesCommand extends Command
 {
-    public function __construct(protected readonly AircraftTypeRepository $repository)
-    {
+    public function __construct(
+        protected readonly AircraftTypeRepository $repository,
+        #[Autowire(value: '%kernel.project_dir%/dump')]
+        protected readonly string $directory
+    ) {
         parent::__construct();
     }
 
@@ -39,7 +43,7 @@ class DumpAircraftTypesCommand extends Command
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
 
-        $csv = Writer::createFromPath('dump/aircraft-types.csv', 'w');
+        $csv = Writer::createFromPath($this->directory . '/aircraft-types.csv', 'w');
         $csv->insertOne(['name', 'manufacturer', 'aircraft-family', 'engine-type', 'engine-count']);
 
         foreach ($aircraftTypes as $aircraftType) {
