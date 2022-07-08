@@ -49,7 +49,7 @@
         "flag-icons": "^6.6.3",
         "mjml": "^4.12.0",
         "slugify": "^1.6.5",
-        "tom-select": "^2.0.3"
+        "tom-select": "^2.1.0"
     },
     "devDependencies": {
         "@babel/core": "^7.18.6",
