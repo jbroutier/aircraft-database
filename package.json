@@ -42,7 +42,7 @@
         "@hotwired/stimulus": "^3.0.1",
         "@popperjs/core": "^2.11.5",
         "@sentry/browser": "^7.5.1",
-        "@sentry/tracing": "^7.5.1",
+        "@sentry/tracing": "^7.6.0",
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0-beta1",
         "bootstrap-icons": "^1.8.3",
