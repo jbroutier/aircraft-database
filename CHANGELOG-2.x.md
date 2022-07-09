@@ -1,6 +1,6 @@
 # Changelog for version 2.x
 
-**Version 2.0.1 (2022-07-xx)**
+**Version 2.0.1 (2022-07-09)**
 
 - fix: Allow the Piwik analytics script via the CSP header.
 - fix: Allow the ui-avatars.com domain via the CSP header.
