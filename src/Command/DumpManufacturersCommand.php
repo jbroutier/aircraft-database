@@ -37,6 +37,7 @@ class DumpManufacturersCommand extends Command
         $manufacturers = $this->repository
             ->createQueryBuilder('m')
             ->select('PARTIAL m.{id, country, name}')
+            ->addOrderBy('m.name', 'ASC')
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();

@@ -1,5 +1,9 @@
 # Changelog for version 2.x
 
+**Version 2.0.3 (2022-07-xx)**
+
+- fix: Sort the generated CSV files content by alphabetical order.
+
 **Version 2.0.2 (2022-07-10)**
 
 - fix: Fix the Android favicons.

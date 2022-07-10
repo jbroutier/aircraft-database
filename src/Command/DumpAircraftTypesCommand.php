@@ -39,6 +39,7 @@ class DumpAircraftTypesCommand extends Command
             ->select('PARTIAL at.{id, aircraftFamily, engineCount, engineFamily, iataCode, icaoCode, name}')
             ->addSelect('PARTIAL m.{id, name}')
             ->leftJoin('at.manufacturer', 'm')
+            ->addOrderBy('at.name', 'ASC')
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();

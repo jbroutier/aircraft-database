@@ -39,6 +39,7 @@ class DumpEngineModelsCommand extends Command
             ->select('PARTIAL em.{id, engineFamily, name}')
             ->addSelect('PARTIAL m.{id, name}')
             ->leftJoin('em.manufacturer', 'm')
+            ->addOrderBy('em.name', 'ASC')
             ->getQuery()
             ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
             ->getResult();
