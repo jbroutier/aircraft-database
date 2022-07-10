@@ -1,6 +1,6 @@
 # Changelog for version 2.x
 
-**Version 2.0.2 (2022-07-xx)**
+**Version 2.0.2 (2022-07-10)**
 
 - fix: Fix the Android favicons.
 

@@ -1,6 +1,6 @@
 {
     "name": "@jbroutier/aircraft-database",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "private": true,
     "description": "Global database of aircraft and engine models.",
     "homepage": "https://aircraft-database.com",
