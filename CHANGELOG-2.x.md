@@ -1,5 +1,9 @@
 # Changelog for version 2.x
 
+**Version 2.0.2 (2022-07-xx)**
+
+- fix: Fix the Android favicons.
+
 **Version 2.0.1 (2022-07-09)**
 
 - fix: Allow the Piwik analytics script via the CSP header.
