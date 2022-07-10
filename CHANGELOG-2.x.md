@@ -2,6 +2,7 @@
 
 **Version 2.0.3 (2022-07-xx)**
 
+- fix: Fix the `background_color` value of the Android webmanifest.
 - fix: Sort the generated CSV files content by alphabetical order.
 
 **Version 2.0.2 (2022-07-10)**
