@@ -56,7 +56,7 @@
 {% macro tags(tags) %}
 
   {% if tags|length %}
-    <div class="d-flex flex-column align-items-start gap-1">
+    <div class="d-flex align-items-start gap-1">
 
       {% for tag in tags %}
         <div class="badge" style="background: {{ tag.color }};">

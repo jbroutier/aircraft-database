@@ -2,6 +2,7 @@
 
 **Version 2.0.3 (2022-07-xx)**
 
+- fix: Keep the tags on a single line.
 - fix: Fix the `background_color` value of the Android webmanifest.
 - fix: Sort the generated CSV files content by alphabetical order.
 
