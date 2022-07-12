@@ -1,6 +1,6 @@
 # Changelog for version 2.x
 
-**Version 2.0.3 (2022-07-xx)**
+**Version 2.0.3 (2022-07-12)**
 
 - fix: Remove an unwanted `Reply-To` header from the emails.
 - fix: Prevent the database layout from breaking on certain screen sizes.
