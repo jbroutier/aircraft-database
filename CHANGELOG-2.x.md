@@ -2,6 +2,7 @@
 
 **Version 2.0.3 (2022-07-xx)**
 
+- fix: Remove an unwanted `Reply-To` header from the emails.
 - fix: Prevent the database layout from breaking on certain screen sizes.
 - fix: Fix the margin between the flag & the name in country selects.
 - fix: Keep the tags on a single line.
