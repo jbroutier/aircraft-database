@@ -46,7 +46,7 @@
         "axios": "^0.27.2",
         "bootstrap": "^5.2.0-beta1",
         "bootstrap-icons": "^1.8.3",
-        "flag-icons": "^6.6.3",
+        "flag-icons": "^6.6.4",
         "mjml": "^4.13.0",
         "slugify": "^1.6.5",
         "tom-select": "^2.1.0"
