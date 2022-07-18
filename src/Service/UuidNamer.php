@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Picture;
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Component\Uid\Uuid;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\NamerInterface;
 
+/**
+ * @phpstan-implements NamerInterface<Picture>
+ **/
 #[Autoconfigure(public: true)]
 class UuidNamer implements NamerInterface
 {
