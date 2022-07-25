@@ -1,10 +1,9 @@
-name: SSH
+name: Deployment
 
 on:
     workflow_dispatch:
     push:
-        tags:
-            - '*'
+        tags: [ '*' ]
 
 jobs:
     deploy:
