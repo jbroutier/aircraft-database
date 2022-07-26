@@ -57,7 +57,7 @@
         "@babel/plugin-transform-runtime": "^7.18.9",
         "@babel/preset-env": "^7.18.9",
         "@babel/register": "^7.18.9",
-        "@sentry/webpack-plugin": "^1.18.9",
+        "@sentry/webpack-plugin": "^1.19.0",
         "@squoosh/lib": "^0.4.0",
         "@symfony/stimulus-bridge": "^3.2.1",
         "@symfony/webpack-encore": "^3.0.0",
