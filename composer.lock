@@ -990,34 +990,31 @@
         },
         {
             "name": "doctrine/event-manager",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/event-manager.git",
-                "reference": "41370af6a30faa9dc0368c4a6814d596e81aba7f"
+                "reference": "eb2ecf80e3093e8f3c2769ac838e27d8ede8e683"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/event-manager/zipball/41370af6a30faa9dc0368c4a6814d596e81aba7f",
-                "reference": "41370af6a30faa9dc0368c4a6814d596e81aba7f",
+                "url": "https://api.github.com/repos/doctrine/event-manager/zipball/eb2ecf80e3093e8f3c2769ac838e27d8ede8e683",
+                "reference": "eb2ecf80e3093e8f3c2769ac838e27d8ede8e683",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "conflict": {
-                "doctrine/common": "<2.9@dev"
+                "doctrine/common": "<2.9"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^6.0",
-                "phpunit/phpunit": "^7.0"
+                "doctrine/coding-standard": "^9",
+                "phpstan/phpstan": "~1.4.10 || ^1.5.4",
+                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
+                "vimeo/psalm": "^4.22"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Doctrine\\Common\\": "lib/Doctrine/Common"
@@ -1064,7 +1061,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/event-manager/issues",
-                "source": "https://github.com/doctrine/event-manager/tree/1.1.x"
+                "source": "https://github.com/doctrine/event-manager/tree/1.1.2"
             },
             "funding": [
                 {
@@ -1080,7 +1077,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-29T18:28:51+00:00"
+            "time": "2022-07-27T22:18:11+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -2921,16 +2918,16 @@
         },
         {
             "name": "lexik/form-filter-bundle",
-            "version": "v7.0.2",
+            "version": "v7.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "ecea502dfd4eb47fb7df190a789572c2afa5ebfc"
+                "reference": "7588970d84c1604b98743588ba9020f6bddf6303"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/ecea502dfd4eb47fb7df190a789572c2afa5ebfc",
-                "reference": "ecea502dfd4eb47fb7df190a789572c2afa5ebfc",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/7588970d84c1604b98743588ba9020f6bddf6303",
+                "reference": "7588970d84c1604b98743588ba9020f6bddf6303",
                 "shasum": ""
             },
             "require": {
@@ -2979,9 +2976,9 @@
             ],
             "support": {
                 "issues": "https://github.com/lexik/LexikFormFilterBundle/issues",
-                "source": "https://github.com/lexik/LexikFormFilterBundle/tree/v7.0.2"
+                "source": "https://github.com/lexik/LexikFormFilterBundle/tree/v7.0.3"
             },
-            "time": "2021-12-09T09:06:40+00:00"
+            "time": "2022-07-28T11:49:50+00:00"
         },
         {
             "name": "liip/imagine-bundle",
@@ -3144,16 +3141,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "0c375495d40df0207e5833dca333f963b171ff43"
+                "reference": "305444bc6fb6c89e490f4b34fa6e979584d7fa81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/0c375495d40df0207e5833dca333f963b171ff43",
-                "reference": "0c375495d40df0207e5833dca333f963b171ff43",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/305444bc6fb6c89e490f4b34fa6e979584d7fa81",
+                "reference": "305444bc6fb6c89e490f4b34fa6e979584d7fa81",
                 "shasum": ""
             },
             "require": {
@@ -3173,7 +3170,6 @@
                 "guzzlehttp/psr7": "^2.2",
                 "mongodb/mongodb": "^1.8",
                 "php-amqplib/php-amqplib": "~2.4 || ^3",
-                "php-console/php-console": "^3.1.3",
                 "phpstan/phpstan": "^1.4",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-strict-rules": "^1.1",
@@ -3196,7 +3192,6 @@
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
                 "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
@@ -3231,7 +3226,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/3.1.0"
+                "source": "https://github.com/Seldaek/monolog/tree/3.2.0"
             },
             "funding": [
                 {
@@ -3243,7 +3238,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-09T09:09:00+00:00"
+            "time": "2022-07-24T12:00:55+00:00"
         },
         {
             "name": "nette/schema",
@@ -3447,16 +3442,16 @@
         },
         {
             "name": "pagerfanta/pagerfanta",
-            "version": "v3.6.1",
+            "version": "v3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BabDev/Pagerfanta.git",
-                "reference": "845c7e820c057b24abd0f17822d4c78ed06261f1"
+                "reference": "0486e63edb74e55f85485c16c31decbf65f6e432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/845c7e820c057b24abd0f17822d4c78ed06261f1",
-                "reference": "845c7e820c057b24abd0f17822d4c78ed06261f1",
+                "url": "https://api.github.com/repos/BabDev/Pagerfanta/zipball/0486e63edb74e55f85485c16c31decbf65f6e432",
+                "reference": "0486e63edb74e55f85485c16c31decbf65f6e432",
                 "shasum": ""
             },
             "require": {
@@ -3494,12 +3489,12 @@
                 "doctrine/mongodb-odm": "^2.2.2",
                 "doctrine/orm": "^2.8",
                 "doctrine/phpcr-odm": "^1.5",
-                "friendsofphp/php-cs-fixer": "3.4.0",
+                "friendsofphp/php-cs-fixer": "^3.8",
                 "jackalope/jackalope-doctrine-dbal": "^1.6",
                 "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan": "1.4.10",
-                "phpstan/phpstan-phpunit": "1.0.0",
-                "phpunit/phpunit": "^9.5",
+                "phpstan/phpstan": "1.8.0",
+                "phpstan/phpstan-phpunit": "1.1.1",
+                "phpunit/phpunit": "9.5.21",
                 "ruflin/elastica": "^6.0 || ^7.0",
                 "solarium/solarium": "^5.0 || ^6.0",
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
@@ -3539,7 +3534,7 @@
             ],
             "support": {
                 "issues": "https://github.com/BabDev/Pagerfanta/issues",
-                "source": "https://github.com/BabDev/Pagerfanta/tree/v3.6.1"
+                "source": "https://github.com/BabDev/Pagerfanta/tree/v3.6.2"
             },
             "funding": [
                 {
@@ -3547,7 +3542,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-16T22:28:15+00:00"
+            "time": "2022-07-21T23:35:12+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -11220,16 +11215,16 @@
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "1.3.10",
+            "version": "1.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "e6a149b380a4a00aea27a176a09691a8cb5f0cc7"
+                "reference": "3ef6399761bb33fdfa0d5546d4b6e7d8811e8850"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/e6a149b380a4a00aea27a176a09691a8cb5f0cc7",
-                "reference": "e6a149b380a4a00aea27a176a09691a8cb5f0cc7",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/3ef6399761bb33fdfa0d5546d4b6e7d8811e8850",
+                "reference": "3ef6399761bb33fdfa0d5546d4b6e7d8811e8850",
                 "shasum": ""
             },
             "require": {
@@ -11282,9 +11277,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.10"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.11"
             },
-            "time": "2022-07-13T10:42:52+00:00"
+            "time": "2022-07-20T14:54:37+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -13099,16 +13094,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.44.0",
+            "version": "v1.45.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588"
+                "reference": "7ae4ff28ac1b6d6d55591999026040d58b8a3967"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/fa535d792e9261ae7a78481f643c00991e1d1588",
-                "reference": "fa535d792e9261ae7a78481f643c00991e1d1588",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/7ae4ff28ac1b6d6d55591999026040d58b8a3967",
+                "reference": "7ae4ff28ac1b6d6d55591999026040d58b8a3967",
                 "shasum": ""
             },
             "require": {
@@ -13172,7 +13167,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/maker-bundle/issues",
-                "source": "https://github.com/symfony/maker-bundle/tree/v1.44.0"
+                "source": "https://github.com/symfony/maker-bundle/tree/v1.45.0"
             },
             "funding": [
                 {
@@ -13188,7 +13183,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-13T17:37:04+00:00"
+            "time": "2022-07-26T12:31:45+00:00"
         },
         {
             "name": "symfony/phpunit-bridge",
